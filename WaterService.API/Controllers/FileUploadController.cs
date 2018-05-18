@@ -29,7 +29,7 @@ namespace WaterService.API.Controllers
             foreach (var file in files)
             {
                 var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Value.Trim('"');
-                string filePath = hostingEnv.WebRootPath + $@"\img";
+                string filePath = hostingEnv.WebRootPath + $@"/img";
                 if (!Directory.Exists(filePath))
                 {
                     Directory.CreateDirectory(filePath);
