@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WaterService.API", "WaterService.API\WaterService.API.csproj", "{A54623AF-81C2-426B-94D8-22E8A9C40D7C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{AA1F9479-7C03-45BF-9739-BAE2C9697B13}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{BFA89499-B9F5-4975-9111-2FCDD02800BC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{41B95D9E-A213-4479-B6BB-E96D71FE9DB4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{4F02DB9A-D68E-469D-AF5E-B8093B7600FD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL", "BLL\BLL.csproj", "{65D2AF1F-94FF-4412-AF9B-22151104F393}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YuanXin.Framework", "Framework\YuanXin.Framework.csproj", "{D3CAF72D-9DCA-449A-B2A8-71A64F01379B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OauthService", "OauthService\OauthService.csproj", "{BBB86296-30D9-43BF-94CB-21BE139D07D5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A54623AF-81C2-426B-94D8-22E8A9C40D7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A54623AF-81C2-426B-94D8-22E8A9C40D7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A54623AF-81C2-426B-94D8-22E8A9C40D7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A54623AF-81C2-426B-94D8-22E8A9C40D7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41B95D9E-A213-4479-B6BB-E96D71FE9DB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41B95D9E-A213-4479-B6BB-E96D71FE9DB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41B95D9E-A213-4479-B6BB-E96D71FE9DB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41B95D9E-A213-4479-B6BB-E96D71FE9DB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F02DB9A-D68E-469D-AF5E-B8093B7600FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F02DB9A-D68E-469D-AF5E-B8093B7600FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F02DB9A-D68E-469D-AF5E-B8093B7600FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F02DB9A-D68E-469D-AF5E-B8093B7600FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65D2AF1F-94FF-4412-AF9B-22151104F393}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65D2AF1F-94FF-4412-AF9B-22151104F393}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65D2AF1F-94FF-4412-AF9B-22151104F393}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65D2AF1F-94FF-4412-AF9B-22151104F393}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3CAF72D-9DCA-449A-B2A8-71A64F01379B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3CAF72D-9DCA-449A-B2A8-71A64F01379B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3CAF72D-9DCA-449A-B2A8-71A64F01379B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3CAF72D-9DCA-449A-B2A8-71A64F01379B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBB86296-30D9-43BF-94CB-21BE139D07D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBB86296-30D9-43BF-94CB-21BE139D07D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBB86296-30D9-43BF-94CB-21BE139D07D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBB86296-30D9-43BF-94CB-21BE139D07D5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{41B95D9E-A213-4479-B6BB-E96D71FE9DB4} = {AA1F9479-7C03-45BF-9739-BAE2C9697B13}
+		{4F02DB9A-D68E-469D-AF5E-B8093B7600FD} = {BFA89499-B9F5-4975-9111-2FCDD02800BC}
+		{D3CAF72D-9DCA-449A-B2A8-71A64F01379B} = {AA1F9479-7C03-45BF-9739-BAE2C9697B13}
+	EndGlobalSection
+EndGlobal
