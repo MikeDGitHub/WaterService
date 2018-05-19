@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Model.ViewModel;
@@ -10,39 +11,66 @@ using Newtonsoft.Json.Linq;
 namespace WaterService.API.Controllers
 {
     /// <summary>
-    /// 类型
+    /// 类型(闸门，水表，管线，排水，消防，排泥，排气)
     /// </summary>
     [Route("api/[controller]")]
     public class GenreController : BaseController
     {
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpPost, Route("queryList")]
-        public IActionResult GetList([FromBody]QueryModel query)
+        public ResultModel GetList([FromBody]SearchModel query)
         {
-            return Ok(new BLL.GenreService().GetList(query));
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
+            m.Json = new BLL.GenreService().GetList(query);
+            return m;
         }
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="genre"></param>
+        /// <returns></returns>
         [HttpPost, Route("add")]
-        public IActionResult AddInfo([FromBody]GenreInfo genre)
+        public ResultModel AddInfo([FromBody]GenreInfo genre)
         {
             genre.Create = User.Identity.GetCurrentUser().UserName;
             genre.CreateDate = DateTime.Now;
-            var obj = new JObject();
-            obj.Add("status", new BLL.GenreService().AddInfo(genre));
-            return Ok(obj);
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
+            m.Status = new BLL.GenreService().AddInfo(genre);
+            return m;
         }
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="genre"></param>
+        /// <returns></returns>
         [HttpPost, Route("update")]
-        public IActionResult Update([FromBody]GenreInfo genre)
+        public ResultModel Update([FromBody]GenreInfo genre)
         {
             genre.Modify = User.Identity.GetCurrentUser().UserName;
             genre.ModifyDate = DateTime.Now;
-            var obj = new JObject();
-            obj.Add("status", new BLL.GenreService().Update(genre));
-            return Ok(obj);
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
+            m.Status = new BLL.GenreService().Update(genre);
+            return m;
         }
-
+        /// <summary>
+        /// 查询根据ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet, Route("queryGenreInfo")]
-        public IActionResult QueryGenreInfo([FromQuery] int id)
+        public ResultModel QueryGenreInfo([FromQuery] int id)
         {
-            return Ok(new BLL.GenreService().QueryGenreInfo(id));
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
+            m.Json = new BLL.GenreService().QueryGenreInfo(id);
+            return m;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace BLL
             return new DAL.Manage.WaterMeterManager().Update(user, water, list);
         }
 
-        public WaterMeterViewModel GetList(QueryModel query)
+        public WaterMeterViewModel GetList(SearchModel query)
         {
             var where = new StringBuilder();
 
@@ -29,7 +29,7 @@ namespace BLL
             }
             else
             {
-                query = new QueryModel();
+                query = new SearchModel();
             }
             var v = new DAL.Manage.WaterMeterManager().GetList(where.ToString());
             v.List = v.List.Skip(query.PageIndex * query.PageSize).Take(query.PageSize).ToList();

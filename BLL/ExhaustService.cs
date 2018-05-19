@@ -19,7 +19,7 @@ namespace BLL
             return new DAL.Manage.ExhaustManage().Update(user, exhaust, list);
         }
 
-        public ExhaustViewModel GetList(QueryModel query)
+        public ExhaustViewModel GetList(SearchModel query)
         {
             var where = new StringBuilder();
 
@@ -29,7 +29,7 @@ namespace BLL
             }
             else
             {
-                query = new QueryModel();
+                query = new SearchModel();
             }
             var v = new DAL.Manage.ExhaustManage().GetList(where.ToString());
             v.List = v.List.Skip(query.PageIndex * query.PageSize).Take(query.PageSize).ToList();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Model.ViewModel;
@@ -15,33 +16,61 @@ namespace WaterService.API.Controllers
     [Route("api/[controller]")]
     public class TypeController : BaseController
     {
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpPost, Route("queryList")]
-        public IActionResult GetList([FromBody]QueryModel query)
+        public ResultModel GetList([FromBody]SearchModel query)
         {
-            return Ok(new BLL.TypeService().GetList(query));
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
+            m.Json = new BLL.TypeService().GetList(query);
+            return m;
         }
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         [HttpPost, Route("add")]
-        public IActionResult AddInfo([FromBody]TypeInfo type)
+        public ResultModel AddInfo([FromBody]TypeInfo type)
         {
             type.Create = User.Identity.GetCurrentUser().UserName;
             type.CreateDate = DateTime.Now;
-            var obj = new JObject();
-            obj.Add("status", new BLL.TypeService().AddInfo(type));
-            return Ok(obj);
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
+            m.Status = new BLL.TypeService().AddInfo(type);
+            return m;
         }
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         [HttpPost, Route("update")]
-        public IActionResult Update([FromBody]TypeInfo type)
+        public ResultModel Update([FromBody]TypeInfo type)
         {
             type.Modify = User.Identity.GetCurrentUser().UserName;
             type.ModifyDate = DateTime.Now;
-            var obj = new JObject();
-            obj.Add("status", new BLL.TypeService().Update(type));
-            return Ok(obj);
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
+            m.Status = new BLL.TypeService().Update(type);
+            return m;
         }
+        /// <summary>
+        /// 查询通过ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet, Route("queryTypeInfo")]
-        public IActionResult QueryTypeInfo([FromQuery] int id)
+        public ResultModel QueryTypeInfo([FromQuery] int id)
         {
-            return Ok(new BLL.TypeService().QueryTypeInfo(id));
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
+            m.Json = new BLL.TypeService().QueryTypeInfo(id);
+            return m;
         }
     }
 }

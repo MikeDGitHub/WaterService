@@ -9,7 +9,7 @@ namespace BLL
 {
     public class TypeService
     {
-        public TypeViewModel GetList(QueryModel query)
+        public TypeViewModel GetList(SearchModel query)
         {
             var where = new StringBuilder();
             where.Append(" where 1=1 ");
@@ -22,7 +22,7 @@ namespace BLL
             }
             else
             {
-                query = new QueryModel();
+                query = new SearchModel();
             }
             var v = new TypeViewModel();
             var data = new DAL.Manage.TypeManager().GetList(where.ToString());

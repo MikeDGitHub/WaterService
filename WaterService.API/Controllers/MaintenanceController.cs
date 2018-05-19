@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Model.ViewModel;
@@ -15,20 +16,33 @@ namespace WaterService.API.Controllers
     [Route("api/[controller]")]
     public class MaintenanceController : BaseController
     {
-
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="add"></param>
+        /// <returns></returns>
         [HttpPost, Route("add")]
-        public IActionResult Add([FromBody]MaintenanceInfo add)
+        public ResultModel Add([FromBody]MaintenanceInfo add)
         {
-            var obj = new JObject();
             add.Create = User.Identity.GetCurrentUser().UserName;
             add.CreateDate = DateTime.Now;
-            obj.Add("status", new BLL.MaintenanceService().Add(add));
-            return Ok(obj);
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
+            m.Status = new BLL.MaintenanceService().Add(add);
+            return m;
         }
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpPost, Route("queryList")]
-        public IActionResult QueryList([FromBody]QueryModel query)
+        public ResultModel QueryList([FromBody]SearchModel query)
         {
-            return Ok(new BLL.MaintenanceService().GetList(query));
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
+            m.Json = new BLL.MaintenanceService().GetList(query);
+            return m;
         }
     }
 }

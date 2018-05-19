@@ -54,7 +54,7 @@ namespace BLL
             return new DAL.Manage.UserManage().UpdateDepartment(depId, userId);
         }
 
-        public UserInfoViewModel QueryUserList(QueryModel query)
+        public UserInfoViewModel QueryUserList(SearchModel query)
         {
             var where = new StringBuilder();
             where.Append(" where 1=1 ");
@@ -67,7 +67,7 @@ namespace BLL
             }
             else
             {
-                query = new QueryModel();
+                query = new SearchModel();
             }
             var v = new DAL.Manage.UserManage().QueryUserList(where.ToString());
             v.List = v.List.Skip(query.PageIndex * query.PageSize).Take(query.PageSize).ToList();

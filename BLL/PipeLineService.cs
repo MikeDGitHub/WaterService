@@ -20,7 +20,7 @@ namespace BLL
             return new DAL.Manage.PipeLineManager().Update(user, pipeLine, track, list);
         }
 
-        public PipeLineViewModel GetList(QueryModel query)
+        public PipeLineViewModel GetList(SearchModel query)
         {
             var where = new StringBuilder();
 
@@ -30,7 +30,7 @@ namespace BLL
             }
             else
             {
-                query = new QueryModel();
+                query = new SearchModel();
             }
             var v = new DAL.Manage.PipeLineManager().GetList(where.ToString());
             v.List = v.List.Skip(query.PageIndex * query.PageSize).Take(query.PageSize).ToList();

@@ -32,11 +32,29 @@ namespace Model.ViewModel
         /// ApplicationId
         /// </summary>
         public int ClientId { get; set; }
+        /// <summary>
+        /// 登录名
+        /// </summary>
         public string LoginName { get; set; }
+        /// <summary>
+        /// 邮箱
+        /// </summary>
         public string UserEmail { get; set; }
+        /// <summary>
+        /// 用户名
+        /// </summary>
         public string UserName { get; set; }
+        /// <summary>
+        /// 头像
+        /// </summary>
         public string LogoImageUrl { get; set; }
+        /// <summary>
+        /// 部门主键
+        /// </summary>
         public int DepId { get; set; }
+        /// <summary>
+        /// 状态0禁用1启用
+        /// </summary>
         public bool Status { get; set; }
     }
 }

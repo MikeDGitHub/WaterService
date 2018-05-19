@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WaterService.API.Controllers
 {
+    /// <summary>
+    /// 基类
+    /// </summary>
     [Authorize]
 
     public class BaseController : Controller

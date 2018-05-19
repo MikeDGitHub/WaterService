@@ -1,9 +1,13 @@
-﻿using IdentityServer4.Services;
+﻿using System;
+using System.IO;
+using System.Reflection;
+using IdentityServer4.Services;
 using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace OauthService
 {
@@ -16,6 +20,17 @@ namespace OauthService
             services.AddCors(options => options.AddPolicy("AllowCors",
                 builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials()));
             services.AddMvc();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Model.xml"));
+            });
             //add identity server 4
             services
                .AddIdentityServer(options =>
@@ -53,13 +68,21 @@ namespace OauthService
                 app.UseDeveloperExceptionPage();
             }
             app.UseCors("AllowCors");
-            app.Use((context, next) =>
+            //app.Use((context, next) =>
+            //{
+            //    var user = context.User;
+
+            //    context.Response.StatusCode = user.Identity.IsAuthenticated ? 200 : 401;
+
+            //    return next.Invoke();
+            //});
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
             {
-                var user = context.User;
-
-                context.Response.StatusCode = user.Identity.IsAuthenticated ? 200 : 401;
-
-                return next.Invoke();
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
             app.UseMvc();
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using IdentityModel;
 using IdentityModel.Client;
@@ -16,7 +17,10 @@ using Newtonsoft.Json.Linq;
 
 namespace OauthService.Controllers
 {
-    //[Authorize]
+    /// <summary>
+    /// 用户注册
+    /// </summary>
+    [Authorize]
     [Route("api/[controller]")]
     public class AccountController : Controller
     {
@@ -27,23 +31,23 @@ namespace OauthService.Controllers
         /// <returns></returns>
         [HttpPost, Route("register")]
         [AllowAnonymous]
-        public IActionResult Register([FromBody] RegisterModel register)
+        public ResultModel Register([FromBody] RegisterModel register)
         {
-            var obj = new JObject();
-            obj.Add("status", 200);
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
             if (new BLL.UserService().CheckPhoneNumber(register.Mobile))
             {
-                obj.Add("error", "手机号已存在。");
+                m.Msg = "手机号已存在。";
             }
             else if (new BLL.UserService().CheckLoginName(register.LoginName))
             {
-                obj.Add("error", "用户名已存在。");
+                m.Msg = "用户名已存在。";
             }
             else
             {
-                obj.Add("error", new BLL.UserService().AddUser(register));
+                m.Status = new BLL.UserService().AddUser(register);
             }
-            return Ok(obj);
+            return m;
         }
         /// <summary>
         /// 更新密码
@@ -51,14 +55,14 @@ namespace OauthService.Controllers
         /// <param name="update"></param>
         /// <returns></returns>
         [HttpPost, Route("updatePassWord")]
-        public IActionResult UpdatePassWord([FromBody] UpdateModel update)
+        public ResultModel UpdatePassWord([FromBody] UpdateModel update)
         {
-            var obj = new JObject();
-            obj.Add("status", 200);
-            obj.Add("error",
-                new BLL.UserService().UpdatePassWord(update.NewPassWord, update.OldPassWord,
-                    User.Identity.GetCurrentUser().UserId));
-            return Ok(obj);
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
+            m.Status = true;
+            m.Msg = new BLL.UserService().UpdatePassWord(update.NewPassWord, update.OldPassWord,
+                User.Identity.GetCurrentUser().UserId);
+            return m;
         }
         /// <summary>
         /// 更换头像
@@ -66,60 +70,90 @@ namespace OauthService.Controllers
         /// <param name="update"></param>
         /// <returns></returns>
         [HttpPost, Route("updateUserInfo")]
-        public IActionResult UpdateUserInfo([FromBody] UpdateModel update)
+        public ResultModel UpdateUserInfo([FromBody] UpdateModel update)
         {
-            var obj = new JObject();
-            obj.Add("status", 200);
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
             if (!string.IsNullOrEmpty(update.LogoImageUrl))
             {
-                obj.Add("error", new BLL.UserService().UpdateLogoImageUrl(update.LogoImageUrl, User.Identity.GetCurrentUser().UserId));
+                m.Status = new BLL.UserService().UpdateLogoImageUrl(update.LogoImageUrl, User.Identity.GetCurrentUser().UserId);
 
             }
             if (!string.IsNullOrEmpty(update.PhoneNumber))
             {
-                obj.Add("error", new BLL.UserService().UpdatePhoneNumber(update.PhoneNumber, User.Identity.GetCurrentUser().UserId));
+                m.Status = new BLL.UserService().UpdatePhoneNumber(update.PhoneNumber, User.Identity.GetCurrentUser().UserId);
             }
-            return Ok(obj);
+            return m;
         }
         /// <summary>
         /// 设置用户部门
         /// </summary>
         /// <returns></returns>
         [HttpPost, Route("updateDepartment")]
-        public IActionResult UpdateDepartment([FromBody] UpdateModel update)
+        public ResultModel UpdateDepartment([FromBody] UpdateModel update)
         {
-            var obj = new JObject();
-            obj.Add("status", 200);
-            obj.Add("error", new BLL.UserService().UpdateDepartment(update.DepId, update.UserId));
-            return Ok(obj);
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
+            m.Status = new BLL.UserService().UpdateDepartment(update.DepId, update.UserId);
+            return m;
         }
-
+        /// <summary>
+        /// 退出登录
+        /// </summary>
+        /// <returns></returns>
         [HttpGet, Route("logOut")]
         public IActionResult LogOut()
         {
             HttpContext.SignOutAsync("oauth");
             return Ok();
         }
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <returns></returns>
         [HttpGet, Route("logIn")]
         public IActionResult LogIn()
         {
             HttpContext.SignInAsync("oauth", User);
             return Ok();
         }
+        /// <summary>
+        ///获取当前人信息
+        /// </summary>
+        /// <returns></returns>
         [HttpGet, Route("getIdentity")]
-        public Model.Oauth.Userinfo GetIdentity()
+        public ResultModel GetIdentity()
         {
-            return User.Identity.GetCurrentUser();
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
+            m.Json = User.Identity.GetCurrentUser();
+            return m;
         }
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpPost, Route("queryUserList")]
-        public IActionResult QueryUserList([FromBody]QueryModel query)
+        public ResultModel QueryUserList([FromBody]SearchModel query)
         {
-            return Ok(new BLL.UserService().QueryUserList(query));
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
+            m.Json = new BLL.UserService().QueryUserList(query);
+            return m;
         }
+        /// <summary>
+        /// 查询通过id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet, Route("queryUserInfo")]
-        public IActionResult QueryUserInfo([FromQuery] int id)
+        public ResultModel QueryUserInfo([FromQuery] int id)
         {
-            return Ok(new BLL.UserService().QueryUserInfo(id));
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
+            m.Json = new BLL.UserService().QueryUserInfo(id);
+            return m;
         }
     }
 }

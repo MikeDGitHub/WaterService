@@ -17,7 +17,7 @@ namespace BLL
         {
             return new DAL.Manage.DrainageManager().Update(user, drainage, list);
         }
-        public DrainageViewModel GetList(QueryModel query)
+        public DrainageViewModel GetList(SearchModel query)
         {
             var where = new StringBuilder();
 
@@ -27,7 +27,7 @@ namespace BLL
             }
             else
             {
-                query = new QueryModel();
+                query = new SearchModel();
             }
             var v = new DAL.Manage.DrainageManager().GetList(where.ToString());
             v.List = v.List.Skip(query.PageIndex * query.PageSize).Take(query.PageSize).ToList();

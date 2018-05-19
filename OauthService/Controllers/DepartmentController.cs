@@ -1,47 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Model.Oauth;
+using Model.ViewModel;
 using Newtonsoft.Json.Linq;
 
 namespace OauthService.Controllers
 {
+    /// <summary>
+    /// 部门
+    /// </summary>
     [Authorize]
     [Route("api/[controller]")]
     public class DepartmentController : Controller
     {
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="department"></param>
+        /// <returns></returns>
         [HttpPost, Route("add")]
-        public IActionResult AddDepartment([FromBody]DepartmentInfo department)
+        public ResultModel AddDepartment([FromBody]DepartmentInfo department)
         {
-            var obj = new JObject();
-            obj.Add("status", 200);
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
             if (new BLL.DepartmentService().CheckDepName(department.DepName))
             {
-                obj.Add("error", "部门名称已存在。");
+                m.Msg = "部门名称已存在。";
             }
             else
             {
-                obj.Add("error", new BLL.DepartmentService().Add(department));
+                m.Status = new BLL.DepartmentService().Add(department);
             }
-            return Ok(obj);
+            return m;
         }
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="department"></param>
+        /// <returns></returns>
         [HttpPost, Route("update")]
-        public IActionResult Update([FromBody]DepartmentInfo department)
+        public ResultModel Update([FromBody]DepartmentInfo department)
         {
-            var obj = new JObject();
-            obj.Add("status", "ok");
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
             if (new BLL.DepartmentService().CheckDepName(department.DepName))
             {
-                obj.Add("error", "部门名称已存在。");
+                m.Msg = "部门名称已存在。";
             }
             else
             {
-                obj.Add("error", new BLL.DepartmentService().Update(department));
+                m.Status = new BLL.DepartmentService().Update(department);
             }
-            return Ok(obj);
+            return m;
         }
     }
 }

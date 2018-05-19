@@ -22,7 +22,7 @@ namespace BLL
             return new DAL.Manage.ValveManage().Update(user, valve, list);
         }
 
-        public ValveViewModel GetList(QueryModel query)
+        public ValveViewModel GetList(SearchModel query)
         {
             var where = new StringBuilder();
             if (query != null)
@@ -31,7 +31,7 @@ namespace BLL
             }
             else
             {
-                query = new QueryModel();
+                query = new SearchModel();
             }
             var v = new DAL.Manage.ValveManage().GetList(where.ToString());
             v.List = v.List.Skip(query.PageIndex * query.PageSize).Take(query.PageSize).ToList();

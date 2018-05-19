@@ -13,7 +13,7 @@ namespace BLL
             return new DAL.Manage.MaintenanceManager().Add(maintenance);
         }
 
-        public List<MaintenanceInfo> GetList(QueryModel query)
+        public List<MaintenanceInfo> GetList(SearchModel query)
         {
             string where = "";
             return new DAL.Manage.MaintenanceManager().GetList(where);

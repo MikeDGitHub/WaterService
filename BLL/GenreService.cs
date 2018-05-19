@@ -9,7 +9,7 @@ namespace BLL
 {
     public class GenreService
     {
-        public GenreViewModel GetList(QueryModel query)
+        public GenreViewModel GetList(SearchModel query)
         {
             var where = new StringBuilder();
             where.Append(" where 1=1 ");
@@ -22,7 +22,7 @@ namespace BLL
             }
             else
             {
-                query = new QueryModel();
+                query = new SearchModel();
             }
             var v = new GenreViewModel();
             var data = new DAL.Manage.GenreManager().GetList(where.ToString());

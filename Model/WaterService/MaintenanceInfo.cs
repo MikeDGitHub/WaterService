@@ -11,14 +11,25 @@ namespace Model.WaterService
     /// </summary>
     public class MaintenanceInfo : BaseEntity
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public int MeterId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public int TypeId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public int GenreId { get; set; }
         /// <summary>
         /// 安装时间
         /// </summary>
         public DateTime InstallTime { get; set; }
-        //更换时间
+        /// <summary>
+        ///更换时间
+        /// </summary>
         public DateTime ReplaceTime { get; set; }
     }
 }

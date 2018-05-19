@@ -7,7 +7,7 @@ namespace BLL
 {
     public static class GenerateQuerySQL
     {
-        public static StringBuilder GenerateQuery(QueryModel query)
+        public static StringBuilder GenerateQuery(SearchModel query)
         {
             var where = new StringBuilder();
             where.Append(" where 1=1 ");

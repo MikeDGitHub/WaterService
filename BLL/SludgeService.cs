@@ -19,7 +19,7 @@ namespace BLL
             return new DAL.Manage.SludgeManager().Update(user, sludge, list);
         }
 
-        public SludgeViewModel GetList(QueryModel query)
+        public SludgeViewModel GetList(SearchModel query)
         {
             var where = new StringBuilder();
             if (query != null)
@@ -28,7 +28,7 @@ namespace BLL
             }
             else
             {
-                query = new QueryModel();
+                query = new SearchModel();
             }
             var v = new DAL.Manage.SludgeManager().GetList(where.ToString());
             v.List = v.List.Skip(query.PageIndex * query.PageSize).Take(query.PageSize).ToList();

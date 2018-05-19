@@ -1,10 +1,14 @@
-﻿using System.IO;
+﻿using System;
+using System.Configuration;
+using System.IO;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.PlatformAbstractions;
+using Swashbuckle.AspNetCore.Swagger;
+
 
 namespace WaterService.API
 {
@@ -29,6 +33,17 @@ namespace WaterService.API
             services.AddCors(options => options.AddPolicy("AllowCors",
                 builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials()));
             services.AddMvc();
+            // Register the Swagger generator, defining one or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Model.xml"));
+            });
             services.AddAuthorization();
             services
                 .AddAuthentication("Bearer")
@@ -51,7 +66,18 @@ namespace WaterService.API
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseCors("AllowCors");
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
             app.UseMvc();
+
+
         }
     }
 
