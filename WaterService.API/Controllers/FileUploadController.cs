@@ -46,7 +46,7 @@ namespace WaterService.API.Controllers
                 {
                     Directory.CreateDirectory(filePath);
                 }
-                fileName = Guid.NewGuid() + "." + fileName.Split('.')[1];
+                fileName = Guid.NewGuid() + fileName.Substring(fileName.LastIndexOf('.'));
                 string fileFullName = filePath + "//" + fileName;
                 using (FileStream fs = System.IO.File.Create(fileFullName))
                 {
