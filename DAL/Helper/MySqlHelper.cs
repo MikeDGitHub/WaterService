@@ -3,10 +3,12 @@ using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace DAL.Helper
 {
@@ -42,6 +44,7 @@ namespace DAL.Helper
 
         public int ExcuteNonQuery(string cmd, DynamicParameters param = null, bool flag = false)
         {
+            WriterLog(cmd);
             int result = 0;
             using (var con = new MySqlFactory().DataBaseConnection(_connectionStr))
             {
@@ -127,6 +130,7 @@ namespace DAL.Helper
         }
         public object ExecuteScalar(string cmd, DynamicParameters param = null, bool flag = false)
         {
+            WriterLog(cmd);
             object result = null;
             using (var con = new MySqlFactory().DataBaseConnection(_connectionStr))
             {
@@ -444,5 +448,13 @@ namespace DAL.Helper
             }
         }
         #endregion
+
+        private void WriterLog(string sql)
+        {
+            FileStream fs = new FileStream(AppContext.BaseDirectory + @"sql.log", FileMode.OpenOrCreate);
+            StreamWriter sw = new StreamWriter(fs);
+            sw.WriteLine(string.Format("{0}---->{1}", DateTime.Now, sql));
+            sw.Close();
+        }
     }
 }

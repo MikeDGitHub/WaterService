@@ -15,7 +15,7 @@ namespace DAL.Manage
 {
     public class UserManage
     {
-        private string sql = @"SELECT  u.UserID,u.UserName,u.LoginName,u.PhoneNumber,u.UserEmail,u.LogoImageUrl FROM 
+        private string sql = @"SELECT  u.UserID,u.UserName,u.LoginName,u.PhoneNumber,u.UserEmail,u.LogoImageUrl,u.depID FROM 
 OAuth.UserInfo AS u LEFT JOIN ACL.ApplicationAndUser a on a.UserID=u.UserID  where  a.ApplicationId=@appId  and u.userId=@userId order by u.userId desc limit 1; ";
         public bool AddUser(RegisterModel register)
         {
@@ -132,7 +132,7 @@ OAuth.UserInfo AS u LEFT JOIN ACL.ApplicationAndUser a on a.UserID=u.UserID  whe
         {
             if (phoneNumber.IsMobileNumber())
             {
-                sql = "update oauth.userinfo set UserPhone=@phoneNumber  where UserID=@UserID;";
+                sql = "update oauth.userinfo set phoneNumber=@phoneNumber  where UserID=@UserID;";
                 var param = new DynamicParameters();
                 param.Add("@UserID", userId, DbType.Int32);
                 param.Add("@phoneNumber", phoneNumber, DbType.String);
@@ -157,14 +157,14 @@ OAuth.UserInfo AS u LEFT JOIN ACL.ApplicationAndUser a on a.UserID=u.UserID  whe
         public bool Add_WaterService_UserInfo(Model.WaterService.UserInfo user, object id)
         {
             var sb = new StringBuilder();
-            sb.AppendFormat("insert into WaterService.UserInfo(UserName,UserAddress,UserPhone,MeterId,Remark,`Create`,CreateDate) values('{0}','{1}','{2}',{6},'{3}','{4}','{5}');", user.UserName, user.UserAddress, user.UserPhone, user.Remark, user.Create, user.CreateDate, id);
+            sb.AppendFormat("insert into WaterService.UserInfo(UserName,UserAddress,UserPhone,MeterId,Remark,`Create`,CreateDate) values('{0}','{1}','{2}',{6},'{3}','{4}','{5}');", user.UserName, user.UserAddress, user.UserPhone, user.Remark, user.Create, user.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"), id);
             return new MySqlHelper().ExcuteNonQuery(sb.ToString()) > 0;
         }
 
         public bool UpDate_WaterService_UserInfo(Model.WaterService.UserInfo user)
         {
             var sb = new StringBuilder();
-            sb.AppendFormat("update WaterService.UserInfo set UserName='{0}',UserAddress='{1}',UserPhone='{2}',Remark ='{3}',Modify='{4}',ModifyDate='{5}' where UserId={6};", user.UserName, user.UserAddress, user.UserPhone, user.Remark, user.Modify, user.ModifyDate, user.UserId);
+            sb.AppendFormat("update WaterService.UserInfo set UserName='{0}',UserAddress='{1}',UserPhone='{2}',Remark ='{3}',Modify='{4}',ModifyDate='{5}' where UserId={6};", user.UserName, user.UserAddress, user.UserPhone, user.Remark, user.Modify, user.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"), user.UserId);
             return new MySqlHelper().ExcuteNonQuery(sb.ToString()) > 0;
         }
 

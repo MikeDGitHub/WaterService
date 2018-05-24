@@ -30,6 +30,7 @@ namespace OauthService
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
                 c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Model.xml"));
+                c.OperationFilter<HttpHeaderFilter>();
             });
             //add identity server 4
             services

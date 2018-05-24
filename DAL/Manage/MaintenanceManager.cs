@@ -14,7 +14,7 @@ namespace DAL.Manage
         {
             var sb = new StringBuilder();
             sb.AppendFormat(
-                "insert into WaterService.MaintenanceInfo (MeterId,GenreId,TypeId,InstallTime,`Create`,CreateDate,ReplaceTime) values ({0},{1},{2},'{3}','{4}','{5}','{6}');", maintenance.MeterId, maintenance.GenreId, maintenance.TypeId, maintenance.InstallTime, maintenance.Create, maintenance.CreateDate, maintenance.ReplaceTime);
+                "insert into WaterService.MaintenanceInfo (MeterId,GenreId,TypeId,InstallTime,`Create`,CreateDate,ReplaceTime) values ({0},{1},{2},'{3}','{4}','{5}','{6}');", maintenance.MeterId, maintenance.GenreId, maintenance.TypeId, maintenance.InstallTime.ToString("yyyy-MM-dd HH:mm:ss"), maintenance.Create, maintenance.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"), maintenance.ReplaceTime.ToString("yyyy-MM-dd HH:mm:ss"));
             return new MySqlHelper().ExcuteNonQuery(sb.ToString()) > 0;
         }
 

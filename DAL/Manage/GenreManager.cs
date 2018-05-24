@@ -23,7 +23,7 @@ namespace DAL.Manage
 
         public bool Update(GenreInfo genre)
         {
-            var sql = string.Format("update WaterService.GenreInfo set GenreName='{0}',Status={1},Modify='{2}',ModifyDate='{3}' where GenreId={4}", genre.GenreName, genre.Status, genre.Modify, genre.ModifyDate, genre.GenreId);
+            var sql = string.Format("update WaterService.GenreInfo set GenreName='{0}',Status={1},Modify='{2}',ModifyDate='{3}' where GenreId={4}", genre.GenreName, genre.Status, genre.Modify, genre.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"), genre.GenreId);
             return new MySqlHelper().ExcuteNonQuery(sql) > 0;
         }
         public Model.WaterService.GenreInfo QueryGenreInfo(int id)

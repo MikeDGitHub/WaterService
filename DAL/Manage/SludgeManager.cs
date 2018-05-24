@@ -13,7 +13,7 @@ namespace DAL.Manage
         public bool Add(UserInfo user, SludgeInfo sludge, List<AttachmentInfo> list)
         {
             var sb = new StringBuilder();
-            sb.AppendFormat("insert into WaterService.SludgeInfo(sludgeCode,sludgeName,TypeId,GenreId,Caliber,Lat,Lon,`Create`,CreateDate) values('{0}','{1}',{2},{3},{4},{5},{6},'{7}','{8}');select @@IDENTITY;", sludge.SludgeCode, sludge.SludgeName, sludge.TypeId, sludge.GenreId, sludge.Caliber, sludge.Lat, sludge.Lon, user.Create, user.CreateDate);
+            sb.AppendFormat("insert into WaterService.SludgeInfo(sludgeCode,sludgeName,TypeId,GenreId,Caliber,Lat,Lon,`Create`,CreateDate) values('{0}','{1}',{2},{3},{4},{5},{6},'{7}','{8}');select @@IDENTITY;", sludge.SludgeCode, sludge.SludgeName, sludge.TypeId, sludge.GenreId, sludge.Caliber, sludge.Lat, sludge.Lon, user.Create, user.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"));
             var id = int.Parse(new MySqlHelper().ExecuteScalar(sb.ToString()).ToString());
             new UserManage().Add_WaterService_UserInfo(user, id);
             new AttachmentManager().AddList(list, id, user.Create, user.CreateDate, sludge.GenreId);
@@ -33,7 +33,7 @@ namespace DAL.Manage
             var sb = new StringBuilder();
             if (sludge != null)
             {
-                sb.AppendFormat("update WaterService.SludgeInfo set GenreId={0},TypeId={1},Caliber={2},Lat={3},Lon={4},Modify='{5}',ModifyDate='{6}',SludgeCode='{7}',SludgeName='{8}' where SludgeId={9};", sludge.GenreId, sludge.TypeId, sludge.Caliber, sludge.Lat, sludge.Lon, sludge.Modify, sludge.ModifyDate, sludge.SludgeCode, sludge.SludgeName, sludge.SludgeId);
+                sb.AppendFormat("update WaterService.SludgeInfo set GenreId={0},TypeId={1},Caliber={2},Lat={3},Lon={4},Modify='{5}',ModifyDate='{6}',SludgeCode='{7}',SludgeName='{8}' where SludgeId={9};", sludge.GenreId, sludge.TypeId, sludge.Caliber, sludge.Lat, sludge.Lon, sludge.Modify, sludge.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"), sludge.SludgeCode, sludge.SludgeName, sludge.SludgeId);
             }
             new UserManage().UpDate_WaterService_UserInfo(user);
             new AttachmentManager().Update(list);

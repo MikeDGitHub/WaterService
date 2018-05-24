@@ -58,6 +58,7 @@ namespace WaterService.API.Controllers
             var m = new ResultModel();
             m.StatusCode = HttpStatusCode.OK;
             m.Json = filePathResultList;
+            m.Status = filePathResultList.Any();
             return m;
         }
     }

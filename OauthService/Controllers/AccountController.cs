@@ -127,6 +127,7 @@ namespace OauthService.Controllers
             var m = new ResultModel();
             m.StatusCode = HttpStatusCode.OK;
             m.Json = User.Identity.GetCurrentUser();
+            m.Status = true;
             return m;
         }
         /// <summary>
@@ -140,6 +141,7 @@ namespace OauthService.Controllers
             var m = new ResultModel();
             m.StatusCode = HttpStatusCode.OK;
             m.Json = new BLL.UserService().QueryUserList(query);
+            m.Status = true;
             return m;
         }
         /// <summary>
@@ -153,6 +155,7 @@ namespace OauthService.Controllers
             var m = new ResultModel();
             m.StatusCode = HttpStatusCode.OK;
             m.Json = new BLL.UserService().QueryUserInfo(id);
+            m.Status = true;
             return m;
         }
     }

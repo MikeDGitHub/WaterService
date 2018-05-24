@@ -13,10 +13,10 @@ namespace DAL.Manage
             return new MySqlHelper().FindOne<TrackInfo>("select * from WaterService.TrackInfo where TrackId=" + id);
         }
 
-        public int Add(TrackInfo track, string Create, DateTime CreateDate)
+        public int Add(TrackInfo track, string create, DateTime createDate)
         {
             var sb = new StringBuilder();
-            sb.AppendFormat("insert into WaterService.TrackInfo (Coordinate,StartLat,StartLon,EndLat,EndLon,`Create`,CreateDate) values('{0}',{1},{2},{3},{4},'{5}','{6}');select @@IDENTITY;", track.Coordinate, track.StartLat, track.StartLon, track.EndLat, track.EndLon, Create, CreateDate);
+            sb.AppendFormat("insert into WaterService.TrackInfo (Coordinate,StartLat,StartLon,EndLat,EndLon,`Create`,CreateDate) values('{0}',{1},{2},{3},{4},'{5}','{6}');select @@IDENTITY;", track.Coordinate, track.StartLat, track.StartLon, track.EndLat, track.EndLon, create, createDate.ToString("yyyy-MM-dd HH:mm:ss"));
             return int.Parse(new MySqlHelper().ExecuteScalar(sb.ToString()).ToString());
         }
 

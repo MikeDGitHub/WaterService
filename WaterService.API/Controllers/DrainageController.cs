@@ -64,6 +64,7 @@ namespace WaterService.API.Controllers
             var m = new ResultModel();
             m.StatusCode = HttpStatusCode.OK;
             m.Json = new BLL.DrainageService().GetList(query);
+            m.Status = true;
             return m;
         }
     }

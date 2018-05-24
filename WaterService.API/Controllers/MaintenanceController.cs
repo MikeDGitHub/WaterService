@@ -42,6 +42,7 @@ namespace WaterService.API.Controllers
             var m = new ResultModel();
             m.StatusCode = HttpStatusCode.OK;
             m.Json = new BLL.MaintenanceService().GetList(query);
+            m.Status = true;
             return m;
         }
     }

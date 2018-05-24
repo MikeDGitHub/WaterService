@@ -14,7 +14,7 @@ namespace DAL.Manage
         {
             var sb = new StringBuilder();
             var id = new TrackManager().Add(track, user.Create, user.CreateDate);
-            sb.AppendFormat("insert into WaterService.PipeLineInfo (PipeLineName,TrackId,Acreage,Caliber,Remark,`Create`,CreateDate,TypeId,GenreId) values('{0}',{1},{2},{3},'{4}','{5}','{6}',{7},{8});", pipeLine.PipeLineName, id, pipeLine.Acreage, pipeLine.Caliber, user.Remark, user.Create, user.CreateDate, pipeLine.TypeId, pipeLine.GenreId);
+            sb.AppendFormat("insert into WaterService.PipeLineInfo (PipeLineName,TrackId,Acreage,Caliber,Remark,`Create`,CreateDate,TypeId,GenreId) values('{0}',{1},{2},{3},'{4}','{5}','{6}',{7},{8});", pipeLine.PipeLineName, id, pipeLine.Acreage, pipeLine.Caliber, user.Remark, user.Create, user.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"), pipeLine.TypeId, pipeLine.GenreId);
             new UserManage().Add_WaterService_UserInfo(user, id);
             new AttachmentManager().AddList(list, id, user.Create, user.CreateDate, pipeLine.GenreId);
             new MaintenanceManager().Add(new MaintenanceInfo()
@@ -35,7 +35,7 @@ namespace DAL.Manage
 
             if (pipeLine != null)
             {
-                sb.AppendFormat("update WaterService.PipeLineInfo set PipeLineName='{0}',Acreage={1} ,Caliber={2}, Modify='{3}',ModifyDate='{4}',status={6} where PipeLineId={5};", pipeLine.PipeLineName, pipeLine.Acreage, pipeLine.Caliber, pipeLine.Modify, pipeLine.ModifyDate, pipeLine.PipeLineId, pipeLine.Status);
+                sb.AppendFormat("update WaterService.PipeLineInfo set PipeLineName='{0}',Acreage={1} ,Caliber={2}, Modify='{3}',ModifyDate='{4}',status={6} where PipeLineId={5};", pipeLine.PipeLineName, pipeLine.Acreage, pipeLine.Caliber, pipeLine.Modify, pipeLine.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"), pipeLine.PipeLineId, pipeLine.Status);
             }
 
             new TrackManager().UpDate(track);

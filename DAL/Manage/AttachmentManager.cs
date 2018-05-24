@@ -18,7 +18,7 @@ namespace DAL.Manage
 
         public bool Add(AttachmentInfo attachment)
         {
-            var sql = string.Format("insert into waterService.attachmentinfo (MeterId,ImgUrl,`Create`,CreateDate,GenreId) values({0},'{1}','{2}','{3}',{4});", attachment.MeterId, attachment.ImgUrl, attachment.Create, attachment.Create, attachment.CreateDate, attachment.GenreId);
+            var sql = string.Format("insert into waterService.attachmentinfo (MeterId,ImgUrl,`Create`,CreateDate,GenreId) values({0},'{1}','{2}','{3}',{4});", attachment.MeterId, attachment.ImgUrl, attachment.Create, attachment.Create, attachment.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"), attachment.GenreId);
             return new MySqlHelper().ExcuteNonQuery(sql) > 0;
         }
 
@@ -28,14 +28,14 @@ namespace DAL.Manage
             var sb = new StringBuilder();
             list?.ForEach(item =>
             {
-                sb.AppendFormat("insert into waterService.attachmentInfo (MeterId,ImgUrl,`Create`,CreateDate,GenreId) values({0},'{1}','{2}','{3}',{4});", id, item.ImgUrl, Create, CreateDate, GenreId);
+                sb.AppendFormat("insert into waterService.attachmentInfo (MeterId,ImgUrl,`Create`,CreateDate,GenreId) values({0},'{1}','{2}','{3}',{4});", id, item.ImgUrl, Create, CreateDate.ToString("yyyy-MM-dd HH:mm:ss"), GenreId);
             });
             return new MySqlHelper().ExcuteNonQuery(sb.ToString()) > 0;
         }
 
         public bool Update(AttachmentInfo attachment)
         {
-            var sql = string.Format("update waterService.attachmentInfo set ImgUrl='{0}',genreId={1},modify='{2}',modifyDate='{3}' where AttachmentId={4};", attachment.ImgUrl, attachment.GenreId, attachment.Modify, attachment.ModifyDate, attachment.AttachmentId);
+            var sql = string.Format("update waterService.attachmentInfo set ImgUrl='{0}',genreId={1},modify='{2}',modifyDate='{3}' where AttachmentId={4};", attachment.ImgUrl, attachment.GenreId, attachment.Modify, attachment.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"), attachment.AttachmentId);
             return new MySqlHelper().ExcuteNonQuery(sql) > 0;
         }
 
@@ -44,7 +44,7 @@ namespace DAL.Manage
             var sb = new StringBuilder();
             list?.ForEach(item =>
             {
-                sb.AppendFormat("update waterService.attachmentInfo set ImgUrl='{0}',genreId={1},modify='{2}',modifyDate='{3}' where AttachmentId={4};", item.ImgUrl, item.GenreId, item.Modify, item.ModifyDate, item.AttachmentId, item);
+                sb.AppendFormat("update waterService.attachmentInfo set ImgUrl='{0}',genreId={1},modify='{2}',modifyDate='{3}' where AttachmentId={4};", item.ImgUrl, item.GenreId, item.Modify, item.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"), item.AttachmentId, item);
             });
             if (sb.Length > 1)
             {

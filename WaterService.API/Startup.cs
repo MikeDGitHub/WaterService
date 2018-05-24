@@ -43,6 +43,7 @@ namespace WaterService.API
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
                 c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Model.xml"));
+                c.OperationFilter<HttpHeaderFilter>();
             });
             services.AddAuthorization();
             services

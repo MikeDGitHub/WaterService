@@ -13,7 +13,7 @@ namespace DAL.Manage
         public bool Add(UserInfo user, WaterMeterInfo water, List<AttachmentInfo> list)
         {
             var sb = new StringBuilder();
-            sb.AppendFormat("insert into WaterService.WaterMeterInfo(WaterMeterCode,WaterMeterName,TypeId,GenreId,Caliber,Lat,Lon,`Create`,CreateDate,Acreage) values('{0}','{1}',{2},{3},{4},{5},{6},'{7}','{8}',{9});select @@IDENTITY;", water.WaterMeterCode, water.WaterMeterName, water.TypeId, water.GenreId, water.Caliber, water.Lat, water.Lon, user.Create, user.CreateDate, water.Acreage);
+            sb.AppendFormat("insert into WaterService.WaterMeterInfo(WaterMeterCode,WaterMeterName,TypeId,GenreId,Caliber,Lat,Lon,`Create`,CreateDate,Acreage) values('{0}','{1}',{2},{3},{4},{5},{6},'{7}','{8}',{9});select @@IDENTITY;", water.WaterMeterCode, water.WaterMeterName, water.TypeId, water.GenreId, water.Caliber, water.Lat, water.Lon, user.Create, user.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"), water.Acreage);
             var id = int.Parse(new MySqlHelper().ExecuteScalar(sb.ToString()).ToString());
             new UserManage().Add_WaterService_UserInfo(user, id);
             new AttachmentManager().AddList(list, id, user.Create, user.CreateDate, water.GenreId);
@@ -35,7 +35,7 @@ namespace DAL.Manage
 
             if (water != null)
             {
-                sb.AppendFormat("update WaterService.WaterMeterInfo set GenreId={0},TypeId={1},Caliber={2},Lat={3},Lon={4},Modify='{5}',ModifyDate='{6}',WaterMeterCode='{7}',WaterMeterName='{8}',Acreage={10} where WaterMeterId={9};", water.GenreId, water.TypeId, water.Caliber, water.Lat, water.Lon, water.Modify, water.ModifyDate, water.WaterMeterCode, water.WaterMeterName, water.WaterMeterId, water.Acreage);
+                sb.AppendFormat("update WaterService.WaterMeterInfo set GenreId={0},TypeId={1},Caliber={2},Lat={3},Lon={4},Modify='{5}',ModifyDate='{6}',WaterMeterCode='{7}',WaterMeterName='{8}',Acreage={10} where WaterMeterId={9};", water.GenreId, water.TypeId, water.Caliber, water.Lat, water.Lon, water.Modify, water.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"), water.WaterMeterCode, water.WaterMeterName, water.WaterMeterId, water.Acreage);
             }
             new UserManage().UpDate_WaterService_UserInfo(user);
             new AttachmentManager().Update(list);

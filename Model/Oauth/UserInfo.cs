@@ -43,6 +43,14 @@ namespace Model.Oauth
         /// </summary>
         /// <returns></returns>
         public int Status { get; set; }
+        /// <summary>
+        /// 部门
+        /// </summary>
+        public int DepId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string DepName { get; set; }
     }
     /// <summary>
     /// view

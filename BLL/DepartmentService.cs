@@ -27,5 +27,10 @@ namespace BLL
         {
             return new DAL.Manage.DepartmentManager().CheckDepName(depName);
         }
+
+        public DepartmentInfo GetModelById(int id)
+        {
+            return new DAL.Manage.DepartmentManager().GetModelById(id);
+        }
     }
 }

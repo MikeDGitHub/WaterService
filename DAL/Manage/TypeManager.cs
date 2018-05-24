@@ -23,7 +23,7 @@ namespace DAL.Manage
 
         public bool Update(TypeInfo typeInfo)
         {
-            var sql = string.Format("update WaterService.typeInfo set TypeName='{0}',Status={1},Modify='{2}',ModifyDate='{3}' where TypeId={4}", typeInfo.TypeName, typeInfo.Status, typeInfo.Modify, typeInfo.ModifyDate, typeInfo.TypeId);
+            var sql = string.Format("update WaterService.typeInfo set TypeName='{0}',Status={1},Modify='{2}',ModifyDate='{3}' where TypeId={4}", typeInfo.TypeName, typeInfo.Status, typeInfo.Modify, typeInfo.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"), typeInfo.TypeId);
             return new MySqlHelper().ExcuteNonQuery(sql) > 0;
         }
 

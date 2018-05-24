@@ -48,5 +48,10 @@ namespace DAL.Manage
             var sql = string.Format("select * from oauth.departmentinfo where DepName='{0}'", depName);
             return new MySqlHelper().FindToList<DepartmentInfo>(sql).ToList().Any();
         }
+        public DepartmentInfo GetModelById(int id)
+        {
+            var sql = "select * from oauth.departmentinfo where depId=" + id;
+            return new MySqlHelper().FindOne<DepartmentInfo>(sql);
+        }
     }
 }

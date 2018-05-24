@@ -13,7 +13,7 @@ namespace DAL.Manage
         public bool Add(UserInfo user, DrainageInfo drainage, List<AttachmentInfo> list)
         {
             var sb = new StringBuilder();
-            sb.AppendFormat("insert into waterService.drainageInfo(DrainageCode,DrainageName,TypeId,GenreId,Caliber,Lat,Lon,`Create`,CreateDate) values('{0}','{1}',{2},{3},{4},{5},{6},'{7}','{8}');select @@IDENTITY;", drainage.DrainageCode, drainage.DrainageName, drainage.TypeId, drainage.GenreId, drainage.Caliber, drainage.Lat, drainage.Lon, user.Create, user.CreateDate);
+            sb.AppendFormat("insert into waterService.drainageInfo(DrainageCode,DrainageName,TypeId,GenreId,Caliber,Lat,Lon,`Create`,CreateDate) values('{0}','{1}',{2},{3},{4},{5},{6},'{7}','{8}');select @@IDENTITY;", drainage.DrainageCode, drainage.DrainageName, drainage.TypeId, drainage.GenreId, drainage.Caliber, drainage.Lat, drainage.Lon, user.Create, user.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"));
             var id = int.Parse(new MySqlHelper().ExecuteScalar(sb.ToString()).ToString());
             new UserManage().Add_WaterService_UserInfo(user, id);
             new AttachmentManager().AddList(list, id, user.Create, user.CreateDate, drainage.GenreId);
@@ -33,7 +33,7 @@ namespace DAL.Manage
             var sb = new StringBuilder();
             if (valve != null)
             {
-                sb.AppendFormat("update waterService.drainageInfo set GenreId={0},TypeId={1},Caliber={2},Lat={3},Lon={4},Modify='{5}',ModifyDate='{6}',DrainageCode='{7}',DrainageName='{8}' where DrainageId={9};", valve.GenreId, valve.TypeId, valve.Caliber, valve.Lat, valve.Lon, valve.Modify, valve.ModifyDate, valve.DrainageCode, valve.DrainageName, valve.DrainageId);
+                sb.AppendFormat("update waterService.drainageInfo set GenreId={0},TypeId={1},Caliber={2},Lat={3},Lon={4},Modify='{5}',ModifyDate='{6}',DrainageCode='{7}',DrainageName='{8}' where DrainageId={9};", valve.GenreId, valve.TypeId, valve.Caliber, valve.Lat, valve.Lon, valve.Modify, valve.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"), valve.DrainageCode, valve.DrainageName, valve.DrainageId);
             }
             new UserManage().UpDate_WaterService_UserInfo(user);
             new AttachmentManager().Update(list);

@@ -27,6 +27,7 @@ namespace WaterService.API.Controllers
             var m = new ResultModel();
             m.StatusCode = HttpStatusCode.OK;
             m.Json = new BLL.TypeService().GetList(query);
+            m.Status = true;
             return m;
         }
         /// <summary>
@@ -70,6 +71,7 @@ namespace WaterService.API.Controllers
             var m = new ResultModel();
             m.StatusCode = HttpStatusCode.OK;
             m.Json = new BLL.TypeService().QueryTypeInfo(id);
+            m.Status = true;
             return m;
         }
     }
