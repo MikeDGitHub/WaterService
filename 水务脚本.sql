@@ -12,7 +12,7 @@ CREATE TABLE oauth.applicationinfo
   UNIQUE (ApplicationId)
 )
   COMMENT '应用信息'
-  ENGINE = InnoDB; 
+  ENGINE = InnoDB DEFAULT CHARSET=utf8; 
 
 CREATE TABLE oauth.departmentinfo
 (
@@ -28,7 +28,7 @@ CREATE TABLE oauth.departmentinfo
   UNIQUE (DepId)
 )
   COMMENT '部门信息'
-  ENGINE = InnoDB; 
+  ENGINE = InnoDB DEFAULT CHARSET=utf8; 
 alter table oauth.departmentinfo AUTO_INCREMENT=1000;
 CREATE TABLE oauth.userinfo
 (
@@ -44,7 +44,7 @@ CREATE TABLE oauth.userinfo
   UNIQUE (UserID)
 )
   COMMENT '用户表'
-  ENGINE = InnoDB; 
+  ENGINE = InnoDB DEFAULT CHARSET=utf8; 
 
 
 CREATE TABLE oauth.userpassword
@@ -56,7 +56,7 @@ CREATE TABLE oauth.userpassword
   PassWord      VARCHAR(200) COMMENT '密码'not NULL
 )
   COMMENT '用户密码表'
-  ENGINE = InnoDB; 
+  ENGINE = InnoDB DEFAULT CHARSET=utf8; 
 
 
 
@@ -67,7 +67,7 @@ CREATE TABLE acl.applicationanduser
   ApplicationId INT COMMENT 'applicationinfo表主键'not NULL ,
   UserID        INT COMMENT 'userinfo表主键'NOT NULL
 )
-  ENGINE = InnoDB; 
+  ENGINE = InnoDB DEFAULT CHARSET=utf8; 
 
 
  CREATE SCHEMA waterservice;
@@ -87,7 +87,7 @@ CREATE TABLE acl.applicationanduser
   UNIQUE (AttachmentId)
 )
   COMMENT '附件信息'
-  ENGINE = InnoDB; 
+  ENGINE = InnoDB DEFAULT CHARSET=utf8; 
 
 -- auto-generated definition
 CREATE TABLE waterservice.genreinfo
@@ -103,7 +103,7 @@ CREATE TABLE waterservice.genreinfo
   UNIQUE (GenreId)
 )
   COMMENT '类型表'
-  ENGINE = InnoDB; 
+  ENGINE = InnoDB DEFAULT CHARSET=utf8; 
 alter table waterservice.genreinfo AUTO_INCREMENT=1000;
 
 
@@ -120,7 +120,7 @@ CREATE TABLE waterservice.typeinfo
   UNIQUE (TypeId)
 )
   COMMENT '类型表'
-  ENGINE = InnoDB; 
+  ENGINE = InnoDB DEFAULT CHARSET=utf8; 
 alter table waterservice.typeinfo AUTO_INCREMENT=2000;
 
 
@@ -138,7 +138,7 @@ CREATE TABLE waterservice.maintenanceinfo
   UNIQUE (MaintenanceId)
 )
   COMMENT '维保信息'
-  ENGINE = InnoDB; 
+  ENGINE = InnoDB DEFAULT CHARSET=utf8; 
 
 CREATE TABLE waterservice.trackinfo
 (
@@ -156,7 +156,7 @@ CREATE TABLE waterservice.trackinfo
   UNIQUE (TrackId)
 )
   COMMENT '轨迹信息'
-  ENGINE = InnoDB; 
+  ENGINE = InnoDB DEFAULT CHARSET=utf8; 
 
 
 CREATE TABLE waterservice.userinfo
@@ -175,7 +175,7 @@ CREATE TABLE waterservice.userinfo
   UNIQUE (UserId)
 )
   COMMENT '用户信息'
-  ENGINE = InnoDB; 
+  ENGINE = InnoDB DEFAULT CHARSET=utf8; 
 
 
 
@@ -198,7 +198,7 @@ CREATE TABLE waterservice.userinfo
   UNIQUE (DrainageId)
 )
   COMMENT '泄水信息'
-  ENGINE = InnoDB; 
+  ENGINE = InnoDB DEFAULT CHARSET=utf8; 
 alter table waterservice.drainageinfo AUTO_INCREMENT=1000000;
 
 
@@ -221,7 +221,7 @@ CREATE TABLE waterservice.exhaustinfo
   UNIQUE (ExhaustId)
 )
   COMMENT '排气信息'
-  ENGINE = InnoDB; 
+  ENGINE = InnoDB DEFAULT CHARSET=utf8; 
 
 alter table waterservice.exhaustinfo AUTO_INCREMENT=2000000;
 
@@ -246,7 +246,7 @@ CREATE TABLE waterservice.pipelineinfo
   UNIQUE (PipeLineId)
 )
   COMMENT '管线信息'
-  ENGINE = InnoDB; 
+  ENGINE = InnoDB DEFAULT CHARSET=utf8; 
 alter table waterservice.pipelineinfo AUTO_INCREMENT=3000000;
 
 CREATE TABLE waterservice.sludgeinfo
@@ -268,7 +268,7 @@ CREATE TABLE waterservice.sludgeinfo
   UNIQUE (SludgeId)
 )
   COMMENT '排泥信息'
-  ENGINE = InnoDB; 
+  ENGINE = InnoDB DEFAULT CHARSET=utf8; 
   alter table waterservice.sludgeinfo AUTO_INCREMENT=4000000;
 
 
@@ -291,7 +291,7 @@ CREATE TABLE waterservice.valveinfo
   UNIQUE (ValveId)
 )
   COMMENT '阀门信息'
-  ENGINE = InnoDB; 
+  ENGINE = InnoDB DEFAULT CHARSET=utf8; 
   alter table waterservice.valveinfo AUTO_INCREMENT=5000000;
 
 CREATE TABLE waterservice.watermeterinfo
@@ -314,7 +314,7 @@ CREATE TABLE waterservice.watermeterinfo
   UNIQUE (WaterId)
 )
   COMMENT '水表信息'
-  ENGINE = InnoDB; 
+  ENGINE = InnoDB DEFAULT CHARSET=utf8; 
   alter table waterservice.watermeterinfo AUTO_INCREMENT=6000000;
 
 
