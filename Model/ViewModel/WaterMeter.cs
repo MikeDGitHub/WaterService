@@ -36,15 +36,15 @@ namespace Model.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        public int WaterMeterId { get; set; }
+        public int WaterId { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public string WaterMeterCode { get; set; }
+        public string WaterCode { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public string WaterMeterName { get; set; }
+        public string WaterName { get; set; }
         /// <summary>
         /// 面积
         /// </summary>

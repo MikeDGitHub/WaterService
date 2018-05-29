@@ -37,7 +37,7 @@ namespace BLL
             where.Clear();
             v.List.ForEach(item =>
             {
-                ids.AppendFormat("{0},", item.WaterMeterId);
+                ids.AppendFormat("{0},", item.WaterId);
             });
             if (ids.Length > 0)
             {
@@ -46,7 +46,7 @@ namespace BLL
                 var att = new DAL.Manage.AttachmentManager().GetList(where.ToString());
                 v.List.ForEach(item =>
                 {
-                    item.AttachmentList = att.FindAll(p => p.MeterId == item.WaterMeterId);
+                    item.AttachmentList = att.FindAll(p => p.MeterId == item.WaterId);
                 });
             }
             return v;
