@@ -5,7 +5,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using DAL.Helper;
-using Microsoft.Extensions.Logging;
 using Model.ViewModel;
 using Model.WaterService;
 using Newtonsoft.Json;

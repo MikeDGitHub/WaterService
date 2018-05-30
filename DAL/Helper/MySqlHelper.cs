@@ -8,7 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+
 
 namespace DAL.Helper
 {
@@ -177,6 +177,7 @@ namespace DAL.Helper
         /// <returns>t</returns>
         public T FindOne<T>(string cmd, DynamicParameters param = null, bool flag = false) where T : class, new()
         {
+            WriterLog(cmd);
             using (var con = new MySqlFactory().DataBaseConnection(_connectionStr))
             {
                 IDataReader dataReader = con.ExecuteReader(cmd.ToLower(), param, null, null, flag ? CommandType.StoredProcedure : CommandType.Text);
@@ -254,6 +255,7 @@ namespace DAL.Helper
         /// <returns>t</returns>
         public IList<T> FindToList<T>(string cmd, DynamicParameters param = null, bool flag = false) where T : class, new()
         {
+            WriterLog(cmd);
             using (var con = new MySqlFactory().DataBaseConnection(_connectionStr))
             {
                 IDataReader dataReader = con.ExecuteReader(cmd.ToLower(), param, null, null, flag ? CommandType.StoredProcedure : CommandType.Text);
