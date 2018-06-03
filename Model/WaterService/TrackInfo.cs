@@ -33,4 +33,14 @@ namespace Model.WaterService
         /// </summary>
         public double EndLon { get; set; }
     }
+    /// <summary>
+    /// 坐标
+    /// </summary>
+    public class Coordinate
+    {
+        public double Latitude { get; set; }
+        public double LatitudeE6 { get; set; }
+        public double Longitude { get; set; }
+        public double LongitudeE6 { get; set; }
+    }
 }

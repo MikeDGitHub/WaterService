@@ -158,5 +158,20 @@ namespace OauthService.Controllers
             m.Status = true;
             return m;
         }
+        /// <summary>
+        ///更新
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        [HttpPost, Route("updateUser")]
+
+        public ResultModel UpdateUser([FromBody] Model.Oauth.Userinfo user)
+        {
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
+            m.Json = new BLL.UserService().UpdateUser(user);
+            m.Status = true;
+            return m;
+        }
     }
 }

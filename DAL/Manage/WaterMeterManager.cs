@@ -35,10 +35,11 @@ namespace DAL.Manage
 
             if (water != null)
             {
-                sb.AppendFormat("update WaterService.WaterMeterInfo set GenreId={0},TypeId={1},Caliber={2},Lat={3},Lon={4},Modify='{5}',ModifyDate='{6}',WaterMeterCode='{7}',WaterMeterName='{8}',Acreage={10} where WaterMeterId={9};", water.GenreId, water.TypeId, water.Caliber, water.Lat, water.Lon, water.Modify, water.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"), water.WaterMeterCode, water.WaterMeterName, water.WaterMeterId, water.Acreage);
+                sb.AppendFormat("update WaterService.WaterMeterInfo set GenreId={0},TypeId={1},Caliber={2},Lat={3},Lon={4},Modify='{5}',ModifyDate='{6}',WaterCode='{7}',WaterName='{8}',Acreage={10} where WaterId={9};", water.GenreId, water.TypeId, water.Caliber, water.Lat, water.Lon, water.Modify, water.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"), water.WaterMeterCode, water.WaterMeterName, water.WaterMeterId, water.Acreage);
+                new AttachmentManager().AddList(list, water.WaterMeterId, water.Create, DateTime.Now, water.GenreId);
             }
             new UserManage().UpDate_WaterService_UserInfo(user);
-            new AttachmentManager().Update(list);
+
             if (sb.Length > 1)
             {
                 return new MySqlHelper().ExcuteNonQuery(sb.ToString()) > 0;
@@ -51,11 +52,11 @@ namespace DAL.Manage
         }
         public WaterMeterViewModel GetList(string where)
         {
-            var valve = new WaterMeterViewModel();
-            var sql = "select WaterId,WaterCode,WaterName,Acreage,Caliber,Lat,Lon,ui.UserId,ui.UserName,ui.UserAddress,ui.UserPhone,ui.Remark,ui.`Create`,ui.CreateDate,ui.Modify,ui.ModifyDate,gi.GenreId,gi.GenreName,ti.TypeId,ti.TypeName from  waterservice.WaterMeterInfo va join waterservice.userinfo ui on ui.MeterId = va.WaterId join waterservice.genreinfo gi on gi.GenreId = va.GenreId join waterservice.typeinfo ti on ti.TypeId = va.TypeId " + where;
-            valve.List = new MySqlHelper().FindToList<WaterMeter>(sql).ToList();
-            valve.TotalCount = valve.List.Count;
-            return valve;
+            var water = new WaterMeterViewModel();
+            var sql = "select WaterId,WaterCode,WaterName,Acreage,Caliber,Lat,Lon,ui.UserId,ui.UserName,ui.UserAddress,ui.UserPhone,ui.Remark,ui.`Create`,ui.CreateDate,ui.Modify,ui.ModifyDate,gi.GenreId,gi.GenreName,ti.TypeId,ti.TypeName from  waterservice.WaterMeterInfo va join waterservice.userinfo ui on ui.MeterId = water.WaterId join waterservice.genreinfo gi on gi.GenreId = water.GenreId join waterservice.typeinfo ti on ti.TypeId = water.TypeId " + where;
+            water.List = new MySqlHelper().FindToList<WaterMeter>(sql).ToList();
+            water.TotalCount = water.List.Count;
+            return water;
         }
     }
 }

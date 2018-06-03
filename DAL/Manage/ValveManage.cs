@@ -66,9 +66,10 @@ namespace DAL.Manage
             if (valve != null)
             {
                 sb.AppendFormat("update WaterService.ValveInfo set GenreId={0},TypeId={1},Caliber={2},Lat={3},Lon={4},Modify='{5}',ModifyDate='{6}',ValveCode='{7}',ValveName='{8}' where ValveId={9};", valve.GenreId, valve.TypeId, valve.Caliber, valve.Lat, valve.Lon, valve.Modify, valve.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"), valve.ValveCode, valve.ValveName, valve.ValveId);
+                new AttachmentManager().AddList(list, valve.ValveId, valve.Create, valve.CreateDate, valve.GenreId);
             }
             new UserManage().UpDate_WaterService_UserInfo(user);
-            new AttachmentManager().Update(list);
+
             if (sb.Length > 1)
             {
                 return new MySqlHelper().ExcuteNonQuery(sb.ToString()) > 0;

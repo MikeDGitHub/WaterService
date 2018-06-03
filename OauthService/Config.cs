@@ -37,7 +37,7 @@ namespace OauthService
             //{
             //    cors.Add(string.Format("http://127.0.0.1:{0}", i));
             //}
-            cors.Add("http://127.0.0.1:8000");
+            cors.Add("http://10.211.55.12:80");
             new BLL.ApplicationService().GetList().ForEach(item =>
             {
                 var clent = new Client()

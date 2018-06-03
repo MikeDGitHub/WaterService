@@ -23,6 +23,15 @@ namespace BLL
             {
                 where.AppendFormat("  and ti.TypeId = {0}", query.TypeId);
             }
+            if (!string.IsNullOrEmpty(query.StartAddress))
+            {
+                where.AppendFormat(" and  StartAddress like '%{0}%'", query.StartAddress);
+
+            }
+            if (!string.IsNullOrEmpty(query.EndAddress))
+            {
+                where.AppendFormat(" and  EndAddress like '%{0}%'", query.EndAddress);
+            }
             return where;
         }
     }

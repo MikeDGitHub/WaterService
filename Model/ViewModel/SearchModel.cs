@@ -34,5 +34,16 @@ namespace Model.ViewModel
         /// 
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// 起始地址
+        /// </summary>
+
+        public string StartAddress { get; set; }
+        /// <summary>
+        /// 结束地址
+        /// </summary>
+
+        public string EndAddress { get; set; }
     }
 }

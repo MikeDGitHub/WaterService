@@ -27,6 +27,7 @@ namespace Model.WaterService
         /// 
         /// </summary>
         public int GenreId { get; set; }
+        public int Resourceid { get; set; }
 
     }
 }

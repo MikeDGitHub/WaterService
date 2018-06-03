@@ -35,18 +35,19 @@ namespace DAL.Manage
             if (exhaust != null)
             {
                 sb.AppendFormat("update waterService.exhaustInfo set GenreId={0},TypeId={1},Caliber={2},Lat={3},Lon={4},Modify='{5}',ModifyDate='{6}',ExhaustCode='{7}',ExhaustName='{8}' where ExhaustId={9};", exhaust.GenreId, exhaust.TypeId, exhaust.Caliber, exhaust.Lat, exhaust.Lon, exhaust.Modify, exhaust.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"), exhaust.ExhaustCode, exhaust.ExhaustName, exhaust.ExhaustId);
+                new AttachmentManager().AddList(list, exhaust.ExhaustId, exhaust.Create, DateTime.Now, exhaust.GenreId);
             }
             new UserManage().UpDate_WaterService_UserInfo(user);
-            new AttachmentManager().Update(list);
+
             return new MySqlHelper().ExcuteNonQuery(sb.ToString()) > 0;
         }
         public ExhaustViewModel GetList(string where)
         {
-            var valve = new ExhaustViewModel();
-            var sql = "select ExhaustId,ExhaustCode,ExhaustName,Caliber,Lat,Lon,ui.UserId,ui.UserName,ui.UserAddress,ui.UserPhone,ui.Remark,ui.`Create`,ui.CreateDate,ui.Modify,ui.ModifyDate,gi.GenreId,gi.GenreName,ti.TypeId,ti.TypeName from  waterservice.exhaustInfo va join waterservice.userinfo ui on ui.MeterId = va.ExhaustId join waterservice.genreinfo gi on gi.GenreId = va.GenreId join waterservice.typeinfo ti on ti.TypeId = va.TypeId " + where;
-            valve.List = new MySqlHelper().FindToList<Exhaust>(sql).ToList();
-            valve.TotalCount = valve.List.Count;
-            return valve;
+            var exhaus = new ExhaustViewModel();
+            var sql = "select ExhaustId,ExhaustCode,ExhaustName,Caliber,Lat,Lon,ui.UserId,ui.UserName,ui.UserAddress,ui.UserPhone,ui.Remark,ui.`Create`,ui.CreateDate,ui.Modify,ui.ModifyDate,gi.GenreId,gi.GenreName,ti.TypeId,ti.TypeName from  waterservice.exhaustInfo ex join waterservice.userinfo ui on ui.MeterId = ex.ExhaustId join waterservice.genreinfo gi on gi.GenreId = ex.GenreId join waterservice.typeinfo ti on ti.TypeId = ex.TypeId " + where;
+            exhaus.List = new MySqlHelper().FindToList<Exhaust>(sql).ToList();
+            exhaus.TotalCount = exhaus.List.Count;
+            return exhaus;
         }
     }
 }

@@ -58,5 +58,18 @@ namespace OauthService.Controllers
             }
             return m;
         }
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost, Route("queryList")]
+        public ResultModel QueryList()
+        {
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
+            m.Json = new BLL.DepartmentService().GetList();
+            m.Status = true;
+            return m;
+        }
     }
 }

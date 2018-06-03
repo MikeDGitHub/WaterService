@@ -34,9 +34,10 @@ namespace DAL.Manage
             if (sludge != null)
             {
                 sb.AppendFormat("update WaterService.SludgeInfo set GenreId={0},TypeId={1},Caliber={2},Lat={3},Lon={4},Modify='{5}',ModifyDate='{6}',SludgeCode='{7}',SludgeName='{8}' where SludgeId={9};", sludge.GenreId, sludge.TypeId, sludge.Caliber, sludge.Lat, sludge.Lon, sludge.Modify, sludge.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"), sludge.SludgeCode, sludge.SludgeName, sludge.SludgeId);
+                new AttachmentManager().AddList(list, sludge.SludgeId, sludge.Create, DateTime.Now, sludge.GenreId);
             }
             new UserManage().UpDate_WaterService_UserInfo(user);
-            new AttachmentManager().Update(list);
+
             if (sb.Length > 1)
             {
                 return new MySqlHelper().ExcuteNonQuery(sb.ToString()) > 0;
@@ -50,7 +51,7 @@ namespace DAL.Manage
         public SludgeViewModel GetList(string where)
         {
             var sludge = new SludgeViewModel();
-            var sql = "select SludgeId,SludgeCode,SludgeName,Caliber,Lat,Lon,ui.UserId,ui.UserName,ui.UserAddress,ui.UserPhone,ui.Remark,ui.`Create`,ui.CreateDate,ui.Modify,ui.ModifyDate,gi.GenreId,gi.GenreName,ti.TypeId,ti.TypeName from  waterservice.sludgeinfo va join waterservice.userinfo ui on ui.MeterId = va.sludgeId join waterservice.genreinfo gi on gi.GenreId = va.GenreId join waterservice.typeinfo ti on ti.TypeId = va.TypeId " + where;
+            var sql = "select SludgeId,SludgeCode,SludgeName,Caliber,Lat,Lon,ui.UserId,ui.UserName,ui.UserAddress,ui.UserPhone,ui.Remark,ui.`Create`,ui.CreateDate,ui.Modify,ui.ModifyDate,gi.GenreId,gi.GenreName,ti.TypeId,ti.TypeName from  waterservice.sludgeinfo va join waterservice.userinfo ui on ui.MeterId = sludge.sludgeId join waterservice.genreinfo gi on gi.GenreId = sludge.GenreId join waterservice.typeinfo ti on ti.TypeId = sludge.TypeId " + where;
             sludge.List = new MySqlHelper().FindToList<Sludge>(sql).ToList();
             sludge.TotalCount = sludge.List.Count;
             return sludge;

@@ -16,5 +16,10 @@ namespace BLL
         {
             return new DAL.Manage.AttachmentManager().Update(attachment);
         }
+
+        public bool AddOrUpdate(List<AttachmentInfo> list)
+        {
+            return new DAL.Manage.AttachmentManager().AddOrUpdate(list);
+        }
     }
 }

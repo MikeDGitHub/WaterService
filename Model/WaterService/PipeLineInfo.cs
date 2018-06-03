@@ -19,5 +19,15 @@ namespace Model.WaterService
         /// 轨迹
         /// </summary>
         public int TrackId { get; set; }
+        /// <summary>
+        /// 起始地址
+        /// </summary>
+
+        public string StartAddress { get; set; }
+        /// <summary>
+        /// 结束地址
+        /// </summary>
+
+        public string EndAddress { get; set; }
     }
 }

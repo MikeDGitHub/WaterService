@@ -171,15 +171,20 @@ OAuth.UserInfo AS u LEFT JOIN ACL.ApplicationAndUser a on a.UserID=u.UserID  whe
         public UserInfoViewModel QueryUserList(string where)
         {
             var valve = new UserInfoViewModel();
-            var sql = " select * from  oauth.userinfo " + where;
+            sql = " select * from  oauth.userinfo " + where;
             valve.List = new MySqlHelper().FindToList<Userinfo>(sql).ToList();
             valve.TotalCount = valve.List.Count;
             return valve;
         }
         public Model.Oauth.Userinfo QueryUserInfo(int userId)
         {
-            var sql = " select * from  oauth.userinfo where UserId=" + userId;
+            sql = " select * from  oauth.userinfo where UserId=" + userId;
             return new MySqlHelper().FindOne<Userinfo>(sql);
+        }
+        public bool UpdateUser(Model.Oauth.Userinfo user)
+        {
+            sql = $"update oauth.userinfo set LoginName='{user.LoginName}',PhoneNumber='{user.PhoneNumber}',Status={user.Status},LogoImageUrl='{user.LogoImageUrl}',DepId={user.DepId},UserEmail='{user.UserEmail}',UserName='{user.UserName}'  where UserId={user.UserId}";
+            return new MySqlHelper().ExcuteNonQuery(sql) > 0;
         }
     }
 }

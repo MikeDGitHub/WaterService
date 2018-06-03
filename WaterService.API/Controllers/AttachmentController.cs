@@ -46,5 +46,19 @@ namespace WaterService.API.Controllers
             m.Status = new BLL.AttachmentService().Update(attachment);
             return m;
         }
+        [HttpPost, Route("addOrUpdate")]
+
+        public ResultModel AddOrUpdate([FromBody] List<AttachmentInfo> list)
+        {
+            list.ForEach(item =>
+            {
+                item.Create = User.Identity.GetCurrentUser().UserName;
+                item.CreateDate = DateTime.Now;
+            });
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
+            m.Status = new BLL.AttachmentService().AddOrUpdate(list);
+            return m;
+        }
     }
 }

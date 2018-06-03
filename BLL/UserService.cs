@@ -71,12 +71,26 @@ namespace BLL
             }
             var v = new DAL.Manage.UserManage().QueryUserList(where.ToString());
             v.List = v.List.Skip(query.PageIndex * query.PageSize).Take(query.PageSize).ToList();
+            var depList = new DAL.Manage.DepartmentManager().GetList();
+            v.List.ForEach(item =>
+            {
+                var dep = depList.Find(p => p.DepId == item.DepId);
+                if (dep != null)
+                {
+                    item.DepName = dep.DepName;
+                }
+            });
             return v;
         }
 
         public Model.Oauth.Userinfo QueryUserInfo(int userId)
         {
             return new DAL.Manage.UserManage().QueryUserInfo(userId);
+        }
+
+        public bool UpdateUser(Model.Oauth.Userinfo user)
+        {
+            return new DAL.Manage.UserManage().UpdateUser(user);
         }
     }
 }

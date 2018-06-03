@@ -453,10 +453,13 @@ namespace DAL.Helper
 
         private void WriterLog(string sql)
         {
-            FileStream fs = new FileStream(AppContext.BaseDirectory + @"sql.log", FileMode.OpenOrCreate);
-            StreamWriter sw = new StreamWriter(fs);
-            sw.WriteLine(string.Format("{0}---->{1}", DateTime.Now, sql));
-            sw.Close();
+            //Task.Factory.StartNew(() =>
+            //{
+            //    FileStream fs = new FileStream(AppContext.BaseDirectory + @"sql.log", FileMode.OpenOrCreate);
+            //    StreamWriter sw = new StreamWriter(fs);
+            //    sw.WriteLine(string.Format("{0}---->{1}", DateTime.Now, sql));
+            //    sw.Close();
+            //});
         }
     }
 }

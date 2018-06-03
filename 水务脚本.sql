@@ -83,6 +83,7 @@ CREATE TABLE acl.applicationanduser
   GenreId      INT                                COMMENT '类型表主键' not null,
    Modify        VARCHAR(50)                    COMMENT '修改建人'    NULL,
   ModifyDate    DATETIME                       COMMENT '修改时间'    NULL,
+  Resourceid    INT                           COMMENT 'Resourceid'    NULL,
   CONSTRAINT attachmentinfo_AttachmentId_uindex
   UNIQUE (AttachmentId)
 )
@@ -238,6 +239,8 @@ CREATE TABLE waterservice.pipelineinfo
   Lat          DOUBLE  DEFAULT '0'                COMMENT '经度' NOT  NULL,
   Lon          DOUBLE  DEFAULT '0'                COMMENT '纬度' NOT  NULL,
   Remark       VARCHAR(200)                        COMMENT '备注'NULL,
+  StartAddress VARCHAR(200)                        COMMENT '起始地址'NULL,
+  EndAddress VARCHAR(200)                        COMMENT '结束地址'NULL,
   `Create`   VARCHAR(50)                        COMMENT '创建人'    NOT NULL,
   CreateDate DATETIME DEFAULT CURRENT_TIMESTAMP   COMMENT '创建时间'NOT NULL,
    Modify        VARCHAR(50)                    COMMENT '修改建人'    NULL,
