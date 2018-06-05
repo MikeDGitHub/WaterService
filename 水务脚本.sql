@@ -124,6 +124,22 @@ CREATE TABLE waterservice.typeinfo
   ENGINE = InnoDB DEFAULT CHARSET=utf8; 
 alter table waterservice.typeinfo AUTO_INCREMENT=2000;
 
+CREATE TABLE waterservice.modelinfo
+(
+  ModelId    INT AUTO_INCREMENT PRIMARY KEY COMMENT '主键(自增长)',
+  ModelName  VARCHAR(50)                   COMMENT '类型名称' not  NULL,
+  status     INT DEFAULT '1' COMMENT '0禁用1,启用' not NULL,
+  `Create`      VARCHAR(50)                    COMMENT '创建人'    NOT NULL,
+  CreateDate    DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'NOT NULL,
+  Modify        VARCHAR(50)                    COMMENT '修改建人'    NULL,
+  ModifyDate    DATETIME                       COMMENT '修改时间'    NULL,
+  CONSTRAINT Modelinfo_ModelId_uindex
+  UNIQUE (ModelId)
+)
+  COMMENT '类型表'
+  ENGINE = InnoDB DEFAULT CHARSET=utf8; 
+alter table waterservice.modelinfo AUTO_INCREMENT=3000;
+
 
 CREATE TABLE waterservice.maintenanceinfo
 (

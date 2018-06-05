@@ -92,5 +92,10 @@ namespace BLL
         {
             return new DAL.Manage.UserManage().UpdateUser(user);
         }
+
+        public string ResetPassword(Model.Oauth.Userinfo user)
+        {
+            return new DAL.Manage.UserManage().ResetPassword(user);
+        }
     }
 }

@@ -53,7 +53,7 @@ namespace DAL.Manage
         public WaterMeterViewModel GetList(string where)
         {
             var water = new WaterMeterViewModel();
-            var sql = "select WaterId,WaterCode,WaterName,Acreage,Caliber,Lat,Lon,ui.UserId,ui.UserName,ui.UserAddress,ui.UserPhone,ui.Remark,ui.`Create`,ui.CreateDate,ui.Modify,ui.ModifyDate,gi.GenreId,gi.GenreName,ti.TypeId,ti.TypeName from  waterservice.WaterMeterInfo va join waterservice.userinfo ui on ui.MeterId = water.WaterId join waterservice.genreinfo gi on gi.GenreId = water.GenreId join waterservice.typeinfo ti on ti.TypeId = water.TypeId " + where;
+            var sql = "select WaterId,WaterCode,WaterName,Acreage,Caliber,Lat,Lon,ui.UserId,ui.UserName,ui.UserAddress,ui.UserPhone,ui.Remark,ui.`Create`,ui.CreateDate,ui.Modify,ui.ModifyDate,gi.GenreId,gi.GenreName,ti.TypeId,ti.TypeName from  waterservice.WaterMeterInfo va join waterservice.userinfo ui on ui.MeterId = va.WaterId join waterservice.genreinfo gi on gi.GenreId = va.GenreId join waterservice.typeinfo ti on ti.TypeId = va.TypeId " + where;
             water.List = new MySqlHelper().FindToList<WaterMeter>(sql).ToList();
             water.TotalCount = water.List.Count;
             return water;

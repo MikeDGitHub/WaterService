@@ -55,7 +55,7 @@ namespace DAL.Manage
         public PipeLineViewModel GetList(string where)
         {
             var pipeLine = new PipeLineViewModel();
-            var sql = "select PipeLineId,PipeLineCode,PipeLineName,TrackId,Caliber,StartAddress,EndAddress,ui.UserId,ui.UserName,ui.UserAddress,ui.UserPhone,ui.Remark,ui.`Create`,ui.CreateDate,ui.Modify,ui.ModifyDate,gi.GenreId,gi.GenreName,ti.TypeId,ti.TypeName from  waterservice.PipeLineInfo va join waterservice.userinfo ui on ui.MeterId = pipeLine.PipeLineId join waterservice.genreinfo gi on gi.GenreId = pipeLine.GenreId join waterservice.typeinfo ti on ti.TypeId = pipeLine.TypeId " + where;
+            var sql = "select PipeLineId,PipeLineCode,PipeLineName,TrackId,Caliber,StartAddress,EndAddress,ui.UserId,ui.UserName,ui.UserAddress,ui.UserPhone,ui.Remark,ui.`Create`,ui.CreateDate,ui.Modify,ui.ModifyDate,gi.GenreId,gi.GenreName,ti.TypeId,ti.TypeName from  waterservice.PipeLineInfo va join waterservice.userinfo ui on ui.MeterId = va.PipeLineId join waterservice.genreinfo gi on gi.GenreId = va.GenreId join waterservice.typeinfo ti on ti.TypeId = va.TypeId " + where;
             pipeLine.List = new MySqlHelper().FindToList<PipeLine>(sql).ToList();
             pipeLine.TotalCount = pipeLine.List.Count;
             return pipeLine;

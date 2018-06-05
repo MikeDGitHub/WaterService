@@ -11,6 +11,7 @@ using Model.ViewModel;
 using Model.WaterService;
 using YuanXin.Framework;
 
+
 namespace DAL.Manage
 {
     public class UserManage
@@ -185,6 +186,21 @@ OAuth.UserInfo AS u LEFT JOIN ACL.ApplicationAndUser a on a.UserID=u.UserID  whe
         {
             sql = $"update oauth.userinfo set LoginName='{user.LoginName}',PhoneNumber='{user.PhoneNumber}',Status={user.Status},LogoImageUrl='{user.LogoImageUrl}',DepId={user.DepId},UserEmail='{user.UserEmail}',UserName='{user.UserName}'  where UserId={user.UserId}";
             return new MySqlHelper().ExcuteNonQuery(sql) > 0;
+        }
+        public string ResetPassword(Model.Oauth.Userinfo user)
+        {
+            sql = " update oauth.UserPassword set Password=@Password  where UserID=@UserID;";
+            var param = new DynamicParameters();
+            param.Add("@UserID", user.UserId, DbType.Int32);
+            param.Add("@Password", "123456".GetMD5(), DbType.String);
+            var flag = new MySqlHelper().ExcuteNonQuery(sql, param);
+            return flag > 0 ? "更新成功。" : "更新失败。";
+        }
+
+        public List<Model.WaterService.UserInfo> QueryUserInfoListByMeterId(string ids)
+        {
+            var sql = $"select * from WaterService.UserInfo where MeterId in ({ids});";
+            return new MySqlHelper().FindToList<Model.WaterService.UserInfo>(sql).ToList();
         }
     }
 }

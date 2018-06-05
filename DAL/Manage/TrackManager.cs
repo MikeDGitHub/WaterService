@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using DAL.Helper;
 using Model.WaterService;
@@ -13,6 +14,10 @@ namespace DAL.Manage
             return new MySqlHelper().FindOne<TrackInfo>("select * from WaterService.TrackInfo where TrackId=" + id);
         }
 
+        public List<TrackInfo> GetList(string ids)
+        {
+            return new MySqlHelper().FindToList<TrackInfo>($"select * from WaterService.TrackInfo where TrackId in {ids};").ToList();
+        }
         public int Add(TrackInfo track, string create, DateTime createDate)
         {
             var sb = new StringBuilder();

@@ -46,4 +46,22 @@ namespace Model.ViewModel
 
         public string EndAddress { get; set; }
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    public class MainQuery
+    {
+        /// <summary>
+        /// 经度
+        /// </summary>
+        public double Longitude { get; set; }
+        /// <summary>
+        /// 纬度
+        /// </summary>
+        public double Latitude { get; set; }
+        /// <summary>
+        /// 距离（单位：公里或千米）
+        /// </summary>
+        public double Distance { get; set; }
+    }
 }

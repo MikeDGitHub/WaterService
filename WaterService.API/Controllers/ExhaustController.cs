@@ -60,7 +60,7 @@ namespace WaterService.API.Controllers
         /// <param name="query"></param>
         /// <returns></returns>
         [HttpPost, Route("queryList")]
-        public ResultModel QueryList([FromBody]Model.ViewModel.SearchModel query)
+        public ResultModel QueryList([FromBody] Model.ViewModel.SearchModel query)
         {
             var m = new ResultModel();
             m.StatusCode = HttpStatusCode.OK;

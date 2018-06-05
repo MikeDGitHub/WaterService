@@ -41,7 +41,7 @@ namespace OauthService.Controllers
             }
             else if (new BLL.UserService().CheckLoginName(register.LoginName))
             {
-                m.Msg = "用户名已存在。";
+                m.Msg = "登录名已存在。";
             }
             else
             {
@@ -49,6 +49,7 @@ namespace OauthService.Controllers
             }
             return m;
         }
+
         /// <summary>
         /// 更新密码
         /// </summary>
@@ -64,6 +65,7 @@ namespace OauthService.Controllers
                 User.Identity.GetCurrentUser().UserId);
             return m;
         }
+
         /// <summary>
         /// 更换头像
         /// </summary>
@@ -76,15 +78,18 @@ namespace OauthService.Controllers
             m.StatusCode = HttpStatusCode.OK;
             if (!string.IsNullOrEmpty(update.LogoImageUrl))
             {
-                m.Status = new BLL.UserService().UpdateLogoImageUrl(update.LogoImageUrl, User.Identity.GetCurrentUser().UserId);
+                m.Status = new BLL.UserService().UpdateLogoImageUrl(update.LogoImageUrl,
+                    User.Identity.GetCurrentUser().UserId);
 
             }
             if (!string.IsNullOrEmpty(update.PhoneNumber))
             {
-                m.Status = new BLL.UserService().UpdatePhoneNumber(update.PhoneNumber, User.Identity.GetCurrentUser().UserId);
+                m.Status = new BLL.UserService().UpdatePhoneNumber(update.PhoneNumber,
+                    User.Identity.GetCurrentUser().UserId);
             }
             return m;
         }
+
         /// <summary>
         /// 设置用户部门
         /// </summary>
@@ -97,6 +102,7 @@ namespace OauthService.Controllers
             m.Status = new BLL.UserService().UpdateDepartment(update.DepId, update.UserId);
             return m;
         }
+
         /// <summary>
         /// 退出登录
         /// </summary>
@@ -107,6 +113,7 @@ namespace OauthService.Controllers
             HttpContext.SignOutAsync("oauth");
             return Ok();
         }
+
         /// <summary>
         /// 登录
         /// </summary>
@@ -117,6 +124,7 @@ namespace OauthService.Controllers
             HttpContext.SignInAsync("oauth", User);
             return Ok();
         }
+
         /// <summary>
         ///获取当前人信息
         /// </summary>
@@ -130,13 +138,14 @@ namespace OauthService.Controllers
             m.Status = true;
             return m;
         }
+
         /// <summary>
         /// 查询
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
         [HttpPost, Route("queryUserList")]
-        public ResultModel QueryUserList([FromBody]SearchModel query)
+        public ResultModel QueryUserList([FromBody] SearchModel query)
         {
             var m = new ResultModel();
             m.StatusCode = HttpStatusCode.OK;
@@ -144,6 +153,7 @@ namespace OauthService.Controllers
             m.Status = true;
             return m;
         }
+
         /// <summary>
         /// 查询通过id
         /// </summary>
@@ -158,6 +168,7 @@ namespace OauthService.Controllers
             m.Status = true;
             return m;
         }
+
         /// <summary>
         ///更新
         /// </summary>
@@ -173,5 +184,16 @@ namespace OauthService.Controllers
             m.Status = true;
             return m;
         }
+        [HttpPost, Route("resetPassword")]
+
+        public ResultModel ResetPassword([FromBody] Model.Oauth.Userinfo user)
+        {
+            var m = new ResultModel();
+            m.StatusCode = HttpStatusCode.OK;
+            m.Json = new BLL.UserService().ResetPassword(user);
+            m.Status = true;
+            return m;
+        }
+
     }
 }
