@@ -254,6 +254,8 @@ CREATE TABLE waterservice.pipelineinfo
   Caliber      DOUBLE  DEFAULT '0'               COMMENT '口径' NOT  NULL,
   Lat          DOUBLE  DEFAULT '0'                COMMENT '经度' NOT  NULL,
   Lon          DOUBLE  DEFAULT '0'                COMMENT '纬度' NOT  NULL,
+  ModelId      INT                                COMMENT '' NOT  NULL,
+  ModelName       VARCHAR(200)                        COMMENT ''NULL,
   Remark       VARCHAR(200)                        COMMENT '备注'NULL,
   StartAddress VARCHAR(200)                        COMMENT '起始地址'NULL,
   EndAddress VARCHAR(200)                        COMMENT '结束地址'NULL,

@@ -14,7 +14,7 @@ namespace DAL.Manage
         {
             var sb = new StringBuilder();
             var id = new TrackManager().Add(track, user.Create, user.CreateDate);
-            sb.AppendFormat("insert into WaterService.PipeLineInfo (PipeLineName,TrackId,Caliber,Remark,`Create`,CreateDate,TypeId,GenreId,StartAddress,EndAddress,PipeLineCode) values('{0}',{1},{2},'{3}','{4}','{5}','{6}',{7},'{8}','{9}','{10}');select @@IDENTITY;", pipeLine.PipeLineName, id, pipeLine.Caliber, user.Remark, user.Create, user.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"), pipeLine.TypeId, pipeLine.GenreId, pipeLine.StartAddress, pipeLine.EndAddress, pipeLine.PipeLineCodeName);
+            sb.AppendFormat("insert into WaterService.PipeLineInfo (PipeLineName,TrackId,Caliber,Remark,`Create`,CreateDate,TypeId,GenreId,StartAddress,EndAddress,PipeLineCode) values('{0}',{1},{2},'{3}','{4}','{5}','{6}',{7},'{8}','{9}','{10}',{11},'{12}');select @@IDENTITY;", pipeLine.PipeLineName, id, pipeLine.Caliber, user.Remark, user.Create, user.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"), pipeLine.TypeId, pipeLine.GenreId, pipeLine.StartAddress, pipeLine.EndAddress, pipeLine.PipeLineCodeName, pipeLine.ModelId, pipeLine.ModelName);
             var pid = int.Parse(new MySqlHelper().ExecuteScalar(sb.ToString()).ToString());
             new UserManage().Add_WaterService_UserInfo(user, pid);
             new AttachmentManager().AddList(list, pid, user.Create, user.CreateDate, pipeLine.GenreId);
@@ -55,7 +55,7 @@ namespace DAL.Manage
         public PipeLineViewModel GetList(string where)
         {
             var pipeLine = new PipeLineViewModel();
-            var sql = "select PipeLineId,PipeLineCode,PipeLineName,TrackId,Caliber,StartAddress,EndAddress,ui.UserId,ui.UserName,ui.UserAddress,ui.UserPhone,ui.Remark,ui.`Create`,ui.CreateDate,ui.Modify,ui.ModifyDate,gi.GenreId,gi.GenreName,ti.TypeId,ti.TypeName from  waterservice.PipeLineInfo va join waterservice.userinfo ui on ui.MeterId = va.PipeLineId join waterservice.genreinfo gi on gi.GenreId = va.GenreId join waterservice.typeinfo ti on ti.TypeId = va.TypeId " + where;
+            var sql = "select PipeLineId,PipeLineCode,PipeLineName,TrackId,Caliber,StartAddress,EndAddress,ui.UserId,ui.UserName,ui.UserAddress,ui.UserPhone,ui.Remark,ui.`Create`,ui.CreateDate,ui.Modify,ui.ModifyDate,gi.GenreId,gi.GenreName,ti.TypeId,ti.TypeName,ModelId,ModelName from  waterservice.PipeLineInfo va join waterservice.userinfo ui on ui.MeterId = va.PipeLineId join waterservice.genreinfo gi on gi.GenreId = va.GenreId join waterservice.typeinfo ti on ti.TypeId = va.TypeId " + where;
             pipeLine.List = new MySqlHelper().FindToList<PipeLine>(sql).ToList();
             pipeLine.TotalCount = pipeLine.List.Count;
             return pipeLine;

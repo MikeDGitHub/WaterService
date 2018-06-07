@@ -29,5 +29,11 @@ namespace Model.ViewModel
         public string UserAddress { get; set; }
         public int TrackId { get; set; }
         public List<AttachmentInfo> AttachmentList { get; set; }
+
+        public int ModelId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string ModelName { get; set; }
     }
 }

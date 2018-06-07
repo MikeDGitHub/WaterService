@@ -29,5 +29,14 @@ namespace Model.WaterService
         /// </summary>
 
         public string EndAddress { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+
+        public int ModelId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string ModelName { get; set; }
     }
 }

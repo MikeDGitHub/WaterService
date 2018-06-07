@@ -150,11 +150,23 @@ namespace BLL
                     ModifyDate = item.ModifyDate,
                     Lat = item.Lat,
                     Lon = item.Lon,
+                    ModelName = item.ModelName,
+                    ModelId = item.ModelId
                 });
                 ids.Append($"{item.PipeLineId},");
                 trackIds.Append($"{item.PipeLineId},");
             });
-            var userTask = Task.Factory.StartNew(() => new UserManage().QueryUserInfoListByMeterId(ids.ToString().TrimEnd(',')));
+            var userTask = Task.Factory.StartNew(() =>
+            {
+                if (ids.Length > 1)
+                {
+                    return new UserManage().QueryUserInfoListByMeterId(ids.ToString().TrimEnd(','));
+                }
+                else
+                {
+                    return new List<UserInfo>();
+                }
+            });
             var trackTask = Task.Factory.StartNew(() =>
               {
                   if (trackIds.Length > 1)
@@ -166,7 +178,17 @@ namespace BLL
                       return new List<TrackInfo>();
                   }
               });
-            var attTask = Task.Factory.StartNew(() => new AttachmentManager().GetList($" where MeterId in ({ids.ToString().TrimEnd(',')}); "));
+            var attTask = Task.Factory.StartNew(() =>
+            {
+                if (ids.Length > 1)
+                {
+                    return new AttachmentManager().GetList($" where MeterId in ({ids.ToString().TrimEnd(',')}); ");
+                }
+                else
+                {
+                    return new List<AttachmentInfo>();
+                }
+            });
             Task.WaitAll(userTask, trackTask, attTask);
             var userList = userTask.Result;
             var trackList = trackTask.Result;
