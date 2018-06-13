@@ -83,7 +83,7 @@ namespace DAL.Manage
         public ValveViewModel GetList(string where)
         {
             var valve = new ValveViewModel();
-            var sql = "select ValveId,ValveCode,ValveName,Caliber,Lat,Lon,ui.UserId,ui.UserName,ui.UserAddress,ui.UserPhone,ui.Remark,ui.`Create`,ui.CreateDate,ui.Modify,ui.ModifyDate,gi.GenreId,gi.GenreName,ti.TypeId,ti.TypeName from  waterservice.valveinfo va join waterservice.userinfo ui on ui.MeterId = va.ValveId join waterservice.genreinfo gi on gi.GenreId = va.GenreId join waterservice.typeinfo ti on ti.TypeId = va.TypeId " + where;
+            var sql = "select * from waterservice.ValveView" + where;
             valve.List = new MySqlHelper().FindToList<Valve>(sql).ToList();
             valve.TotalCount = valve.List.Count;
             return valve;

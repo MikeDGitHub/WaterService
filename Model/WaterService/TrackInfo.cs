@@ -15,7 +15,7 @@ namespace Model.WaterService
         /// <summary>
         /// 轨迹信息
         /// </summary>
-        public string Coordinate { get; set; }
+        //public string Coordinate { get; set; }
         /// <summary>
         /// 起始经度
         /// </summary>
@@ -32,6 +32,10 @@ namespace Model.WaterService
         /// 结束纬度
         /// </summary>
         public double EndLon { get; set; }
+        /// <summary>
+        /// 坐标集合
+        /// </summary>
+        public List<Coordinate> Coordinate { get; set; }
     }
     /// <summary>
     /// 坐标

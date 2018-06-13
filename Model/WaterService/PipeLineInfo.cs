@@ -9,7 +9,7 @@ namespace Model.WaterService
     public class PipeLineInfo : InfoBase
     {
         public int PipeLineId { get; set; }
-        public string PipeLineCodeName { get; set; }
+        public string PipeLineCode { get; set; }
         public string PipeLineName { get; set; }
         /// <summary>
         /// 面积

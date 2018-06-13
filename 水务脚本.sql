@@ -251,6 +251,7 @@ CREATE TABLE waterservice.pipelineinfo
   TrackId      INT                                COMMENT '轨迹主键'    NOT NULL,
   TypeId       INT                               COMMENT '类型'    NOT NULL,
   GenreId      INT                                 COMMENT '类型' NOT NULL,
+  Acreage    DOUBLE DEFAULT '0'                COMMENT '面积' NOT NULL,
   Caliber      DOUBLE  DEFAULT '0'               COMMENT '口径' NOT  NULL,
   Lat          DOUBLE  DEFAULT '0'                COMMENT '经度' NOT  NULL,
   Lon          DOUBLE  DEFAULT '0'                COMMENT '纬度' NOT  NULL,
@@ -362,3 +363,32 @@ VALUES ('admin','admin','15001130082','','admin@qq.com')
 insert INTO acl.applicationanduser VALUES (2,1)
 insert INTO oauth.userpassword (UserID, PasswordType, LoginName, AlgorithmType, PassWord) 
 VALUES (1,'MD5','admin','','C3-1A-C6-05-79-3F-58-0B-38-6C-0F-B5-3F-1B-97-75') 
+
+
+create view	pipelineview 
+as
+
+select pipelineid,pipelinecode,pipelinename,trackid,caliber,startaddress,endaddress,ui.userid,ui.username,ui.useraddress,ui.userphone,ui.remark,ui.`create`,ui.createdate,ui.modify,ui.modifydate,gi.genreid,gi.genrename,ti.typeid,ti.typename,modelid,modelname from  waterservice.pipelineinfo va join waterservice.userinfo ui on ui.meterid = va.pipelineid join waterservice.genreinfo gi on gi.genreid = va.genreid join waterservice.typeinfo ti on ti.typeid = va.typeid 
+
+create view drainageview
+as
+select drainageid,drainagecode,drainagename,caliber,lat,lon,ui.userid,ui.username,ui.useraddress,ui.userphone,ui.remark,ui.`create`,ui.createdate,ui.modify,ui.modifydate,gi.genreid,gi.genrename,ti.typeid,ti.typename from  waterservice.drainageinfo dr join waterservice.userinfo ui on ui.meterid = dr.drainageid join waterservice.genreinfo gi on gi.genreid = dr.genreid join waterservice.typeinfo ti on ti.typeid = dr.typeid
+
+create view exhaustview
+as
+select exhaustid,exhaustcode,exhaustname,caliber,lat,lon,ui.userid,ui.username,ui.useraddress,ui.userphone,ui.remark,ui.`create`,ui.createdate,ui.modify,ui.modifydate,gi.genreid,gi.genrename,ti.typeid,ti.typename from  waterservice.exhaustinfo ex join waterservice.userinfo ui on ui.meterid = ex.exhaustid join waterservice.genreinfo gi on gi.genreid = ex.genreid join waterservice.typeinfo ti on ti.typeid = ex.typeid
+
+
+create view sludgeview
+as
+select sludgeid,sludgecode,sludgename,caliber,lat,lon,ui.userid,ui.username,ui.useraddress,ui.userphone,ui.remark,ui.`create`,ui.createdate,ui.modify,ui.modifydate,gi.genreid,gi.genrename,ti.typeid,ti.typename from  waterservice.sludgeinfo va join waterservice.userinfo ui on ui.meterid = va.sludgeid join waterservice.genreinfo gi on gi.genreid = va.genreid join waterservice.typeinfo ti on ti.typeid = va.typeid 
+
+create view valveview
+as
+select valveid,valvecode,valvename,caliber,lat,lon,ui.userid,ui.username,ui.useraddress,ui.userphone,ui.remark,ui.`create`,ui.createdate,ui.modify,ui.modifydate,gi.genreid,gi.genrename,ti.typeid,ti.typename from  waterservice.valveinfo va join waterservice.userinfo ui on ui.meterid = va.valveid join waterservice.genreinfo gi on gi.genreid = va.genreid join waterservice.typeinfo ti on ti.typeid = va.typeid 
+
+create view watermeterview
+
+as
+
+select waterid,watercode,watername,acreage,caliber,lat,lon,ui.userid,ui.username,ui.useraddress,ui.userphone,ui.remark,ui.`create`,ui.createdate,ui.modify,ui.modifydate,gi.genreid,gi.genrename,ti.typeid,ti.typename from  waterservice.watermeterinfo va join waterservice.userinfo ui on ui.meterid = va.waterid join waterservice.genreinfo gi on gi.genreid = va.genreid join waterservice.typeinfo ti on ti.typeid = va.typeid

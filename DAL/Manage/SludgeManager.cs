@@ -51,7 +51,7 @@ namespace DAL.Manage
         public SludgeViewModel GetList(string where)
         {
             var sludge = new SludgeViewModel();
-            var sql = "select SludgeId,SludgeCode,SludgeName,Caliber,Lat,Lon,ui.UserId,ui.UserName,ui.UserAddress,ui.UserPhone,ui.Remark,ui.`Create`,ui.CreateDate,ui.Modify,ui.ModifyDate,gi.GenreId,gi.GenreName,ti.TypeId,ti.TypeName from  waterservice.sludgeinfo va join waterservice.userinfo ui on ui.MeterId = va.sludgeId join waterservice.genreinfo gi on gi.GenreId = va.GenreId join waterservice.typeinfo ti on ti.TypeId = va.TypeId " + where;
+            var sql = "select * from waterservice.SludgeView " + where;
             sludge.List = new MySqlHelper().FindToList<Sludge>(sql).ToList();
             sludge.TotalCount = sludge.List.Count;
             return sludge;

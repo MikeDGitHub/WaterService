@@ -13,15 +13,15 @@ namespace BLL
             where.Append(" where 1=1 ");
             if (!string.IsNullOrEmpty(query.Address))
             {
-                where.AppendFormat(" and  ui.UserAddress like '%{0}%'", query.Address);
+                where.AppendFormat(" and  UserAddress like '%{0}%'", query.Address);
             }
             if (query.GenreId > 0)
             {
-                where.AppendFormat("  and gi.GenreId = {0}", query.GenreId);
+                where.AppendFormat("  and GenreId = {0}", query.GenreId);
             }
             if (query.TypeId > 0)
             {
-                where.AppendFormat("  and ti.TypeId = {0}", query.TypeId);
+                where.AppendFormat("  and TypeId = {0}", query.TypeId);
             }
             if (!string.IsNullOrEmpty(query.StartAddress))
             {

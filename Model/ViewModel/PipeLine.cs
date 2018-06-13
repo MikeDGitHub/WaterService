@@ -18,10 +18,7 @@ namespace Model.ViewModel
         /// 轨迹
         /// </summary>
         public Model.WaterService.TrackInfo Track { get; set; }
-        /// <summary>
-        /// 坐标集合
-        /// </summary>
-        public List<Coordinate> ListCoordinate { get; set; }
+
     }
     /// <summary>
     /// 
@@ -82,5 +79,7 @@ namespace Model.ViewModel
         /// </summary>
 
         public string EndAddress { get; set; }
+        public int ModelId { get; set; }
+        public string ModelName { get; set; }
     }
 }

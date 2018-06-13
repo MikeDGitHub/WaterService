@@ -27,7 +27,6 @@ namespace WaterService.API.Controllers
             add.User.Create = User.Identity.GetCurrentUser().UserName;
             add.User.CreateDate = DateTime.Now;
             var m = new ResultModel();
-            add.Track.Coordinate = JsonConvert.SerializeObject(add.ListCoordinate);
             m.StatusCode = HttpStatusCode.OK;
             m.Status = new BLL.PipeLineService().Add(add.User, add.PipeLine, add.Track, add.List);
             return m;

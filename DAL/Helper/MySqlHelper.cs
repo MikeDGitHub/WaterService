@@ -461,5 +461,15 @@ namespace DAL.Helper
             //    sw.Close();
             //});
         }
+        public DataTable GetDataTable(string cmd, DynamicParameters param = null, bool flag = false)
+        {
+            var dt = new DataTable();
+            using (var con = new MySqlFactory().DataBaseConnection(_connectionStr))
+            {
+                IDataReader dataReader = con.ExecuteReader(cmd.ToLower(), param, null, null, flag ? CommandType.StoredProcedure : CommandType.Text);
+                dt.Load(dataReader);
+            }
+            return dt;
+        }
     }
 }

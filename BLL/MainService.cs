@@ -137,7 +137,7 @@ namespace BLL
                 list.Add(new MainViewModel()
                 {
                     Id = item.PipeLineId,
-                    Code = item.PipeLineCodeName,
+                    Code = item.PipeLineCode,
                     Name = item.PipeLineName,
                     GenreId = item.GenreId,
                     TypeId = item.TypeId,

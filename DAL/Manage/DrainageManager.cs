@@ -42,7 +42,7 @@ namespace DAL.Manage
         public DrainageViewModel GetList(string where)
         {
             var drainage = new DrainageViewModel();
-            var sql = "select DrainageId,DrainageCode,DrainageName,Caliber,Lat,Lon,ui.UserId,ui.UserName,ui.UserAddress,ui.UserPhone,ui.Remark,ui.`Create`,ui.CreateDate,ui.Modify,ui.ModifyDate,gi.GenreId,gi.GenreName,ti.TypeId,ti.TypeName from  waterservice.drainageInfo dr join waterservice.userinfo ui on ui.MeterId = dr.DrainageId join waterservice.genreinfo gi on gi.GenreId = dr.GenreId join waterservice.typeinfo ti on ti.TypeId = dr.TypeId " + where;
+            var sql = "select * from waterservice.DrainageView " + where;
             drainage.List = new MySqlHelper().FindToList<Drainage>(sql).ToList();
             drainage.TotalCount = drainage.List.Count;
             return drainage;

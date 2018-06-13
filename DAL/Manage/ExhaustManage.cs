@@ -44,7 +44,7 @@ namespace DAL.Manage
         public ExhaustViewModel GetList(string where)
         {
             var exhaus = new ExhaustViewModel();
-            var sql = "select ExhaustId,ExhaustCode,ExhaustName,Caliber,Lat,Lon,ui.UserId,ui.UserName,ui.UserAddress,ui.UserPhone,ui.Remark,ui.`Create`,ui.CreateDate,ui.Modify,ui.ModifyDate,gi.GenreId,gi.GenreName,ti.TypeId,ti.TypeName from  waterservice.exhaustInfo ex join waterservice.userinfo ui on ui.MeterId = ex.ExhaustId join waterservice.genreinfo gi on gi.GenreId = ex.GenreId join waterservice.typeinfo ti on ti.TypeId = ex.TypeId " + where;
+            var sql = "select * from waterservice.ExhaustView" + where;
             exhaus.List = new MySqlHelper().FindToList<Exhaust>(sql).ToList();
             exhaus.TotalCount = exhaus.List.Count;
             return exhaus;
