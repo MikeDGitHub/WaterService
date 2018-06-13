@@ -36,7 +36,7 @@ namespace DAL.Manage
 
             if (pipeLine != null)
             {
-                sb.AppendFormat("update WaterService.PipeLineInfo set PipeLineName='{0}' ,Caliber={1}, Modify='{2}',ModifyDate='{3}',status={5},StartAddress={6},EndAddress='{7}' where PipeLineId={4};", pipeLine.PipeLineName, pipeLine.Caliber, pipeLine.Modify, pipeLine.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"), pipeLine.PipeLineId, pipeLine.Status, pipeLine.StartAddress, pipeLine.EndAddress);
+                sb.AppendFormat("update WaterService.PipeLineInfo set PipeLineName='{0}' ,Caliber={1}, Modify='{2}',ModifyDate='{3}',StartAddress='{5}',EndAddress='{6}' where PipeLineId={4};", pipeLine.PipeLineName, pipeLine.Caliber, pipeLine.Modify, pipeLine.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"), pipeLine.PipeLineId, pipeLine.StartAddress, pipeLine.EndAddress);
                 new AttachmentManager().AddList(list, pipeLine.PipeLineId, pipeLine.Create, DateTime.Now, pipeLine.GenreId);
             }
 
