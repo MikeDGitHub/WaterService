@@ -368,7 +368,7 @@ VALUES (1,'MD5','admin','','C3-1A-C6-05-79-3F-58-0B-38-6C-0F-B5-3F-1B-97-75')
 create view	pipelineview 
 as
 
-select pipelineid,pipelinecode,pipelinename,trackid,caliber,startaddress,endaddress,ui.userid,ui.username,ui.useraddress,ui.userphone,ui.remark,ui.`create`,ui.createdate,ui.modify,ui.modifydate,gi.genreid,gi.genrename,ti.typeid,ti.typename,modelid,modelname from  waterservice.pipelineinfo va join waterservice.userinfo ui on ui.meterid = va.pipelineid join waterservice.genreinfo gi on gi.genreid = va.genreid join waterservice.typeinfo ti on ti.typeid = va.typeid 
+select pipelineid,pipelinecode,acreage,pipelinename,trackid,caliber,startaddress,endaddress,ui.userid,ui.username,ui.useraddress,ui.userphone,ui.remark,ui.`create`,ui.createdate,ui.modify,ui.modifydate,gi.genreid,gi.genrename,ti.typeid,ti.typename,modelid,modelname from  waterservice.pipelineinfo va join waterservice.userinfo ui on ui.meterid = va.pipelineid join waterservice.genreinfo gi on gi.genreid = va.genreid join waterservice.typeinfo ti on ti.typeid = va.typeid 
 
 create view drainageview
 as
