@@ -14,6 +14,11 @@ namespace BLL
             if (!string.IsNullOrEmpty(query.Address))
             {
                 where.AppendFormat(" and  UserAddress like '%{0}%'", query.Address);
+
+                if (Justice1(query.Address))
+                {
+                    where.AppendFormat(" or  code like '%{0}%' ", query.Address);
+                }
             }
             if (query.GenreId > 0)
             {
@@ -33,6 +38,19 @@ namespace BLL
                 where.AppendFormat(" and  EndAddress like '%{0}%'", query.EndAddress);
             }
             return where;
+        }
+        static bool Justice1(string text)
+        {
+            var flag = true;
+            foreach (char t in text)
+            {
+                if (t > 127)
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            return flag;
         }
     }
 }
