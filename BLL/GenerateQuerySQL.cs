@@ -7,7 +7,7 @@ namespace BLL
 {
     public static class GenerateQuerySQL
     {
-        public static StringBuilder GenerateQuery(SearchModel query)
+        public static StringBuilder GenerateQuery(SearchModel query,string typeName)
         {
             var where = new StringBuilder();
             where.Append(" where 1=1 ");
@@ -17,7 +17,7 @@ namespace BLL
 
                 if (Justice1(query.Address))
                 {
-                    where.AppendFormat(" or  code like '%{0}%' ", query.Address);
+                    where.AppendFormat(" or  {1}Code like '%{0}%' ", query.Address,typeName);
                 }
             }
             if (query.GenreId > 0)

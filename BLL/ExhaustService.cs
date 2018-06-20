@@ -25,7 +25,7 @@ namespace BLL
 
             if (query != null)
             {
-                where = GenerateQuerySQL.GenerateQuery(query);
+                where = GenerateQuerySQL.GenerateQuery(query,typeof(Exhaust).Name);
             }
             else
             {

@@ -27,7 +27,7 @@ namespace BLL
             var where = new StringBuilder();
             if (query != null)
             {
-                where = GenerateQuerySQL.GenerateQuery(query);
+                where = GenerateQuerySQL.GenerateQuery(query, typeof(Valve).Name);
             }
             else
             {

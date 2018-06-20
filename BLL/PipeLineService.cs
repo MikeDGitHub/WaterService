@@ -26,7 +26,7 @@ namespace BLL
 
             if (query != null)
             {
-                where = GenerateQuerySQL.GenerateQuery(query);
+                where = GenerateQuerySQL.GenerateQuery(query, typeof(PipeLine).Name);
             }
             else
             {

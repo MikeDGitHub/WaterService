@@ -45,15 +45,15 @@ namespace WaterService.API
                 c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Model.xml"));
                 c.OperationFilter<HttpHeaderFilter>();
             });
-            services.AddAuthorization();
-            services
-                .AddAuthentication("Bearer")
-                .AddIdentityServerAuthentication("Bearer", (option) =>
-                {
-                    option.Authority = "http://127.0.0.1:5000";//identityserver4地址
-                    option.RequireHttpsMetadata = false;//使用https
-                    option.ApiName = "socialnetwork";//api scope
-                });
+            //services.AddAuthorization();
+            //services
+            //    .AddAuthentication("Bearer")
+            //    .AddIdentityServerAuthentication("Bearer", (option) =>
+            //    {
+            //        option.Authority = "http://127.0.0.1:5000";//identityserver4地址
+            //        option.RequireHttpsMetadata = false;//使用https
+            //        option.ApiName = "socialnetwork";//api scope
+            //    });
 
 
         }
@@ -65,7 +65,7 @@ namespace WaterService.API
             loggerFactory.AddDebug();
 
             app.UseStaticFiles();
-            app.UseAuthentication();
+            //app.UseAuthentication();
             app.UseCors("AllowCors");
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
