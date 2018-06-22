@@ -8,16 +8,20 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Model;
+using Newtonsoft.Json;
+using YuanXin.Framework;
 
 
 namespace DAL.Helper
 {
     public sealed class MySqlHelper
     {
-        private string _connectionStr;
+        private readonly string _connectionStr;
         public MySqlHelper()
         {
-            _connectionStr = $"Database=oauth;DataSource=39.104.164.180;UserId=root;Password=123456;CharSet=utf8;port=3306;SslMode=None";
+            var obj = JsonConvert.DeserializeObject<AppSettings>(FileHelper.ReadFile("appsettings.json"));
+            _connectionStr =obj.ConnectionStrings;
         }
         #region +ExcuteNonQuery 增、删、改同步操作
         /// <summary>
