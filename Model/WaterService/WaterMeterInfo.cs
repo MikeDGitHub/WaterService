@@ -14,6 +14,9 @@ namespace Model.WaterService
         public int WaterMeterId { get; set; }
         public string WaterMeterCode { get; set; }
         public string WaterMeterName { get; set; }
+        public int WaterId { get; set; }
+        public string WaterCode { get; set; }
+        public string WaterName { get; set; }
         /// <summary>
         /// 面积
         /// </summary>

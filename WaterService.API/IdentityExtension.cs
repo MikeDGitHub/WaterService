@@ -13,7 +13,13 @@ namespace WaterService.API
     {
         public static Model.Oauth.Userinfo GetCurrentUser(this IIdentity sender)
         {
+#if Release
+
             return JsonConvert.DeserializeObject<Model.Oauth.Userinfo>(sender.ClaimToList().Find(p => p.Type == IdentityServerConstants.StandardScopes.Profile).Value);
+#endif
+            return new Model.Oauth.Userinfo() { UserName = "admin" };
+
+
         }
         private static List<Claim> ClaimToList(this IIdentity sender)
         {

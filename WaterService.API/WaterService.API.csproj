@@ -7,7 +7,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>bin\Debug\netcoreapp2.0\WaterService.API.xml</DocumentationFile>
   </PropertyGroup>
-
+<PropertyGroup>
+    <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
+</PropertyGroup>
   <ItemGroup>
     <Compile Remove="Files\**" />
     <Content Remove="Files\**" />

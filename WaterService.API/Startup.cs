@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Model;
 using Swashbuckle.AspNetCore.Swagger;
 
 
@@ -29,6 +30,7 @@ namespace WaterService.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<AppSettings>(Configuration);
             // Add framework services.
             services.AddCors(options => options.AddPolicy("AllowCors",
                 builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials()));
@@ -45,17 +47,18 @@ namespace WaterService.API
                 c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Model.xml"));
                 c.OperationFilter<HttpHeaderFilter>();
             });
-            //services.AddAuthorization();
-            //services
-            //    .AddAuthentication("Bearer")
-            //    .AddIdentityServerAuthentication("Bearer", (option) =>
-            //    {
-            //        option.Authority = "http://127.0.0.1:5000";//identityserver4地址
-            //        option.RequireHttpsMetadata = false;//使用https
-            //        option.ApiName = "socialnetwork";//api scope
-            //    });
+#if Release
+            services.AddAuthorization();
+            services
+                .AddAuthentication("Bearer")
+                .AddIdentityServerAuthentication("Bearer", (option) =>
+                {
+                    option.Authority = Configuration.GetSection("Authority").Value;//identityserver4地址
+                    option.RequireHttpsMetadata = false;//使用https
+                    option.ApiName = "socialnetwork";//api scope
+                });
 
-
+#endif
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,7 +68,9 @@ namespace WaterService.API
             loggerFactory.AddDebug();
 
             app.UseStaticFiles();
-            //app.UseAuthentication();
+#if Release
+            app.UseAuthentication();
+#endif
             app.UseCors("AllowCors");
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.

@@ -116,9 +116,9 @@ namespace BLL
             {
                 list.Add(new MainViewModel()
                 {
-                    Id = item.WaterMeterId,
-                    Code = item.WaterMeterCode,
-                    Name = item.WaterMeterName,
+                    Id = item.WaterId,
+                    Code = item.WaterCode,
+                    Name = item.WaterName,
                     Lat = item.Lat,
                     Lon = item.Lon,
                     GenreId = item.GenreId,

@@ -30,6 +30,6 @@ namespace Model.WaterService
         /// <summary>
         ///更换时间
         /// </summary>
-        public DateTime ReplaceTime { get; set; }
+        public DateTime ReplaceTime = DateTime.Now;
     }
 }

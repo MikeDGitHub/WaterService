@@ -21,7 +21,7 @@ namespace DAL.Helper
         public MySqlHelper()
         {
             var obj = JsonConvert.DeserializeObject<AppSettings>(FileHelper.ReadFile("appsettings.json"));
-            _connectionStr =obj.ConnectionStrings;
+            _connectionStr = obj.ConnectionStrings;
         }
         #region +ExcuteNonQuery 增、删、改同步操作
         /// <summary>
@@ -474,6 +474,12 @@ namespace DAL.Helper
                 dt.Load(dataReader);
             }
             return dt;
+        }
+
+        public IDbTransaction GetDbTransaction()
+        {
+            var con = new MySqlFactory().DataBaseConnection(_connectionStr);
+            return con.BeginTransaction();
         }
     }
 }
