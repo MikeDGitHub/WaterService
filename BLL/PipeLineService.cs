@@ -10,14 +10,15 @@ namespace BLL
 {
     public class PipeLineService
     {
+        private readonly PipeLineManager dal = new PipeLineManager();
         public bool Add(UserInfo user, PipeLineInfo pipeLine, TrackInfo track, List<AttachmentInfo> list)
         {
-            return new DAL.Manage.PipeLineManager().Add(user, pipeLine, track, list);
+            return dal.Add(user, pipeLine, track, list);
         }
 
         public bool Update(UserInfo user, PipeLineInfo pipeLine, TrackInfo track, List<AttachmentInfo> list)
         {
-            return new DAL.Manage.PipeLineManager().Update(user, pipeLine, track, list);
+            return dal.Update(user, pipeLine, track, list);
         }
 
         public PipeLineViewModel GetList(SearchModel query)
@@ -32,7 +33,7 @@ namespace BLL
             {
                 query = new SearchModel();
             }
-            var v = new DAL.Manage.PipeLineManager().GetList(where.ToString());
+            var v = dal.GetList(where.ToString());
             v.List = v.List.Skip(query.PageIndex * query.PageSize).Take(query.PageSize).ToList();
             var ids = new StringBuilder();
             where.Clear();
@@ -45,7 +46,7 @@ namespace BLL
             if (ids.Length > 0)
             {
                 where.AppendFormat(" where MeterId in ({0})", ids.ToString().TrimEnd(','));
-                var att = new DAL.Manage.AttachmentManager().GetList(where.ToString());
+                var att = new AttachmentManager().GetList(where.ToString());
                 v.List.ForEach(item =>
                 {
                     item.AttachmentList = att.FindAll(p => p.MeterId == item.PipeLineId);

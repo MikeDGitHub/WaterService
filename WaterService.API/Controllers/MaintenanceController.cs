@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using BLL;
 using Microsoft.AspNetCore.Mvc;
 using Model.ViewModel;
 using Model.WaterService;
@@ -16,6 +17,7 @@ namespace WaterService.API.Controllers
     [Route("api/[controller]")]
     public class MaintenanceController : BaseController
     {
+        private readonly MaintenanceService bll = new MaintenanceService();
         /// <summary>
         /// 新增
         /// </summary>
@@ -26,10 +28,7 @@ namespace WaterService.API.Controllers
         {
             add.Create = User.Identity.GetCurrentUser().UserName;
             add.CreateDate = DateTime.Now;
-            var m = new ResultModel();
-            m.StatusCode = HttpStatusCode.OK;
-            m.Status = new BLL.MaintenanceService().Add(add);
-            return m;
+            return GenerateResult(bll.Add(add), "");
         }
         /// <summary>
         /// 查询
@@ -39,11 +38,7 @@ namespace WaterService.API.Controllers
         [HttpPost, Route("queryList")]
         public ResultModel QueryList([FromBody]SearchModel query)
         {
-            var m = new ResultModel();
-            m.StatusCode = HttpStatusCode.OK;
-            m.Json = new BLL.MaintenanceService().GetList(query);
-            m.Status = true;
-            return m;
+            return GenerateResult(bll.GetList(query), "");
         }
     }
 }

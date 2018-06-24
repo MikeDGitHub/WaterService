@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DAL.Manage;
 using Model.ViewModel;
 using Model.WaterService;
 
@@ -9,14 +10,17 @@ namespace BLL
 {
     public class WaterMeterService
     {
+        private readonly WaterMeterManager dal = new WaterMeterManager();
+
+
         public bool Add(UserInfo user, WaterMeterInfo water, List<AttachmentInfo> list)
         {
-            return new DAL.Manage.WaterMeterManager().Add(user, water, list);
+            return dal.Add(user, water, list);
         }
 
         public bool Update(UserInfo user, WaterMeterInfo water, List<AttachmentInfo> list)
         {
-            return new DAL.Manage.WaterMeterManager().Update(user, water, list);
+            return dal.Update(user, water, list);
         }
 
         public WaterMeterViewModel GetList(SearchModel query)
@@ -31,7 +35,7 @@ namespace BLL
             {
                 query = new SearchModel();
             }
-            var v = new DAL.Manage.WaterMeterManager().GetList(where.ToString());
+            var v = dal.GetList(where.ToString());
             v.List = v.List.Skip(query.PageIndex * query.PageSize).Take(query.PageSize).ToList();
             var ids = new StringBuilder();
             where.Clear();
@@ -43,7 +47,7 @@ namespace BLL
             {
 
                 where.AppendFormat(" where MeterId in ({0}) ", ids.ToString().TrimEnd(','));
-                var att = new DAL.Manage.AttachmentManager().GetList(where.ToString());
+                var att = new AttachmentManager().GetList(where.ToString());
                 v.List.ForEach(item =>
                 {
                     item.AttachmentList = att.FindAll(p => p.MeterId == item.WaterId);

@@ -6,29 +6,31 @@ using System.Threading.Tasks;
 using BLL;
 using Microsoft.AspNetCore.Mvc;
 using Model.ViewModel;
+using Model.WaterService;
 using Newtonsoft.Json.Linq;
 
 
 namespace WaterService.API.Controllers
 {
     /// <summary>
-    /// 排气信息
+    /// 消防
     /// </summary>
     [Route("api/[controller]")]
-    public class ExhaustController : BaseController
+    public class FireFightingController : BaseController
     {
-        private readonly ExhaustService bll = new ExhaustService();
+        private readonly FireFightingService bll = new FireFightingService();
         /// <summary>
         /// 新增
         /// </summary>
         /// <param name="add"></param>
         /// <returns></returns>
         [HttpPost, Route("add")]
-        public ResultModel Add([FromBody]ExhaustAdd add)
+        public ResultModel Add([FromBody]FireFightingAdd add)
         {
             add.User.Create = User.Identity.GetCurrentUser().UserName;
             add.User.CreateDate = DateTime.Now;
-            return GenerateResult("", "", bll.Add(add.User, add.Exhaust, add.List));
+            return GenerateResult("", "", bll.Add(add.User, add.FireFighting, add.List));
+
         }
         /// <summary>
         /// 修改
@@ -36,27 +38,27 @@ namespace WaterService.API.Controllers
         /// <param name="add"></param>
         /// <returns></returns>
         [HttpPost, Route("update")]
-        public ResultModel Update([FromBody]ExhaustAdd add)
+        public ResultModel Update([FromBody]FireFightingAdd add)
         {
             if (add.User != null)
             {
                 add.User.Modify = User.Identity.GetCurrentUser().UserName;
                 add.User.ModifyDate = DateTime.Now;
             }
-            if (add.Exhaust != null)
+            if (add.FireFighting != null)
             {
-                add.Exhaust.Modify = User.Identity.GetCurrentUser().UserName;
-                add.Exhaust.ModifyDate = DateTime.Now;
+                add.FireFighting.Modify = User.Identity.GetCurrentUser().UserName;
+                add.FireFighting.ModifyDate = DateTime.Now;
             }
-            return GenerateResult(bll.Update(add.User, add.Exhaust, add.List), "");
+            return GenerateResult(bll.Update(add.User, add.FireFighting, add.List), "");
         }
         /// <summary>
-        /// 查询
+        ///查询
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
         [HttpPost, Route("queryList")]
-        public ResultModel QueryList([FromBody] Model.ViewModel.SearchModel query)
+        public ResultModel QueryList([FromBody]SearchModel query)
         {
             return GenerateResult(bll.GetList(query), "");
         }

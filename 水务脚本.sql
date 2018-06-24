@@ -341,6 +341,28 @@ CREATE TABLE waterservice.watermeterinfo
 
 
 
+CREATE TABLE waterservice.firefightinginfo
+(
+  FireFightingId    INT          AUTO_INCREMENT PRIMARY KEY  COMMENT '主键(自增长)',
+  FireFightingCode  VARCHAR(50)                         COMMENT 'code'    NOT NULL,
+  FireFightingName  VARCHAR(50)                     COMMENT 'name'    NOT NULL,
+ TypeId       INT                               COMMENT '类型'    NOT NULL,
+  GenreId      INT                                 COMMENT '类型' NOT NULL,
+  Caliber      DOUBLE  DEFAULT '0'               COMMENT '口径' NOT  NULL,
+  Lat          DOUBLE  DEFAULT '0'                COMMENT '经度' NOT  NULL,
+  Lon          DOUBLE  DEFAULT '0'                COMMENT '纬度' NOT  NULL,
+  Remark       VARCHAR(200)                        COMMENT '备注'NULL,
+  `Create`   VARCHAR(50)                        COMMENT '创建人'    NOT NULL,
+  CreateDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP   COMMENT '创建时间',
+   Modify        VARCHAR(50)                    COMMENT '修改建人'    NULL,
+  ModifyDate    DATETIME                       COMMENT '修改时间'    NULL,
+  CONSTRAINT firefightinginfo_FireFightingId_uindex
+  UNIQUE (FireFightingId)
+)
+  COMMENT '消防信息'
+  ENGINE = InnoDB DEFAULT CHARSET=utf8; 
+  alter table waterservice.firefightinginfo AUTO_INCREMENT=7000000;
+
 
 insert into oauth.applicationinfo (DisplayName, `Create`, CreateDate) VALUES ('app','admin',now());
 insert into oauth.applicationinfo (DisplayName, `Create`, CreateDate) VALUES ('web','admin',now());
@@ -355,6 +377,7 @@ insert into waterservice.genreinfo (GenreName, `Create`, CreateDate) VALUES ('�
 insert into waterservice.genreinfo (GenreName, `Create`, CreateDate) VALUES ('排泥','admin',now());
 insert into waterservice.genreinfo (GenreName, `Create`, CreateDate) VALUES ('水表','admin',now());
 insert into waterservice.genreinfo (GenreName, `Create`, CreateDate) VALUES ('管线','admin',now());
+insert into waterservice.genreinfo (GenreName, `Create`, CreateDate) VALUES ('消防','admin',now());
 
 
 
@@ -392,3 +415,7 @@ create view watermeterview
 as
 
 select waterid,watercode ,watername,acreage,caliber,lat,lon,ui.userid,ui.username,ui.useraddress,ui.userphone,ui.remark,ui.`create`,ui.createdate,ui.modify,ui.modifydate,gi.genreid,gi.genrename,ti.typeid,ti.typename from  waterservice.watermeterinfo va join waterservice.userinfo ui on ui.meterid = va.waterid join waterservice.genreinfo gi on gi.genreid = va.genreid join waterservice.typeinfo ti on ti.typeid = va.typeid
+
+create view firefightingview
+as
+select firefightingid,firefightingcode  ,firefightingname,caliber,lat,lon,ui.userid,ui.username,ui.useraddress,ui.userphone,ui.remark,ui.`create`,ui.createdate,ui.modify,ui.modifydate,gi.genreid,gi.genrename,ti.typeid,ti.typename from  waterservice.firefightinginfo va join waterservice.userinfo ui on ui.meterid = va.firefightingid join waterservice.genreinfo gi on gi.genreid = va.genreid join waterservice.typeinfo ti on ti.typeid = va.typeid 

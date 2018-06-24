@@ -171,11 +171,11 @@ OAuth.UserInfo AS u LEFT JOIN ACL.ApplicationAndUser a on a.UserID=u.UserID  whe
 
         public UserInfoViewModel QueryUserList(string where)
         {
-            var valve = new UserInfoViewModel();
+            var fireFighting = new UserInfoViewModel();
             sql = " select * from  oauth.userinfo " + where;
-            valve.List = new MySqlHelper().FindToList<Userinfo>(sql).ToList();
-            valve.TotalCount = valve.List.Count;
-            return valve;
+            fireFighting.List = new MySqlHelper().FindToList<Userinfo>(sql).ToList();
+            fireFighting.TotalCount = fireFighting.List.Count;
+            return fireFighting;
         }
         public Model.Oauth.Userinfo QueryUserInfo(int userId)
         {

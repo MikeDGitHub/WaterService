@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DAL.Manage;
 using Model.ViewModel;
 using Model.WaterService;
 
@@ -9,14 +10,15 @@ namespace BLL
 {
     public class SludgeService
     {
+        private readonly SludgeManager dal = new SludgeManager();
         public bool Add(UserInfo user, SludgeInfo sludge, List<AttachmentInfo> list)
         {
-            return new DAL.Manage.SludgeManager().Add(user, sludge, list);
+            return dal.Add(user, sludge, list);
         }
 
         public bool Update(UserInfo user, SludgeInfo sludge, List<AttachmentInfo> list)
         {
-            return new DAL.Manage.SludgeManager().Update(user, sludge, list);
+            return dal.Update(user, sludge, list);
         }
 
         public SludgeViewModel GetList(SearchModel query)
@@ -30,7 +32,7 @@ namespace BLL
             {
                 query = new SearchModel();
             }
-            var v = new DAL.Manage.SludgeManager().GetList(where.ToString());
+            var v = dal.GetList(where.ToString());
             v.List = v.List.Skip(query.PageIndex * query.PageSize).Take(query.PageSize).ToList();
             var ids = new StringBuilder();
             where.Clear();
@@ -42,7 +44,7 @@ namespace BLL
             {
 
                 where.AppendFormat(" where MeterId in ({0}) ", ids.ToString().TrimEnd(','));
-                var att = new DAL.Manage.AttachmentManager().GetList(where.ToString());
+                var att = new AttachmentManager().GetList(where.ToString());
                 v.List.ForEach(item =>
                 {
                     item.AttachmentList = att.FindAll(p => p.MeterId == item.SludgeId);

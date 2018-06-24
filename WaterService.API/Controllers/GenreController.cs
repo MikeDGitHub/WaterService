@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using BLL;
 using Microsoft.AspNetCore.Mvc;
 using Model.ViewModel;
 using Model.WaterService;
@@ -16,6 +17,7 @@ namespace WaterService.API.Controllers
     [Route("api/[controller]")]
     public class GenreController : BaseController
     {
+        private readonly GenreService bll = new GenreService();
         /// <summary>
         /// 查询
         /// </summary>
@@ -24,11 +26,7 @@ namespace WaterService.API.Controllers
         [HttpPost, Route("queryList")]
         public ResultModel GetList([FromBody]SearchModel query)
         {
-            var m = new ResultModel();
-            m.StatusCode = HttpStatusCode.OK;
-            m.Json = new BLL.GenreService().GetList(query);
-            m.Status = true;
-            return m;
+            return GenerateResult(bll.GetList(query), "");
         }
         /// <summary>
         /// 新增
@@ -40,10 +38,7 @@ namespace WaterService.API.Controllers
         {
             genre.Create = User.Identity.GetCurrentUser().UserName;
             genre.CreateDate = DateTime.Now;
-            var m = new ResultModel();
-            m.StatusCode = HttpStatusCode.OK;
-            m.Status = new BLL.GenreService().AddInfo(genre);
-            return m;
+            return GenerateResult("", "", bll.AddInfo(genre));
         }
         /// <summary>
         /// 修改
@@ -55,10 +50,7 @@ namespace WaterService.API.Controllers
         {
             genre.Modify = User.Identity.GetCurrentUser().UserName;
             genre.ModifyDate = DateTime.Now;
-            var m = new ResultModel();
-            m.StatusCode = HttpStatusCode.OK;
-            m.Status = new BLL.GenreService().Update(genre);
-            return m;
+            return GenerateResult("", "", bll.Update(genre));
         }
         /// <summary>
         /// 查询根据ID
@@ -68,11 +60,7 @@ namespace WaterService.API.Controllers
         [HttpGet, Route("queryGenreInfo")]
         public ResultModel QueryGenreInfo([FromQuery] int id)
         {
-            var m = new ResultModel();
-            m.StatusCode = HttpStatusCode.OK;
-            m.Json = new BLL.GenreService().QueryGenreInfo(id);
-            m.Status = true;
-            return m;
+            return GenerateResult(bll.QueryGenreInfo(id), "");
         }
     }
 }

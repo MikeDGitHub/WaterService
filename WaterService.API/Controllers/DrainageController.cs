@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using BLL;
 using Microsoft.AspNetCore.Mvc;
 using Model.ViewModel;
 using Newtonsoft.Json.Linq;
@@ -15,6 +16,7 @@ namespace WaterService.API.Controllers
     [Route("api/[controller]")]
     public class DrainageController : BaseController
     {
+        private readonly DrainageService bll = new DrainageService();
         /// <summary>
         /// 新增
         /// </summary>
@@ -25,10 +27,8 @@ namespace WaterService.API.Controllers
         {
             add.User.Create = User.Identity.GetCurrentUser().UserName;
             add.User.CreateDate = DateTime.Now;
-            var m = new ResultModel();
-            m.StatusCode = HttpStatusCode.OK;
-            m.Status = new BLL.DrainageService().Add(add.User, add.Drainage, add.List);
-            return m;
+
+            return GenerateResult("", "", bll.Add(add.User, add.Drainage, add.List));
         }
         /// <summary>
         /// 修改
@@ -48,10 +48,7 @@ namespace WaterService.API.Controllers
                 add.Drainage.Modify = User.Identity.GetCurrentUser().UserName;
                 add.Drainage.ModifyDate = DateTime.Now;
             }
-            var m = new ResultModel();
-            m.StatusCode = HttpStatusCode.OK;
-            m.Status = new BLL.DrainageService().Update(add.User, add.Drainage, add.List);
-            return m;
+            return GenerateResult(bll.Update(add.User, add.Drainage, add.List), "");
         }
         /// <summary>
         /// 查询
@@ -61,11 +58,7 @@ namespace WaterService.API.Controllers
         [HttpPost, Route("queryList")]
         public ResultModel QueryList([FromBody]SearchModel query)
         {
-            var m = new ResultModel();
-            m.StatusCode = HttpStatusCode.OK;
-            m.Json = new BLL.DrainageService().GetList(query);
-            m.Status = true;
-            return m;
+            return GenerateResult(bll.GetList(query), "");
         }
     }
 }

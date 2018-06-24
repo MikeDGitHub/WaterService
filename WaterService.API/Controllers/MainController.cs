@@ -24,11 +24,7 @@ namespace WaterService.API.Controllers
         [HttpPost, Route("queryList")]
         public ResultModel QueryList([FromBody] MainQuery query)
         {
-            var m = new ResultModel();
-            m.StatusCode = HttpStatusCode.OK;
-            m.Json = MainService.QueryList(query);
-            m.Status = true;
-            return m;
+            return GenerateResult(MainService.QueryList(query), "");
         }
     }
 }

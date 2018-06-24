@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using BLL;
 using Microsoft.AspNetCore.Mvc;
 using Model.ViewModel;
 using Model.WaterService;
@@ -16,6 +17,7 @@ namespace WaterService.API.Controllers
     [Route("api/[controller]")]
     public class ValveController : BaseController
     {
+        private readonly ValveService bll = new ValveService();
         /// <summary>
         /// 新增
         /// </summary>
@@ -26,10 +28,7 @@ namespace WaterService.API.Controllers
         {
             add.User.Create = User.Identity.GetCurrentUser().UserName;
             add.User.CreateDate = DateTime.Now;
-            var m = new ResultModel();
-            m.StatusCode = HttpStatusCode.OK;
-            m.Status = new BLL.ValveService().Add(add.User, add.Valve, add.List);
-            return m;
+            return GenerateResult("", "", bll.Add(add.User, add.Valve, add.List));
         }
         /// <summary>
         /// 修改
@@ -49,10 +48,7 @@ namespace WaterService.API.Controllers
                 add.Valve.Modify = User.Identity.GetCurrentUser().UserName;
                 add.Valve.ModifyDate = DateTime.Now;
             }
-            var m = new ResultModel();
-            m.StatusCode = HttpStatusCode.OK;
-            m.Status = new BLL.ValveService().Update(add.User, add.Valve, add.List);
-            return m;
+            return GenerateResult("", "", bll.Update(add.User, add.Valve, add.List));
         }
         /// <summary>
         ///查询
@@ -62,11 +58,7 @@ namespace WaterService.API.Controllers
         [HttpPost, Route("queryList")]
         public ResultModel QueryList([FromBody]SearchModel query)
         {
-            var m = new ResultModel();
-            m.StatusCode = HttpStatusCode.OK;
-            m.Json = new BLL.ValveService().GetList(query);
-            m.Status = true;
-            return m;
+            return GenerateResult(bll.GetList(query), "");
         }
     }
 }

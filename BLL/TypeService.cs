@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DAL.Manage;
 using Model.ViewModel;
 using Model.WaterService;
 
@@ -9,6 +10,7 @@ namespace BLL
 {
     public class TypeService
     {
+        private readonly TypeManager dal = new TypeManager();
         public TypeViewModel GetList(SearchModel query)
         {
             var where = new StringBuilder();
@@ -25,7 +27,7 @@ namespace BLL
                 query = new SearchModel();
             }
             var v = new TypeViewModel();
-            var data = new DAL.Manage.TypeManager().GetList(where.ToString());
+            var data = dal.GetList(where.ToString());
             v.TotalCount = data.Count;
             v.List = data.Skip(query.PageIndex * query.PageSize).Take(query.PageSize).ToList();
             return v;
@@ -33,17 +35,17 @@ namespace BLL
 
         public bool AddInfo(TypeInfo typeInfo)
         {
-            return new DAL.Manage.TypeManager().AddInfo(typeInfo);
+            return dal.AddInfo(typeInfo);
         }
 
         public bool Update(TypeInfo typeInfo)
         {
-            return new DAL.Manage.TypeManager().Update(typeInfo);
+            return dal.Update(typeInfo);
         }
 
         public Model.WaterService.TypeInfo QueryTypeInfo(int id)
         {
-            return new DAL.Manage.TypeManager().QueryTypeInfo(id);
+            return dal.QueryTypeInfo(id);
         }
     }
 }

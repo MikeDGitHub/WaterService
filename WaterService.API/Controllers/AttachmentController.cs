@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using BLL;
 using Microsoft.AspNetCore.Mvc;
 using Model.ViewModel;
 using Model.WaterService;
@@ -16,6 +17,7 @@ namespace WaterService.API.Controllers
     [Route("api/[controller]")]
     public class AttachmentController : BaseController
     {
+        private readonly AttachmentService bll = new AttachmentService();
         /// <summary>
         ///新增
         /// </summary>
@@ -26,10 +28,7 @@ namespace WaterService.API.Controllers
         {
             attachment.Create = User.Identity.GetCurrentUser().UserName;
             attachment.CreateDate = DateTime.Now;
-            var m = new ResultModel();
-            m.StatusCode = HttpStatusCode.OK;
-            m.Status = new BLL.AttachmentService().Add(attachment);
-            return m;
+            return GenerateResult("", "", bll.Add(attachment));
         }
         /// <summary>
         ///修改
@@ -41,10 +40,7 @@ namespace WaterService.API.Controllers
         {
             attachment.Modify = User.Identity.GetCurrentUser().UserName;
             attachment.ModifyDate = DateTime.Now;
-            var m = new ResultModel();
-            m.StatusCode = HttpStatusCode.OK;
-            m.Status = new BLL.AttachmentService().Update(attachment);
-            return m;
+            return GenerateResult("", "", bll.Update(attachment));
         }
         [HttpPost, Route("addOrUpdate")]
 
@@ -55,10 +51,7 @@ namespace WaterService.API.Controllers
                 item.Create = User.Identity.GetCurrentUser().UserName;
                 item.CreateDate = DateTime.Now;
             });
-            var m = new ResultModel();
-            m.StatusCode = HttpStatusCode.OK;
-            m.Status = new BLL.AttachmentService().AddOrUpdate(list);
-            return m;
+            return GenerateResult("", "", bll.AddOrUpdate(list));
         }
     }
 }

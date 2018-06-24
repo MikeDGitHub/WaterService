@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using BLL;
 using Microsoft.AspNetCore.Mvc;
 using Model.ViewModel;
 using Newtonsoft.Json;
@@ -16,6 +17,7 @@ namespace WaterService.API.Controllers
     [Route("api/[controller]")]
     public class PipeLineController : BaseController
     {
+        private readonly PipeLineService bll = new PipeLineService();
         /// <summary>
         /// 新增
         /// </summary>
@@ -26,10 +28,7 @@ namespace WaterService.API.Controllers
         {
             add.User.Create = User.Identity.GetCurrentUser().UserName;
             add.User.CreateDate = DateTime.Now;
-            var m = new ResultModel();
-            m.StatusCode = HttpStatusCode.OK;
-            m.Status = new BLL.PipeLineService().Add(add.User, add.PipeLine, add.Track, add.List);
-            return m;
+            return GenerateResult("", "", bll.Add(add.User, add.PipeLine, add.Track, add.List));
         }
         /// <summary>
         /// 修改
@@ -49,10 +48,7 @@ namespace WaterService.API.Controllers
                 add.PipeLine.Modify = User.Identity.GetCurrentUser().UserName;
                 add.PipeLine.ModifyDate = DateTime.Now;
             }
-            var m = new ResultModel();
-            m.StatusCode = HttpStatusCode.OK;
-            m.Status = new BLL.PipeLineService().Update(add.User, add.PipeLine, add.Track, add.List);
-            return m;
+            return GenerateResult("", "", bll.Update(add.User, add.PipeLine, add.Track, add.List));
         }
         /// <summary>
         /// 查询
@@ -62,11 +58,7 @@ namespace WaterService.API.Controllers
         [HttpPost, Route("queryList")]
         public ResultModel QueryList([FromBody]SearchModel query)
         {
-            var m = new ResultModel();
-            m.StatusCode = HttpStatusCode.OK;
-            m.Json = new BLL.PipeLineService().GetList(query);
-            m.Status = true;
-            return m;
+            return GenerateResult(bll.GetList(query), "");
         }
     }
 }

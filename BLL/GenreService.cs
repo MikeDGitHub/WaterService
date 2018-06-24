@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DAL.Manage;
 using Model.ViewModel;
 using Model.WaterService;
 
@@ -9,6 +10,7 @@ namespace BLL
 {
     public class GenreService
     {
+        private readonly GenreManager dal = new GenreManager();
         public GenreViewModel GetList(SearchModel query)
         {
             var where = new StringBuilder();
@@ -25,7 +27,7 @@ namespace BLL
                 query = new SearchModel();
             }
             var v = new GenreViewModel();
-            var data = new DAL.Manage.GenreManager().GetList(where.ToString());
+            var data = dal.GetList(where.ToString());
             v.TotalCount = data.Count;
             v.List = data.Skip(query.PageIndex * query.PageSize).Take(query.PageSize).ToList();
             return v;
@@ -33,17 +35,17 @@ namespace BLL
 
         public bool AddInfo(GenreInfo genre)
         {
-            return new DAL.Manage.GenreManager().AddInfo(genre);
+            return dal.AddInfo(genre);
         }
 
         public bool Update(GenreInfo genre)
         {
-            return new DAL.Manage.GenreManager().Update(genre);
+            return dal.Update(genre);
         }
 
         public Model.WaterService.GenreInfo QueryGenreInfo(int id)
         {
-            return new DAL.Manage.GenreManager().QueryGenreInfo(id);
+            return dal.QueryGenreInfo(id);
         }
     }
 }
