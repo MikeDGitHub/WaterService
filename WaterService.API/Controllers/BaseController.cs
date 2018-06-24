@@ -12,10 +12,11 @@ namespace WaterService.API.Controllers
     /// <summary>
     /// 基类
     /// </summary>
-    //[Authorize]
+    [Authorize]
 
     public class BaseController : Controller
     {
+        [HttpGet]
         public ResultModel GenerateResult(object json, string msg, bool Status = true)
         {
             var m = new ResultModel();
