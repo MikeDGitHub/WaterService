@@ -25,9 +25,10 @@ namespace BLL
             var sludge = Task.Factory.StartNew(() => new MainManage().QueryList<SludgeInfo>(sql));
             var valve = Task.Factory.StartNew(() => new MainManage().QueryList<ValveInfo>(sql));
             var water = Task.Factory.StartNew(() => new MainManage().QueryList<WaterMeterInfo>(sql));
+            var fire = Task.Factory.StartNew(() => new MainManage().QueryList<FireFightingInfo>(sql));
             var genre = Task.Factory.StartNew(() => new GenreManager().GetList(""));
             var type = Task.Factory.StartNew(() => new TypeManager().GetList(""));
-            Task.WaitAll(drainage, exhaust, pipe, sludge, valve, water, genre, type);
+            Task.WaitAll(drainage, exhaust, pipe, sludge, valve, water, genre, type, fire);
             var g = genre.Result;
             var t = type.Result;
             var ids = new StringBuilder();
@@ -155,6 +156,26 @@ namespace BLL
                 });
                 ids.Append($"{item.PipeLineId},");
                 trackIds.Append($"{item.PipeLineId},");
+            });
+            fire.Result.ForEach(item =>
+            {
+                list.Add(new MainViewModel()
+                {
+                    Id = item.FireFightingId,
+                    Code = item.FireFightingCode,
+                    Name = item.FireFightingName,
+                    Lat = item.Lat,
+                    Lon = item.Lon,
+                    GenreId = item.GenreId,
+                    TypeId = item.TypeId,
+                    Caliber = item.Caliber,
+                    Create = item.Create,
+                    CreateDate = item.CreateDate,
+                    Status = item.Status,
+                    Modify = item.Modify,
+                    ModifyDate = item.ModifyDate
+                });
+                ids.Append($"{item.FireFightingId},");
             });
             var userTask = Task.Factory.StartNew(() =>
             {

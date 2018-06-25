@@ -47,7 +47,7 @@ namespace WaterService.API
                 c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Model.xml"));
                 c.OperationFilter<HttpHeaderFilter>();
             });
-#if Release
+
             services.AddAuthorization();
             services
                 .AddAuthentication("Bearer")
@@ -58,7 +58,6 @@ namespace WaterService.API
                     option.ApiName = "socialnetwork";//api scope
                 });
 
-#endif
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,9 +67,9 @@ namespace WaterService.API
             loggerFactory.AddDebug();
 
             app.UseStaticFiles();
-#if Release
+
             app.UseAuthentication();
-#endif
+
             app.UseCors("AllowCors");
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
