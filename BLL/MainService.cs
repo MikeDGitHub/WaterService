@@ -210,7 +210,18 @@ namespace BLL
                     return new List<AttachmentInfo>();
                 }
             });
-            Task.WaitAll(userTask, trackTask, attTask);
+            var maintenanceService = Task.Factory.StartNew(() =>
+            {
+                if (ids.Length > 1)
+                {
+                    return new MaintenanceService().GetList($" where MeterId in ({ids.ToString().TrimEnd(',')})  ");
+                }
+                else
+                {
+                    return new List<MaintenanceInfo>();
+                }
+            });
+            Task.WaitAll(userTask, trackTask, attTask, maintenanceService);
             var userList = userTask.Result;
             var trackList = trackTask.Result;
             var att = attTask.Result;
@@ -241,6 +252,11 @@ namespace BLL
                     {
                         item.TrackInfo = track;
                     }
+                }
+                var ms = maintenanceService.Result.FindAll(p => p.MeterId == item.Id);
+                if (ms.Count > 0)
+                {
+                    item.ReplaceTime = ms[0].ReplaceTime;
                 }
                 item.AttachmentList = att.FindAll(p => p.MeterId == item.Id);
             });

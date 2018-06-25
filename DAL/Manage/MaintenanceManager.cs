@@ -20,8 +20,13 @@ namespace DAL.Manage
 
         public List<MaintenanceInfo> GetList(string where)
         {
-            var sql = "select * from WaterService.MaintenanceInfo " + where;
+            var sql = "select * from WaterService.MaintenanceInfo " + where + " order by ReplaceTime desc  ";
             return new MySqlHelper().FindToList<MaintenanceInfo>(sql).ToList();
+        }
+        public MaintenanceInfo GetModel(int id)
+        {
+            var sql = "select  top 1 * from WaterService.MaintenanceInfo where MeterId=" + id + " order by ReplaceTime  desc ";
+            return new MySqlHelper().FindToList<MaintenanceInfo>(sql).ToList().FirstOrDefault();
         }
     }
 }

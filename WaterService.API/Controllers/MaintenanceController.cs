@@ -38,7 +38,8 @@ namespace WaterService.API.Controllers
         [HttpPost, Route("queryList")]
         public ResultModel QueryList([FromBody]SearchModel query)
         {
-            return GenerateResult(bll.GetList(query), "");
+            return null;
+            //return GenerateResult(bll.GetList(query), "");
         }
     }
 }
