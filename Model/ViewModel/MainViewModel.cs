@@ -35,5 +35,7 @@ namespace Model.ViewModel
         /// 
         /// </summary>
         public string ModelName { get; set; }
+        public string UserName { get; set; }
+        public string UserPhone { get; set; }
     }
 }

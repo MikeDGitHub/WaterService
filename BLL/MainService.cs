@@ -49,7 +49,7 @@ namespace BLL
                     CreateDate = item.CreateDate,
                     Status = item.Status,
                     Modify = item.Modify,
-                    ModifyDate = item.ModifyDate
+                    ModifyDate = item.ModifyDate,
                 });
                 ids.Append($"{item.DrainageId},");
             });
@@ -231,6 +231,8 @@ namespace BLL
                 {
                     item.Remark = user.Remark;
                     item.UserAddress = user.UserAddress;
+                    item.UserName = user.UserName;
+                    item.UserPhone = user.UserPhone;
                 }
                 if (item.GenreId == 1005)
                 {
