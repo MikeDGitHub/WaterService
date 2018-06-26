@@ -20,6 +20,7 @@ namespace Model.ViewModel
         /// </summary>
         /// <returns></returns>
         public string UserName { get; set; }
+        public string UserCode { get; set; }
         /// <summary>
         /// 用户地址
         /// </summary>
