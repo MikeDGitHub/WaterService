@@ -14,7 +14,7 @@ namespace DAL.Manage
         {
             var sb = new StringBuilder();
             var id = new TrackManager().Add(track, user.Create, user.CreateDate);
-            sb.AppendFormat("insert into WaterService.PipeLineInfo (PipeLineName,TrackId,Caliber,Remark,`Create`,CreateDate,TypeId,GenreId,StartAddress,EndAddress,PipeLineCode,ModelId,ModelName,Acreage) values('{0}',{1},{2},'{3}','{4}','{5}',{6},{7},'{8}','{9}','{10}',{11},'{12}',{13});select @@IDENTITY;", pipeLine.PipeLineName, id, pipeLine.Caliber, user.Remark, user.Create, user.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"), pipeLine.TypeId, pipeLine.GenreId, pipeLine.StartAddress, pipeLine.EndAddress, pipeLine.PipeLineCode, pipeLine.ModelId, pipeLine.ModelName, pipeLine.Acreage);
+            sb.AppendFormat("insert into WaterService.PipeLineInfo (PipeLineName,TrackId,Caliber,Remark,`Create`,CreateDate,TypeId,GenreId,StartAddress,EndAddress,PipeLineCode,ModelId,ModelName,Acreage) values('{0}',{1},{2},'{3}','{4}','{5}',{6},{7},'{8}','{9}','{10}',{11},'{12}',{13});select @@IDENTITY;", pipeLine.PipeLineName, id, pipeLine.Caliber, user.Remark, user.Create, pipeLine.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"), pipeLine.TypeId, pipeLine.GenreId, pipeLine.StartAddress, pipeLine.EndAddress, pipeLine.PipeLineCode, pipeLine.ModelId, pipeLine.ModelName, pipeLine.Acreage);
             var pid = int.Parse(new MySqlHelper().ExecuteScalar(sb.ToString()).ToString());
             new UserManage().Add_WaterService_UserInfo(user, pid);
             new AttachmentManager().AddList(list, pid, user.Create, user.CreateDate, pipeLine.GenreId);

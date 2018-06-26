@@ -17,7 +17,7 @@ namespace DAL.Manage
         public int Add(UserInfo user, ValveInfo valve, List<AttachmentInfo> list)
         {
             var sb = new StringBuilder();
-            sb.AppendFormat("insert into WaterService.ValveInfo(ValveCode,ValveName,TypeId,GenreId,Caliber,Lat,Lon,`Create`,CreateDate) values('{0}','{1}',{2},{3},{4},{5},{6},'{7}','{8}');select @@IDENTITY;", valve.ValveCode, valve.ValveName, valve.TypeId, valve.GenreId, valve.Caliber, valve.Lat, valve.Lon, user.Create, user.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"));
+            sb.AppendFormat("insert into WaterService.ValveInfo(ValveCode,ValveName,TypeId,GenreId,Caliber,Lat,Lon,`Create`,CreateDate) values('{0}','{1}',{2},{3},{4},{5},{6},'{7}','{8}');select @@IDENTITY;", valve.ValveCode, valve.ValveName, valve.TypeId, valve.GenreId, valve.Caliber, valve.Lat, valve.Lon, user.Create, valve.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"));
             var id = int.Parse(new MySqlHelper().ExecuteScalar(sb.ToString()).ToString());
             new UserManage().Add_WaterService_UserInfo(user, id);
             new AttachmentManager().AddList(list, id, user.Create, user.CreateDate, valve.GenreId);

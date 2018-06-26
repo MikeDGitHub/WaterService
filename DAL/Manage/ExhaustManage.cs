@@ -13,7 +13,7 @@ namespace DAL.Manage
         public int Add(UserInfo user, ExhaustInfo exhaust, List<AttachmentInfo> list)
         {
             var sb = new StringBuilder();
-            sb.AppendFormat("insert into waterService.exhaustInfo(ExhaustCode,ExhaustName,TypeId,GenreId,Caliber,Lat,Lon,`Create`,CreateDate) values('{0}','{1}',{2},{3},{4},{5},{6},'{7}','{8}');select @@IDENTITY;", exhaust.ExhaustCode, exhaust.ExhaustName, exhaust.TypeId, exhaust.GenreId, exhaust.Caliber, exhaust.Lat, exhaust.Lon, user.Create, user.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"));
+            sb.AppendFormat("insert into waterService.exhaustInfo(ExhaustCode,ExhaustName,TypeId,GenreId,Caliber,Lat,Lon,`Create`,CreateDate) values('{0}','{1}',{2},{3},{4},{5},{6},'{7}','{8}');select @@IDENTITY;", exhaust.ExhaustCode, exhaust.ExhaustName, exhaust.TypeId, exhaust.GenreId, exhaust.Caliber, exhaust.Lat, exhaust.Lon, user.Create, exhaust.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"));
             var id = int.Parse(new MySqlHelper().ExecuteScalar(sb.ToString()).ToString());
             new UserManage().Add_WaterService_UserInfo(user, id);
             new AttachmentManager().AddList(list, id, user.Create, user.CreateDate, exhaust.GenreId);

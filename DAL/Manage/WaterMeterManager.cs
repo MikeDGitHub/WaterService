@@ -13,7 +13,7 @@ namespace DAL.Manage
         public int Add(UserInfo user, WaterMeterInfo water, List<AttachmentInfo> list)
         {
             var sb = new StringBuilder();
-            sb.AppendFormat("insert into WaterService.WaterMeterInfo(WaterCode,WaterName,TypeId,GenreId,Caliber,Lat,Lon,`Create`,CreateDate,Acreage) values('{0}','{1}',{2},{3},{4},{5},{6},'{7}','{8}',{9});select @@IDENTITY;", water.WaterMeterCode, water.WaterMeterName, water.TypeId, water.GenreId, water.Caliber, water.Lat, water.Lon, user.Create, user.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"), water.Acreage);
+            sb.AppendFormat("insert into WaterService.WaterMeterInfo(WaterCode,WaterName,TypeId,GenreId,Caliber,Lat,Lon,`Create`,CreateDate,Acreage) values('{0}','{1}',{2},{3},{4},{5},{6},'{7}','{8}',{9});select @@IDENTITY;", water.WaterMeterCode, water.WaterMeterName, water.TypeId, water.GenreId, water.Caliber, water.Lat, water.Lon, user.Create, water.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"), water.Acreage);
             var id = int.Parse(new MySqlHelper().ExecuteScalar(sb.ToString()).ToString());
             new UserManage().Add_WaterService_UserInfo(user, id);
             new AttachmentManager().AddList(list, id, user.Create, user.CreateDate, water.GenreId);
@@ -26,7 +26,7 @@ namespace DAL.Manage
                 CreateDate = DateTime.Now,
                 InstallTime = DateTime.Now,
             });
-            return id ;
+            return id;
         }
 
         public bool Update(UserInfo user, WaterMeterInfo water, List<AttachmentInfo> list)
