@@ -246,6 +246,7 @@ namespace BLL
                     item.UserName = user.UserName;
                     item.UserPhone = user.UserPhone;
                     item.UserId = user.UserId;
+                    item.UserCode = user.UserCode;
                 }
                 if (item.GenreId == 1005)
                 {

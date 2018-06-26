@@ -419,3 +419,5 @@ select waterid,watercode ,watername,acreage,caliber,lat,lon,ui.userid,ui.usernam
 create view firefightingview
 as
 select firefightingid,firefightingcode  ,firefightingname,caliber,lat,lon,ui.userid,ui.username,ui.useraddress,ui.userphone,ui.remark,ui.`create`,ui.createdate,ui.modify,ui.modifydate,gi.genreid,gi.genrename,ti.typeid,ti.typename from  waterservice.firefightinginfo va join waterservice.userinfo ui on ui.meterid = va.firefightingid join waterservice.genreinfo gi on gi.genreid = va.genreid join waterservice.typeinfo ti on ti.typeid = va.typeid 
+
+ALTER TABLE waterservice.userinfo ADD UserCode varchar(50) NULL;

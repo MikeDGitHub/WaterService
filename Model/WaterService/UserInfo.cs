@@ -9,6 +9,7 @@ namespace Model.WaterService
     public class UserInfo : BaseEntity
     {
         public int UserId { get; set; }
+        public string UserCode { get; set; }
         public string UserName { get; set; }
         public string UserAddress { get; set; }
         public string UserPhone { get; set; }
