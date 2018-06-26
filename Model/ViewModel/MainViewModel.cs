@@ -37,6 +37,7 @@ namespace Model.ViewModel
         public string ModelName { get; set; }
         public string UserName { get; set; }
         public string UserPhone { get; set; }
+        public int UserId { get; set; }
         public DateTime ReplaceTime { get; set; }
     }
 }

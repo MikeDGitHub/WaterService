@@ -11,7 +11,7 @@ namespace BLL
     public class SludgeService
     {
         private readonly SludgeManager dal = new SludgeManager();
-        public bool Add(UserInfo user, SludgeInfo sludge, List<AttachmentInfo> list)
+        public int Add(UserInfo user, SludgeInfo sludge, List<AttachmentInfo> list)
         {
             return dal.Add(user, sludge, list);
         }

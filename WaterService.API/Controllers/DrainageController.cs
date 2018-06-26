@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BLL;
 using Microsoft.AspNetCore.Mvc;
 using Model.ViewModel;
+using Model.WaterService;
 using Newtonsoft.Json.Linq;
 
 namespace WaterService.API.Controllers
@@ -16,7 +17,7 @@ namespace WaterService.API.Controllers
     [Route("api/[controller]")]
     public class DrainageController : BaseController
     {
-        private readonly DrainageService bll = new DrainageService();
+        private readonly DrainageService _bll = new DrainageService();
         /// <summary>
         /// 新增
         /// </summary>
@@ -27,8 +28,9 @@ namespace WaterService.API.Controllers
         {
             add.User.Create = User.Identity.GetCurrentUser().UserName;
             add.User.CreateDate = DateTime.Now;
-
-            return GenerateResult("", "", bll.Add(add.User, add.Drainage, add.List));
+            var id = _bll.Add(add.User, add.Drainage, add.List);
+            add.Drainage.DrainageId = id;
+            return GenerateResult(add.Drainage, "", id!=0);
         }
         /// <summary>
         /// 修改
@@ -48,7 +50,7 @@ namespace WaterService.API.Controllers
                 add.Drainage.Modify = User.Identity.GetCurrentUser().UserName;
                 add.Drainage.ModifyDate = DateTime.Now;
             }
-            return GenerateResult(bll.Update(add.User, add.Drainage, add.List), "");
+            return GenerateResult(_bll.Update(add.User, add.Drainage, add.List), "");
         }
         /// <summary>
         /// 查询
@@ -58,7 +60,17 @@ namespace WaterService.API.Controllers
         [HttpPost, Route("queryList")]
         public ResultModel QueryList([FromBody]SearchModel query)
         {
-            return GenerateResult(bll.GetList(query), "");
+            return GenerateResult(_bll.GetList(query), "");
+        }
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpPost, Route("queryInfo")]
+        public ResultModel QueryInfo([FromBody] QueryInfo query)
+        {
+            return GenerateResult(MainService.QueryModel<DrainageInfo>(query.Id, "DrainageId"), "");
         }
     }
 }

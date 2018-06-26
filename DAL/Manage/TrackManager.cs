@@ -83,7 +83,7 @@ namespace DAL.Manage
                 obj = row["TrackId"];
                 if (obj != DBNull.Value)
                 {
-                    t.TrackId = int.Parse(row["Modify"].ToString());
+                    t.TrackId = int.Parse(row["TrackId"].ToString());
                 }
                 obj = row["Modify"];
                 if (obj != DBNull.Value)

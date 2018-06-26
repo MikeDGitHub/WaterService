@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BLL;
 using Microsoft.AspNetCore.Mvc;
 using Model.ViewModel;
+using Model.WaterService;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -17,7 +18,7 @@ namespace WaterService.API.Controllers
     [Route("api/[controller]")]
     public class PipeLineController : BaseController
     {
-        private readonly PipeLineService bll = new PipeLineService();
+        private readonly PipeLineService _bll = new PipeLineService();
         /// <summary>
         /// 新增
         /// </summary>
@@ -28,7 +29,9 @@ namespace WaterService.API.Controllers
         {
             add.User.Create = User.Identity.GetCurrentUser().UserName;
             add.User.CreateDate = DateTime.Now;
-            return GenerateResult("", "", bll.Add(add.User, add.PipeLine, add.Track, add.List));
+            var id = _bll.Add(add.User, add.PipeLine, add.Track, add.List);
+            add.PipeLine.PipeLineId = id;
+            return GenerateResult(add.PipeLine, "",id!=0);
         }
         /// <summary>
         /// 修改
@@ -48,7 +51,7 @@ namespace WaterService.API.Controllers
                 add.PipeLine.Modify = User.Identity.GetCurrentUser().UserName;
                 add.PipeLine.ModifyDate = DateTime.Now;
             }
-            return GenerateResult("", "", bll.Update(add.User, add.PipeLine, add.Track, add.List));
+            return GenerateResult("", "", _bll.Update(add.User, add.PipeLine, add.Track, add.List));
         }
         /// <summary>
         /// 查询
@@ -58,7 +61,17 @@ namespace WaterService.API.Controllers
         [HttpPost, Route("queryList")]
         public ResultModel QueryList([FromBody]SearchModel query)
         {
-            return GenerateResult(bll.GetList(query), "");
+            return GenerateResult(_bll.GetList(query), "");
+        }
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpPost, Route("queryInfo")]
+        public ResultModel QueryInfo([FromBody] QueryInfo query)
+        {
+            return GenerateResult(MainService.QueryModel<PipeLineInfo>(query.Id, "PipeLineId"), "");
         }
     }
 }

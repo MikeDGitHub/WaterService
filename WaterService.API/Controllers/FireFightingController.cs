@@ -18,7 +18,7 @@ namespace WaterService.API.Controllers
     [Route("api/[controller]")]
     public class FireFightingController : BaseController
     {
-        private readonly FireFightingService bll = new FireFightingService();
+        private readonly FireFightingService _bll = new FireFightingService();
         /// <summary>
         /// 新增
         /// </summary>
@@ -29,7 +29,9 @@ namespace WaterService.API.Controllers
         {
             add.User.Create = User.Identity.GetCurrentUser().UserName;
             add.User.CreateDate = DateTime.Now;
-            return GenerateResult("", "", bll.Add(add.User, add.FireFighting, add.List));
+            var id = _bll.Add(add.User, add.FireFighting, add.List);
+            add.FireFighting.FireFightingId = id;
+            return GenerateResult(add.FireFighting, "",id!=0);
 
         }
         /// <summary>
@@ -50,7 +52,7 @@ namespace WaterService.API.Controllers
                 add.FireFighting.Modify = User.Identity.GetCurrentUser().UserName;
                 add.FireFighting.ModifyDate = DateTime.Now;
             }
-            return GenerateResult(bll.Update(add.User, add.FireFighting, add.List), "");
+            return GenerateResult(_bll.Update(add.User, add.FireFighting, add.List), "");
         }
         /// <summary>
         ///查询
@@ -60,7 +62,17 @@ namespace WaterService.API.Controllers
         [HttpPost, Route("queryList")]
         public ResultModel QueryList([FromBody]SearchModel query)
         {
-            return GenerateResult(bll.GetList(query), "");
+            return GenerateResult(_bll.GetList(query), "");
+        }
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpPost, Route("queryInfo")]
+        public ResultModel QueryInfo([FromBody] QueryInfo query)
+        {
+            return GenerateResult(MainService.QueryModel<FireFightingInfo>(query.Id, "FireFightingId"), "");
         }
     }
 }

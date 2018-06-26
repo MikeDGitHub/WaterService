@@ -11,7 +11,7 @@ namespace BLL
     public class DrainageService
     {
         private readonly DrainageManager dal = new DrainageManager();
-        public bool Add(UserInfo user, DrainageInfo drainage, List<AttachmentInfo> list)
+        public int Add(UserInfo user, DrainageInfo drainage, List<AttachmentInfo> list)
         {
             return dal.Add(user, drainage, list);
         }

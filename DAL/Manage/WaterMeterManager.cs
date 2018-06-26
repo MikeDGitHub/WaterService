@@ -10,7 +10,7 @@ namespace DAL.Manage
 {
     public class WaterMeterManager
     {
-        public bool Add(UserInfo user, WaterMeterInfo water, List<AttachmentInfo> list)
+        public int Add(UserInfo user, WaterMeterInfo water, List<AttachmentInfo> list)
         {
             var sb = new StringBuilder();
             sb.AppendFormat("insert into WaterService.WaterMeterInfo(WaterCode,WaterName,TypeId,GenreId,Caliber,Lat,Lon,`Create`,CreateDate,Acreage) values('{0}','{1}',{2},{3},{4},{5},{6},'{7}','{8}',{9});select @@IDENTITY;", water.WaterMeterCode, water.WaterMeterName, water.TypeId, water.GenreId, water.Caliber, water.Lat, water.Lon, user.Create, user.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"), water.Acreage);
@@ -26,7 +26,7 @@ namespace DAL.Manage
                 CreateDate = DateTime.Now,
                 InstallTime = DateTime.Now,
             });
-            return id != 0;
+            return id ;
         }
 
         public bool Update(UserInfo user, WaterMeterInfo water, List<AttachmentInfo> list)

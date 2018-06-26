@@ -10,7 +10,7 @@ namespace DAL.Manage
 {
     public class PipeLineManager
     {
-        public bool Add(UserInfo user, PipeLineInfo pipeLine, TrackInfo track, List<AttachmentInfo> list)
+        public int Add(UserInfo user, PipeLineInfo pipeLine, TrackInfo track, List<AttachmentInfo> list)
         {
             var sb = new StringBuilder();
             var id = new TrackManager().Add(track, user.Create, user.CreateDate);
@@ -27,7 +27,7 @@ namespace DAL.Manage
                 CreateDate = DateTime.Now,
                 InstallTime = DateTime.Now,
             });
-            return pid != 0;
+            return pid;
         }
 
         public bool Update(UserInfo user, PipeLineInfo pipeLine, TrackInfo track, List<AttachmentInfo> list)

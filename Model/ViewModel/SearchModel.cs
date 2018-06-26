@@ -64,4 +64,9 @@ namespace Model.ViewModel
         /// </summary>
         public double Distance { get; set; }
     }
+
+    public class QueryInfo
+    {
+        public int Id { get; set; }
+    }
 }

@@ -10,14 +10,14 @@ namespace BLL
 {
     public class FireFightingService
     {
-        private readonly FireFightingManage dal = new FireFightingManage();
-        public bool Add(Model.WaterService.UserInfo user, Model.WaterService.FireFightingInfo fireFightingInfo, List<Model.WaterService.AttachmentInfo> list)
+        private readonly FireFightingManage _dal = new FireFightingManage();
+        public int Add(Model.WaterService.UserInfo user, Model.WaterService.FireFightingInfo fireFightingInfo, List<Model.WaterService.AttachmentInfo> list)
         {
-            return dal.Add(user, fireFightingInfo, list);
+            return _dal.Add(user, fireFightingInfo, list);
         }
         public bool Update(UserInfo user, FireFightingInfo fireFightingInfo, List<AttachmentInfo> list)
         {
-            return dal.Update(user, fireFightingInfo, list);
+            return _dal.Update(user, fireFightingInfo, list);
         }
         public FireFightingViewModel GetList(SearchModel query)
         {
@@ -30,7 +30,7 @@ namespace BLL
             {
                 query = new SearchModel();
             }
-            var v = dal.GetList(where.ToString());
+            var v = _dal.GetList(where.ToString());
             v.List = v.List.Skip(query.PageIndex * query.PageSize).Take(query.PageSize).ToList();
             var ids = new StringBuilder();
             where.Clear();

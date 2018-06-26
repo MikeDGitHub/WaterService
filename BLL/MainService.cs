@@ -17,7 +17,8 @@ namespace BLL
         {
             var list = new List<MainViewModel>();
             var positionModel = DistanceHelper.FindNeighPosition(query.Longitude, query.Latitude, query.Distance);
-            var sql = $" lon<={positionModel.MaxLat} and lon>={positionModel.MinLat} and lat>={positionModel.MaxLng} and lat<={positionModel.MinLng} ";
+            var sql =
+                $" lon<={positionModel.MaxLat} and lon>={positionModel.MinLat} and lat>={positionModel.MaxLng} and lat<={positionModel.MinLng} ";
 
             var drainage = Task.Factory.StartNew(() => new MainManage().QueryList<DrainageInfo>(sql));
             var exhaust = Task.Factory.StartNew(() => new MainManage().QueryList<ExhaustInfo>(sql));
@@ -131,7 +132,7 @@ namespace BLL
                     Modify = item.Modify,
                     ModifyDate = item.ModifyDate
                 });
-                ids.Append($"{item.WaterMeterId},");
+                ids.Append($"{item.WaterId},");
             });
             pipe.Result.ForEach(item =>
             {
@@ -189,16 +190,16 @@ namespace BLL
                 }
             });
             var trackTask = Task.Factory.StartNew(() =>
-              {
-                  if (trackIds.Length > 1)
-                  {
-                      return new TrackManager().GetList(trackIds.ToString().TrimEnd(','));
-                  }
-                  else
-                  {
-                      return new List<TrackInfo>();
-                  }
-              });
+            {
+                if (trackIds.Length > 1)
+                {
+                    return new TrackManager().GetList(trackIds.ToString().TrimEnd(','));
+                }
+                else
+                {
+                    return new List<TrackInfo>();
+                }
+            });
             var attTask = Task.Factory.StartNew(() =>
             {
                 if (ids.Length > 1)
@@ -244,6 +245,7 @@ namespace BLL
                     item.UserAddress = user.UserAddress;
                     item.UserName = user.UserName;
                     item.UserPhone = user.UserPhone;
+                    item.UserId = user.UserId;
                 }
                 if (item.GenreId == 1005)
                 {
@@ -261,6 +263,11 @@ namespace BLL
                 item.AttachmentList = att.FindAll(p => p.MeterId == item.Id);
             });
             return list;
+        }
+
+        public static T QueryModel<T>(int id, string where = null) where T : class, new()
+        {
+            return new MainManage().QueryModel<T>(id, where);
         }
     }
 }

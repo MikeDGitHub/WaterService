@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BLL;
 using Microsoft.AspNetCore.Mvc;
 using Model.ViewModel;
+using Model.WaterService;
 using Newtonsoft.Json.Linq;
 
 namespace WaterService.API.Controllers
@@ -16,7 +17,7 @@ namespace WaterService.API.Controllers
     [Route("api/[controller]")]
     public class SludgeController : BaseController
     {
-        private readonly SludgeService bll = new SludgeService();
+        private readonly SludgeService _bll = new SludgeService();
         /// <summary>
         /// 新增
         /// </summary>
@@ -27,7 +28,9 @@ namespace WaterService.API.Controllers
         {
             add.User.Create = User.Identity.GetCurrentUser().UserName;
             add.User.CreateDate = DateTime.Now;
-            return GenerateResult("", "", bll.Add(add.User, add.Sludge, add.List));
+            var id = _bll.Add(add.User, add.Sludge, add.List);
+            add.Sludge.SludgeId = id;
+            return GenerateResult(add.Sludge, "",id!=0 );
         }
         /// <summary>
         /// 修改
@@ -47,7 +50,7 @@ namespace WaterService.API.Controllers
                 add.Sludge.Modify = User.Identity.GetCurrentUser().UserName;
                 add.Sludge.ModifyDate = DateTime.Now;
             }
-            return GenerateResult("", "", bll.Update(add.User, add.Sludge, add.List));
+            return GenerateResult("", "", _bll.Update(add.User, add.Sludge, add.List));
         }
         /// <summary>
         ///查询
@@ -57,7 +60,17 @@ namespace WaterService.API.Controllers
         [HttpPost, Route("queryList")]
         public ResultModel QueryList([FromBody]SearchModel query)
         {
-            return GenerateResult(bll.GetList(query), "");
+            return GenerateResult(_bll.GetList(query), "");
+        }
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpPost, Route("queryInfo")]
+        public ResultModel QueryInfo([FromBody] QueryInfo query)
+        {
+            return GenerateResult(MainService.QueryModel<SludgeInfo>(query.Id, "SludgeId"), "");
         }
     }
 }

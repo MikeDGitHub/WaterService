@@ -10,7 +10,7 @@ namespace DAL.Manage
 {
     public class ExhaustManage
     {
-        public bool Add(UserInfo user, ExhaustInfo exhaust, List<AttachmentInfo> list)
+        public int Add(UserInfo user, ExhaustInfo exhaust, List<AttachmentInfo> list)
         {
             var sb = new StringBuilder();
             sb.AppendFormat("insert into waterService.exhaustInfo(ExhaustCode,ExhaustName,TypeId,GenreId,Caliber,Lat,Lon,`Create`,CreateDate) values('{0}','{1}',{2},{3},{4},{5},{6},'{7}','{8}');select @@IDENTITY;", exhaust.ExhaustCode, exhaust.ExhaustName, exhaust.TypeId, exhaust.GenreId, exhaust.Caliber, exhaust.Lat, exhaust.Lon, user.Create, user.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"));
@@ -26,7 +26,7 @@ namespace DAL.Manage
                 CreateDate = DateTime.Now,
                 InstallTime = DateTime.Now,
             });
-            return id != 0;
+            return id;
         }
         public bool Update(UserInfo user, ExhaustInfo exhaust, List<AttachmentInfo> list)
         {

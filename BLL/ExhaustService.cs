@@ -11,7 +11,7 @@ namespace BLL
     public class ExhaustService
     {
         private readonly ExhaustManage dal = new ExhaustManage();
-        public bool Add(Model.WaterService.UserInfo user, Model.WaterService.ExhaustInfo exhaust, List<Model.WaterService.AttachmentInfo> list)
+        public int Add(Model.WaterService.UserInfo user, Model.WaterService.ExhaustInfo exhaust, List<Model.WaterService.AttachmentInfo> list)
         {
             return dal.Add(user, exhaust, list);
         }

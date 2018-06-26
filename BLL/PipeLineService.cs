@@ -10,15 +10,15 @@ namespace BLL
 {
     public class PipeLineService
     {
-        private readonly PipeLineManager dal = new PipeLineManager();
-        public bool Add(UserInfo user, PipeLineInfo pipeLine, TrackInfo track, List<AttachmentInfo> list)
+        private readonly PipeLineManager _dal = new PipeLineManager();
+        public int Add(UserInfo user, PipeLineInfo pipeLine, TrackInfo track, List<AttachmentInfo> list)
         {
-            return dal.Add(user, pipeLine, track, list);
+            return _dal.Add(user, pipeLine, track, list);
         }
 
         public bool Update(UserInfo user, PipeLineInfo pipeLine, TrackInfo track, List<AttachmentInfo> list)
         {
-            return dal.Update(user, pipeLine, track, list);
+            return _dal.Update(user, pipeLine, track, list);
         }
 
         public PipeLineViewModel GetList(SearchModel query)
@@ -33,7 +33,7 @@ namespace BLL
             {
                 query = new SearchModel();
             }
-            var v = dal.GetList(where.ToString());
+            var v = _dal.GetList(where.ToString());
             v.List = v.List.Skip(query.PageIndex * query.PageSize).Take(query.PageSize).ToList();
             var ids = new StringBuilder();
             where.Clear();

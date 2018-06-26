@@ -17,7 +17,7 @@ namespace WaterService.API.Controllers
     [Route("api/[controller]")]
     public class WaterMeterController : BaseController
     {
-        private readonly WaterMeterService bll = new BLL.WaterMeterService();
+        private readonly WaterMeterService _bll = new BLL.WaterMeterService();
         /// <summary>
         /// 新增
         /// </summary>
@@ -28,7 +28,9 @@ namespace WaterService.API.Controllers
         {
             add.User.Create = User.Identity.GetCurrentUser().UserName;
             add.User.CreateDate = DateTime.Now;
-            return GenerateResult("", "", bll.Add(add.User, add.WaterMeter, add.List));
+            var id = _bll.Add(add.User, add.WaterMeter, add.List);
+            add.WaterMeter.WaterId = id;
+            return GenerateResult(add.WaterMeter, "", id!=0);
         }
         /// <summary>
         /// 修改
@@ -48,7 +50,7 @@ namespace WaterService.API.Controllers
                 add.WaterMeter.Modify = User.Identity.GetCurrentUser().UserName;
                 add.WaterMeter.ModifyDate = DateTime.Now;
             }
-            return GenerateResult("", "", bll.Update(add.User, add.WaterMeter, add.List));
+            return GenerateResult("", "", _bll.Update(add.User, add.WaterMeter, add.List));
         }
         /// <summary>
         /// 查询
@@ -58,7 +60,17 @@ namespace WaterService.API.Controllers
         [HttpPost, Route("queryList")]
         public ResultModel QueryList([FromBody]SearchModel query)
         {
-            return GenerateResult(bll.GetList(query), "");
+            return GenerateResult(_bll.GetList(query), "");
+        }
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpPost, Route("queryInfo")]
+        public ResultModel QueryInfo([FromBody] QueryInfo query)
+        {
+            return GenerateResult(MainService.QueryModel<WaterMeterInfo>(query.Id, "WaterId"), "");
         }
     }
 }

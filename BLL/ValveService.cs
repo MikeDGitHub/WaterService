@@ -10,18 +10,14 @@ namespace BLL
 {
     public class ValveService
     {
-        private readonly ValveManage dal = new DAL.Manage.ValveManage();
-        public bool Add(Model.WaterService.UserInfo user, Model.WaterService.ValveInfo valve, List<Model.WaterService.AttachmentInfo> list)
+        private readonly ValveManage _dal = new DAL.Manage.ValveManage();
+        public int Add(Model.WaterService.UserInfo user, Model.WaterService.ValveInfo valve, List<Model.WaterService.AttachmentInfo> list)
         {
-            return dal.Add(user, valve, list);
+            return _dal.Add(user, valve, list);
         }
-        //public bool Add1<T>(UserInfo user, T t1, List<AttachmentInfo> list)
-        //{
-        //    return new DAL.Manage.ValveManage().Add1(user, t1, list);
-        //}
         public bool Update(UserInfo user, ValveInfo valve, List<AttachmentInfo> list)
         {
-            return dal.Update(user, valve, list);
+            return _dal.Update(user, valve, list);
         }
 
         public ValveViewModel GetList(SearchModel query)
@@ -35,7 +31,7 @@ namespace BLL
             {
                 query = new SearchModel();
             }
-            var v = dal.GetList(where.ToString());
+            var v = _dal.GetList(where.ToString());
             v.List = v.List.Skip(query.PageIndex * query.PageSize).Take(query.PageSize).ToList();
             var ids = new StringBuilder();
             where.Clear();

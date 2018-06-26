@@ -10,17 +10,17 @@ namespace BLL
 {
     public class WaterMeterService
     {
-        private readonly WaterMeterManager dal = new WaterMeterManager();
+        private readonly WaterMeterManager _dal = new WaterMeterManager();
 
 
-        public bool Add(UserInfo user, WaterMeterInfo water, List<AttachmentInfo> list)
+        public int Add(UserInfo user, WaterMeterInfo water, List<AttachmentInfo> list)
         {
-            return dal.Add(user, water, list);
+            return _dal.Add(user, water, list);
         }
 
         public bool Update(UserInfo user, WaterMeterInfo water, List<AttachmentInfo> list)
         {
-            return dal.Update(user, water, list);
+            return _dal.Update(user, water, list);
         }
 
         public WaterMeterViewModel GetList(SearchModel query)
@@ -35,7 +35,7 @@ namespace BLL
             {
                 query = new SearchModel();
             }
-            var v = dal.GetList(where.ToString());
+            var v = _dal.GetList(where.ToString());
             v.List = v.List.Skip(query.PageIndex * query.PageSize).Take(query.PageSize).ToList();
             var ids = new StringBuilder();
             where.Clear();
