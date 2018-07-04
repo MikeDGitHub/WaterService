@@ -7,17 +7,19 @@ namespace BLL
 {
     public static class GenerateQuerySQL
     {
-        public static StringBuilder GenerateQuery(SearchModel query,string typeName)
+        public static StringBuilder GenerateQuery(SearchModel query, string typeName)
         {
             var where = new StringBuilder();
-            where.Append(" where 1=1 ");
+            where.Append(" where  1=1 ");
             if (!string.IsNullOrEmpty(query.Address))
             {
-                where.AppendFormat(" and  UserAddress like '%{0}%'", query.Address);
-
                 if (Justice1(query.Address))
                 {
-                    where.AppendFormat(" or  {1}Code like '%{0}%' ", query.Address,typeName);
+                    where.AppendFormat(" and   ({1}Code like '%{0}%' or userCode like '%{0}%') ", query.Address, typeName);
+                }
+                else
+                {
+                    where.AppendFormat(" and  (UserAddress like '%{0}%' or username like '%{0}%')", query.Address);
                 }
             }
             if (query.GenreId > 0)
