@@ -158,14 +158,14 @@ OAuth.UserInfo AS u LEFT JOIN ACL.ApplicationAndUser a on a.UserID=u.UserID  whe
         public bool Add_WaterService_UserInfo(Model.WaterService.UserInfo user, object id)
         {
             var sb = new StringBuilder();
-            sb.AppendFormat("insert into WaterService.UserInfo(UserName,UserAddress,UserPhone,MeterId,Remark,`Create`,CreateDate,UserCode) values('{0}','{1}','{2}',{6},'{3}','{4}','{5}','{7}');", user.UserName, user.UserAddress, user.UserPhone, user.Remark, user.Create, user.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"), id,user.UserCode);
+            sb.AppendFormat("insert into WaterService.UserInfo(UserName,UserAddress,UserPhone,MeterId,Remark,`Create`,CreateDate,UserCode) values('{0}','{1}','{2}',{6},'{3}','{4}','{5}','{7}');", user.UserName, user.UserAddress, user.UserPhone, user.Remark, user.Create, user.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"), id, user.UserCode);
             return new MySqlHelper().ExcuteNonQuery(sb.ToString()) > 0;
         }
 
         public bool UpDate_WaterService_UserInfo(Model.WaterService.UserInfo user)
         {
             var sb = new StringBuilder();
-            sb.AppendFormat("update WaterService.UserInfo set UserCode='{7}' UserName='{0}',UserAddress='{1}',UserPhone='{2}',Remark ='{3}',Modify='{4}',ModifyDate='{5}' where UserId={6};", user.UserName, user.UserAddress, user.UserPhone, user.Remark, user.Modify, user.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"), user.UserId,user.UserCode);
+            sb.AppendFormat("update WaterService.UserInfo set UserCode='{7}', UserName='{0}',UserAddress='{1}',UserPhone='{2}',Remark ='{3}',Modify='{4}',ModifyDate='{5}' where UserId={6};", user.UserName, user.UserAddress, user.UserPhone, user.Remark, user.Modify, user.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"), user.UserId, user.UserCode);
             return new MySqlHelper().ExcuteNonQuery(sb.ToString()) > 0;
         }
 

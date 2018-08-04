@@ -14,5 +14,6 @@ namespace Model.WaterService
         public int ValveId { get; set; }
         public string ValveCode { get; set; }
         public string ValveName { get; set; }
+        public string ControlScope { get; set; }
     }
 }

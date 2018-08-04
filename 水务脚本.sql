@@ -3,9 +3,9 @@
 CREATE TABLE oauth.applicationinfo
 (
   ApplicationId INT AUTO_INCREMENT PRIMARY KEY COMMENT '主键(自增长)',
-  DisplayName   VARCHAR(50)                    COMMENT '应用名称'  NOT  NULL,
-  `Create`      VARCHAR(50)                    COMMENT '创建人'    NOT NULL,
-  CreateDate    timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  DisplayName   VARCHAR(50)                    COMMENT '应用名称'    NULL,
+  `Create`      VARCHAR(50)                    COMMENT '创建人'     NULL,
+  CreateDate    timestamp  NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   Modify        VARCHAR(50)                    COMMENT '修改建人'    NULL,
   ModifyDate    DATETIME                       COMMENT '修改时间'    NULL,
   CONSTRAINT applicationinfo_ApplicationId_uindex
@@ -17,11 +17,11 @@ CREATE TABLE oauth.applicationinfo
 CREATE TABLE oauth.departmentinfo
 (
   DepId      INT AUTO_INCREMENT PRIMARY KEY COMMENT '主键(自增长)',
-  DepName    VARCHAR(50)     COMMENT '部门名称' not NULL,
-  ParentId   INT DEFAULT '0' COMMENT '父级ID' not NULL,
-  status     INT DEFAULT '1' COMMENT '0禁用1,启用' not NULL,
-  `Create`      VARCHAR(50)                    COMMENT '创建人'    NOT NULL,
-  CreateDate    timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  DepName    VARCHAR(50)     COMMENT '部门名称'  NULL,
+  ParentId   INT DEFAULT '0' COMMENT '父级ID'  NULL,
+  status     INT DEFAULT '1' COMMENT '0禁用1,启用'  NULL,
+  `Create`      VARCHAR(50)                    COMMENT '创建人'     NULL,
+  CreateDate    timestamp  NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   Modify        VARCHAR(50)                    COMMENT '修改建人'    NULL,
   ModifyDate    DATETIME                       COMMENT '修改时间'    NULL,
   CONSTRAINT departmentinfo_DepId_uindex
@@ -38,8 +38,8 @@ CREATE TABLE oauth.userinfo
   PhoneNumber  CHAR(20)     COMMENT '手机号' NULL,
   LogoImageUrl VARCHAR(200) COMMENT '头像' NULL,
   UserEmail    VARCHAR(100) COMMENT '邮箱' NULL,
-  Status     INT DEFAULT '1' COMMENT '0禁用1,启用' not NULL,
-  DepId      INT DEFAULT '0' COMMENT '部门' not NULL,
+  Status     INT DEFAULT '1' COMMENT '0禁用1,启用'  NULL,
+  DepId      INT DEFAULT '0' COMMENT '部门'  NULL,
   CONSTRAINT userinfo_UserID_uindex
   UNIQUE (UserID)
 )
@@ -49,11 +49,11 @@ CREATE TABLE oauth.userinfo
 
 CREATE TABLE oauth.userpassword
 (
-  UserID        INT          COMMENT 'userinfo表主键'not NULL,
+  UserID        INT          COMMENT 'userinfo表主键' NULL,
   PasswordType  VARCHAR(50)  NULL,
-  LoginName     VARCHAR(50)  COMMENT '登录名'not NULL,
+  LoginName     VARCHAR(50)  COMMENT '登录名' NULL,
   AlgorithmType CHAR(20)     NULL,
-  PassWord      VARCHAR(200) COMMENT '密码'not NULL
+  PassWord      VARCHAR(200) COMMENT '密码' NULL
 )
   COMMENT '用户密码表'
   ENGINE = InnoDB DEFAULT CHARSET=utf8; 
@@ -64,8 +64,8 @@ CREATE SCHEMA acl;
 
 CREATE TABLE acl.applicationanduser
 (
-  ApplicationId INT COMMENT 'applicationinfo表主键'not NULL ,
-  UserID        INT COMMENT 'userinfo表主键'NOT NULL
+  ApplicationId INT COMMENT 'applicationinfo表主键' NULL ,
+  UserID        INT COMMENT 'userinfo表主键' NULL
 )
   ENGINE = InnoDB DEFAULT CHARSET=utf8; 
 
@@ -76,11 +76,11 @@ CREATE TABLE acl.applicationanduser
  CREATE TABLE waterservice.attachmentinfo
 (
   AttachmentId INT AUTO_INCREMENT PRIMARY KEY COMMENT '主键(自增长)',
-  MeterId      INT                            COMMENT '' not  NULL,
+  MeterId      INT                            COMMENT ''   NULL,
   ImgUrl       VARCHAR(200)                       NULL,
-  `Create`         VARCHAR(50)                        COMMENT '创建人' not null,
-  CreateDate   timestamp not null DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间' ,
-  GenreId      INT                                COMMENT '类型表主键' not null,
+  `Create`         VARCHAR(50)                        COMMENT '创建人'  null,
+  CreateDate   timestamp  null DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间' ,
+  GenreId      INT                                COMMENT '类型表主键'  null,
    Modify        VARCHAR(50)                    COMMENT '修改建人'    NULL,
   ModifyDate    DATETIME                       COMMENT '修改时间'    NULL,
   Resourceid    INT                           COMMENT 'Resourceid'    NULL,
@@ -94,10 +94,10 @@ CREATE TABLE acl.applicationanduser
 CREATE TABLE waterservice.genreinfo
 (
   GenreId    INT AUTO_INCREMENT PRIMARY KEY COMMENT '主键(自增长)',
-  GenreName  VARCHAR(50)                   COMMENT '类型名称' not  NULL,
-  status     INT DEFAULT '1' COMMENT '0禁用1,启用' not NULL,
-  `Create`      VARCHAR(50)                    COMMENT '创建人'    NOT NULL,
-  CreateDate    timestamp not null DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  GenreName  VARCHAR(50)                   COMMENT '类型名称'   NULL,
+  status     INT DEFAULT '1' COMMENT '0禁用1,启用'  NULL,
+  `Create`      VARCHAR(50)                    COMMENT '创建人'     NULL,
+  CreateDate    timestamp  null DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   Modify        VARCHAR(50)                    COMMENT '修改建人'    NULL,
   ModifyDate    DATETIME                       COMMENT '修改时间'    NULL,
   CONSTRAINT GenreInfo_GenreId_uindex
@@ -111,10 +111,10 @@ alter table waterservice.genreinfo AUTO_INCREMENT=1000;
 CREATE TABLE waterservice.typeinfo
 (
   TypeId     INT AUTO_INCREMENT          PRIMARY KEY COMMENT '主键(自增长)',
-  TypeName   VARCHAR(50)                        COMMENT '类型名称' not  NULL,
-   status     INT DEFAULT '1' COMMENT '0禁用1,启用' not NULL,
-  `Create`      VARCHAR(50)                    COMMENT '创建人'    NOT NULL,
-  CreateDate    timestamp not null DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  TypeName   VARCHAR(50)                        COMMENT '类型名称'   NULL,
+   status     INT DEFAULT '1' COMMENT '0禁用1,启用'  NULL,
+  `Create`      VARCHAR(50)                    COMMENT '创建人'     NULL,
+  CreateDate    timestamp  null DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   Modify        VARCHAR(50)                    COMMENT '修改建人'    NULL,
   ModifyDate    DATETIME                       COMMENT '修改时间'    NULL,
   CONSTRAINT TypeInfo_TypeId_uindex
@@ -127,10 +127,10 @@ alter table waterservice.typeinfo AUTO_INCREMENT=2000;
 CREATE TABLE waterservice.modelinfo
 (
   ModelId    INT AUTO_INCREMENT PRIMARY KEY COMMENT '主键(自增长)',
-  ModelName  VARCHAR(50)                   COMMENT '类型名称' not  NULL,
-  status     INT DEFAULT '1' COMMENT '0禁用1,启用' not NULL,
-  `Create`       VARCHAR(50)                    COMMENT '创建人'    NOT NULL,
-  CreateDate    timestamp not null DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  ModelName  VARCHAR(50)                   COMMENT '类型名称'   NULL,
+  status     INT DEFAULT '1' COMMENT '0禁用1,启用'  NULL,
+  `Create`       VARCHAR(50)                    COMMENT '创建人'     NULL,
+  CreateDate    timestamp  null DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   Modify        VARCHAR(50)                    COMMENT '修改建人'    NULL,
   ModifyDate    DATETIME                       COMMENT '修改时间'    NULL,
   CONSTRAINT Modelinfo_ModelId_uindex
@@ -144,12 +144,12 @@ alter table waterservice.modelinfo AUTO_INCREMENT=3000;
 CREATE TABLE waterservice.maintenanceinfo
 (
   MaintenanceId INT AUTO_INCREMENT PRIMARY KEY COMMENT '主键(自增长)',
-  MeterId       INT                              COMMENT '' not  NULL,
-  GenreId       INT                              COMMENT '' not  NULL,
-  TypeId        INT                              COMMENT '' not  NULL,
-  InstallTime   DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '安装时间' not  NULL,
-  `Create`      VARCHAR(50)                        COMMENT '创建人'    NOT NULL,
-  CreateDate    timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP  COMMENT '创建时间',
+  MeterId       INT                              COMMENT ''   NULL,
+  GenreId       INT                              COMMENT ''   NULL,
+  TypeId        INT                              COMMENT ''   NULL,
+  InstallTime   DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '安装时间'   NULL,
+  `Create`      VARCHAR(50)                        COMMENT '创建人'     NULL,
+  CreateDate    timestamp  NULL DEFAULT CURRENT_TIMESTAMP  COMMENT '创建时间',
   ReplaceTime   DATETIME                           NULL,
   CONSTRAINT maintenanceinfo_MaintenanceId_uindex
   UNIQUE (MaintenanceId)
@@ -160,13 +160,13 @@ CREATE TABLE waterservice.maintenanceinfo
 CREATE TABLE waterservice.trackinfo
 (
   TrackId    INT AUTO_INCREMENT  PRIMARY KEY  COMMENT '主键(自增长)',
-  Coordinate LONGTEXT                          COMMENT '轨迹信息' not  NULL,
-  StartLat   DOUBLE  DEFAULT '0'                COMMENT '起始经度' not  NULL,
-  StartLon   DOUBLE  DEFAULT '0'                 COMMENT '起始纬度' not  NULL,
-  EndLat     DOUBLE  DEFAULT '0'                  COMMENT '结束经度' not  NULL,
-  EndLon     DOUBLE  DEFAULT '0'                 COMMENT '结束纬度' not  NULL,
-  `Create`   VARCHAR(50)                        COMMENT '创建人'    NOT NULL,
-  CreateDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP   COMMENT '创建时间',
+  Coordinate LONGTEXT                          COMMENT '轨迹信息'   NULL,
+  StartLat   DOUBLE  DEFAULT '0'                COMMENT '起始经度'   NULL,
+  StartLon   DOUBLE  DEFAULT '0'                 COMMENT '起始纬度'   NULL,
+  EndLat     DOUBLE  DEFAULT '0'                  COMMENT '结束经度'   NULL,
+  EndLon     DOUBLE  DEFAULT '0'                 COMMENT '结束纬度'   NULL,
+  `Create`   VARCHAR(50)                        COMMENT '创建人'     NULL,
+  CreateDate timestamp  NULL DEFAULT CURRENT_TIMESTAMP   COMMENT '创建时间',
    Modify        VARCHAR(50)                    COMMENT '修改建人'    NULL,
   ModifyDate    DATETIME                       COMMENT '修改时间'    NULL,
   CONSTRAINT TrackInfo_TrackId_uindex
@@ -179,13 +179,13 @@ CREATE TABLE waterservice.trackinfo
 CREATE TABLE waterservice.userinfo
 (
   UserId      INT AUTO_INCREMENT          PRIMARY KEY COMMENT '主键(自增长)',
-  UserName    VARCHAR(200)                COMMENT '用户名' not  NULL,
-  UserAddress VARCHAR(200)                COMMENT '用户地址' not  NULL,
-  UserPhone   CHAR(20)                    COMMENT '手机号' not  NULL,
-  MeterId     INT                          COMMENT '' not  NULL,
+  UserName    VARCHAR(200)                COMMENT '用户名'   NULL,
+  UserAddress VARCHAR(200)                COMMENT '用户地址'   NULL,
+  UserPhone   CHAR(20)                    COMMENT '手机号'   NULL,
+  MeterId     INT                          COMMENT ''   NULL,
   Remark      VARCHAR(200)                 COMMENT '备注'      NULL,
-   `Create`   VARCHAR(50)                        COMMENT '创建人'    NOT NULL,
-  CreateDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP   COMMENT '创建时间',
+   `Create`   VARCHAR(50)                        COMMENT '创建人'     NULL,
+  CreateDate timestamp  NULL DEFAULT CURRENT_TIMESTAMP   COMMENT '创建时间',
    Modify        VARCHAR(50)                    COMMENT '修改建人'    NULL,
   ModifyDate    DATETIME                       COMMENT '修改时间'    NULL,
   CONSTRAINT userinfo_UserId_uindex
@@ -199,16 +199,16 @@ CREATE TABLE waterservice.userinfo
   CREATE TABLE waterservice.drainageinfo
 (
   DrainageId   INT AUTO_INCREMENT PRIMARY KEY COMMENT '主键(自增长)',
-  DrainageCode VARCHAR(50)                     COMMENT 'code'    NOT NULL,
-  DrainageName VARCHAR(50)                     COMMENT 'name'    NOT NULL,
-  TypeId       INT                               COMMENT '类型'    NOT NULL,
-  GenreId      INT                                 COMMENT '类型' NOT NULL,
-  Caliber      DOUBLE  DEFAULT '0'               COMMENT '口径' NOT  NULL,
-  Lat          DOUBLE  DEFAULT '0'                COMMENT '经度' NOT  NULL,
-  Lon          DOUBLE  DEFAULT '0'                COMMENT '纬度' NOT  NULL,
+  DrainageCode VARCHAR(50)                     COMMENT 'code'     NULL,
+  DrainageName VARCHAR(50)                     COMMENT 'name'     NULL,
+  TypeId       INT                               COMMENT '类型'     NULL,
+  GenreId      INT                                 COMMENT '类型'  NULL,
+  Caliber      DOUBLE  DEFAULT '0'               COMMENT '口径'   NULL,
+  Lat          DOUBLE  DEFAULT '0'                COMMENT '经度'   NULL,
+  Lon          DOUBLE  DEFAULT '0'                COMMENT '纬度'   NULL,
   Remark       VARCHAR(200)                        COMMENT '备注'NULL,
-  `Create`   VARCHAR(50)                        COMMENT '创建人'    NOT NULL,
-  CreateDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP   COMMENT '创建时间',
+  `Create`   VARCHAR(50)                        COMMENT '创建人'     NULL,
+  CreateDate timestamp  NULL DEFAULT CURRENT_TIMESTAMP   COMMENT '创建时间',
    Modify        VARCHAR(50)                    COMMENT '修改建人'    NULL,
   ModifyDate    DATETIME                       COMMENT '修改时间'    NULL,
   CONSTRAINT drainageinfo_DrainageId_uindex
@@ -222,16 +222,16 @@ alter table waterservice.drainageinfo AUTO_INCREMENT=1000000;
 CREATE TABLE waterservice.exhaustinfo
 (
   ExhaustId   INT          AUTO_INCREMENT PRIMARY KEY COMMENT '主键(自增长)',
-  ExhaustCode VARCHAR(50)                         COMMENT 'code'    NOT NULL,
-  ExhaustName VARCHAR(50)                         COMMENT 'name'    NOT NULL,
-  TypeId       INT                               COMMENT '类型'    NOT NULL,
-  GenreId      INT                                 COMMENT '类型' NOT NULL,
-  Caliber      DOUBLE  DEFAULT '0'               COMMENT '口径' NOT  NULL,
-  Lat          DOUBLE  DEFAULT '0'                COMMENT '经度' NOT  NULL,
-  Lon          DOUBLE  DEFAULT '0'                COMMENT '纬度' NOT  NULL,
+  ExhaustCode VARCHAR(50)                         COMMENT 'code'     NULL,
+  ExhaustName VARCHAR(50)                         COMMENT 'name'     NULL,
+  TypeId       INT                               COMMENT '类型'     NULL,
+  GenreId      INT                                 COMMENT '类型'  NULL,
+  Caliber      DOUBLE  DEFAULT '0'               COMMENT '口径'   NULL,
+  Lat          DOUBLE  DEFAULT '0'                COMMENT '经度'   NULL,
+  Lon          DOUBLE  DEFAULT '0'                COMMENT '纬度'   NULL,
   Remark       VARCHAR(200)                        COMMENT '备注'NULL,
-  `Create`   VARCHAR(50)                        COMMENT '创建人'    NOT NULL,
-  CreateDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP   COMMENT '创建时间',
+  `Create`   VARCHAR(50)                        COMMENT '创建人'     NULL,
+  CreateDate timestamp  NULL DEFAULT CURRENT_TIMESTAMP   COMMENT '创建时间',
    Modify        VARCHAR(50)                    COMMENT '修改建人'    NULL,
   ModifyDate    DATETIME                       COMMENT '修改时间'    NULL,
   CONSTRAINT exhaustinfo_ExhaustId_uindex
@@ -246,22 +246,22 @@ alter table waterservice.exhaustinfo AUTO_INCREMENT=2000000;
 CREATE TABLE waterservice.pipelineinfo
 (
   PipeLineId   INT          AUTO_INCREMENT PRIMARY KEY COMMENT '主键(自增长)',
-  PipeLineCode VARCHAR(50)                       COMMENT 'code'    NOT NULL,
-  PipeLineName VARCHAR(50)                       COMMENT 'name'    NOT NULL,
-  TrackId      INT                                COMMENT '轨迹主键'    NOT NULL,
-  TypeId       INT                               COMMENT '类型'    NOT NULL,
-  GenreId      INT                                 COMMENT '类型' NOT NULL,
-  Acreage    DOUBLE DEFAULT '0'                COMMENT '面积' NOT NULL,
-  Caliber      DOUBLE  DEFAULT '0'               COMMENT '口径' NOT  NULL,
-  Lat          DOUBLE  DEFAULT '0'                COMMENT '经度' NOT  NULL,
-  Lon          DOUBLE  DEFAULT '0'                COMMENT '纬度' NOT  NULL,
-  ModelId      INT                                COMMENT '' NOT  NULL,
+  PipeLineCode VARCHAR(50)                       COMMENT 'code'     NULL,
+  PipeLineName VARCHAR(50)                       COMMENT 'name'     NULL,
+  TrackId      INT                                COMMENT '轨迹主键'     NULL,
+  TypeId       INT                               COMMENT '类型'     NULL,
+  GenreId      INT                                 COMMENT '类型'  NULL,
+  Acreage    DOUBLE DEFAULT '0'                COMMENT '面积'  NULL,
+  Caliber      DOUBLE  DEFAULT '0'               COMMENT '口径'   NULL,
+  Lat          DOUBLE  DEFAULT '0'                COMMENT '经度'   NULL,
+  Lon          DOUBLE  DEFAULT '0'                COMMENT '纬度'   NULL,
+  ModelId      INT                                COMMENT ''   NULL,
   ModelName       VARCHAR(200)                        COMMENT ''NULL,
   Remark       VARCHAR(200)                        COMMENT '备注'NULL,
   StartAddress VARCHAR(200)                        COMMENT '起始地址'NULL,
   EndAddress VARCHAR(200)                        COMMENT '结束地址'NULL,
-  `Create`   VARCHAR(50)                        COMMENT '创建人'    NOT NULL,
-  CreateDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP   COMMENT '创建时间',
+  `Create`   VARCHAR(50)                        COMMENT '创建人'     NULL,
+  CreateDate timestamp  NULL DEFAULT CURRENT_TIMESTAMP   COMMENT '创建时间',
    Modify        VARCHAR(50)                    COMMENT '修改建人'    NULL,
   ModifyDate    DATETIME                       COMMENT '修改时间'    NULL,
   CONSTRAINT pipelineinfo_PipeLineId_uindex
@@ -274,16 +274,16 @@ alter table waterservice.pipelineinfo AUTO_INCREMENT=3000000;
 CREATE TABLE waterservice.sludgeinfo
 (
   SludgeId   INT          AUTO_INCREMENT PRIMARY KEY COMMENT '主键(自增长)',
-  SludgeCode VARCHAR(50)                        COMMENT 'code'    NOT NULL,
-  SludgeName VARCHAR(50)                         COMMENT 'name'    NOT NULL,
-   TypeId       INT                               COMMENT '类型'    NOT NULL,
-  GenreId      INT                                 COMMENT '类型' NOT NULL,
-  Caliber      DOUBLE  DEFAULT '0'               COMMENT '口径' NOT  NULL,
-  Lat          DOUBLE  DEFAULT '0'                COMMENT '经度' NOT  NULL,
-  Lon          DOUBLE  DEFAULT '0'                COMMENT '纬度' NOT  NULL,
+  SludgeCode VARCHAR(50)                        COMMENT 'code'     NULL,
+  SludgeName VARCHAR(50)                         COMMENT 'name'     NULL,
+   TypeId       INT                               COMMENT '类型'     NULL,
+  GenreId      INT                                 COMMENT '类型'  NULL,
+  Caliber      DOUBLE  DEFAULT '0'               COMMENT '口径'   NULL,
+  Lat          DOUBLE  DEFAULT '0'                COMMENT '经度'   NULL,
+  Lon          DOUBLE  DEFAULT '0'                COMMENT '纬度'   NULL,
   Remark       VARCHAR(200)                        COMMENT '备注'NULL,
-  `Create`   VARCHAR(50)                        COMMENT '创建人'    NOT NULL,
-  CreateDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP   COMMENT '创建时间',
+  `Create`   VARCHAR(50)                        COMMENT '创建人'     NULL,
+  CreateDate timestamp  NULL DEFAULT CURRENT_TIMESTAMP   COMMENT '创建时间',
    Modify        VARCHAR(50)                    COMMENT '修改建人'    NULL,
   ModifyDate    DATETIME                       COMMENT '修改时间'    NULL,
   CONSTRAINT sludgeinfo_SludgeId_uindex
@@ -297,16 +297,16 @@ CREATE TABLE waterservice.sludgeinfo
 CREATE TABLE waterservice.valveinfo
 (
   ValveId    INT          AUTO_INCREMENT PRIMARY KEY  COMMENT '主键(自增长)',
-  ValveCode  VARCHAR(50)                         COMMENT 'code'    NOT NULL,
-  ValveName  VARCHAR(50)                     COMMENT 'name'    NOT NULL,
- TypeId       INT                               COMMENT '类型'    NOT NULL,
-  GenreId      INT                                 COMMENT '类型' NOT NULL,
-  Caliber      DOUBLE  DEFAULT '0'               COMMENT '口径' NOT  NULL,
-  Lat          DOUBLE  DEFAULT '0'                COMMENT '经度' NOT  NULL,
-  Lon          DOUBLE  DEFAULT '0'                COMMENT '纬度' NOT  NULL,
+  ValveCode  VARCHAR(50)                         COMMENT 'code'     NULL,
+  ValveName  VARCHAR(50)                     COMMENT 'name'     NULL,
+ TypeId       INT                               COMMENT '类型'     NULL,
+  GenreId      INT                                 COMMENT '类型'  NULL,
+  Caliber      DOUBLE  DEFAULT '0'               COMMENT '口径'   NULL,
+  Lat          DOUBLE  DEFAULT '0'                COMMENT '经度'   NULL,
+  Lon          DOUBLE  DEFAULT '0'                COMMENT '纬度'   NULL,
   Remark       VARCHAR(200)                        COMMENT '备注'NULL,
-  `Create`   VARCHAR(50)                        COMMENT '创建人'    NOT NULL,
-  CreateDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP   COMMENT '创建时间',
+  `Create`   VARCHAR(50)                        COMMENT '创建人'     NULL,
+  CreateDate timestamp  NULL DEFAULT CURRENT_TIMESTAMP   COMMENT '创建时间',
    Modify        VARCHAR(50)                    COMMENT '修改建人'    NULL,
   ModifyDate    DATETIME                       COMMENT '修改时间'    NULL,
   CONSTRAINT valveinfo_ValveId_uindex
@@ -319,17 +319,17 @@ CREATE TABLE waterservice.valveinfo
 CREATE TABLE waterservice.watermeterinfo
 (
   WaterId    INT         AUTO_INCREMENT PRIMARY KEY COMMENT '主键(自增长)',
-  WaterCode  VARCHAR(50)                        COMMENT 'code'    NOT NULL,
-  WaterName  VARCHAR(50)                        COMMENT 'name'    NOT NULL,
-  TypeId     INT                                   COMMENT '类型'    NOT NULL,
-  GenreId    INT                               COMMENT '类型' NOT NULL,
-  Acreage    DOUBLE DEFAULT '0'                COMMENT '面积' NOT NULL,
-   Caliber      DOUBLE  DEFAULT '0'               COMMENT '口径' NOT  NULL,
-  Lat          DOUBLE  DEFAULT '0'                COMMENT '经度' NOT  NULL,
-  Lon          DOUBLE  DEFAULT '0'                COMMENT '纬度' NOT  NULL,
+  WaterCode  VARCHAR(50)                        COMMENT 'code'     NULL,
+  WaterName  VARCHAR(50)                        COMMENT 'name'     NULL,
+  TypeId     INT                                   COMMENT '类型'     NULL,
+  GenreId    INT                               COMMENT '类型'  NULL,
+  Acreage    DOUBLE DEFAULT '0'                COMMENT '面积'  NULL,
+   Caliber      DOUBLE  DEFAULT '0'               COMMENT '口径'   NULL,
+  Lat          DOUBLE  DEFAULT '0'                COMMENT '经度'   NULL,
+  Lon          DOUBLE  DEFAULT '0'                COMMENT '纬度'   NULL,
   Remark       VARCHAR(200)                        COMMENT '备注'NULL,
-  `Create`   VARCHAR(50)                        COMMENT '创建人'    NOT NULL,
-  CreateDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP   COMMENT '创建时间',
+  `Create`   VARCHAR(50)                        COMMENT '创建人'     NULL,
+  CreateDate timestamp  NULL DEFAULT CURRENT_TIMESTAMP   COMMENT '创建时间',
    Modify        VARCHAR(50)                    COMMENT '修改建人'    NULL,
   ModifyDate    DATETIME                       COMMENT '修改时间'    NULL,
   CONSTRAINT watermeterinfo_WaterId_uindex
@@ -344,16 +344,16 @@ CREATE TABLE waterservice.watermeterinfo
 CREATE TABLE waterservice.firefightinginfo
 (
   FireFightingId    INT          AUTO_INCREMENT PRIMARY KEY  COMMENT '主键(自增长)',
-  FireFightingCode  VARCHAR(50)                         COMMENT 'code'    NOT NULL,
-  FireFightingName  VARCHAR(50)                     COMMENT 'name'    NOT NULL,
- TypeId       INT                               COMMENT '类型'    NOT NULL,
-  GenreId      INT                                 COMMENT '类型' NOT NULL,
-  Caliber      DOUBLE  DEFAULT '0'               COMMENT '口径' NOT  NULL,
-  Lat          DOUBLE  DEFAULT '0'                COMMENT '经度' NOT  NULL,
-  Lon          DOUBLE  DEFAULT '0'                COMMENT '纬度' NOT  NULL,
+  FireFightingCode  VARCHAR(50)                         COMMENT 'code'     NULL,
+  FireFightingName  VARCHAR(50)                     COMMENT 'name'     NULL,
+ TypeId       INT                               COMMENT '类型'     NULL,
+  GenreId      INT                                 COMMENT '类型'  NULL,
+  Caliber      DOUBLE  DEFAULT '0'               COMMENT '口径'   NULL,
+  Lat          DOUBLE  DEFAULT '0'                COMMENT '经度'   NULL,
+  Lon          DOUBLE  DEFAULT '0'                COMMENT '纬度'   NULL,
   Remark       VARCHAR(200)                        COMMENT '备注'NULL,
-  `Create`   VARCHAR(50)                        COMMENT '创建人'    NOT NULL,
-  CreateDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP   COMMENT '创建时间',
+  `Create`   VARCHAR(50)                        COMMENT '创建人'     NULL,
+  CreateDate timestamp  NULL DEFAULT CURRENT_TIMESTAMP   COMMENT '创建时间',
    Modify        VARCHAR(50)                    COMMENT '修改建人'    NULL,
   ModifyDate    DATETIME                       COMMENT '修改时间'    NULL,
   CONSTRAINT firefightinginfo_FireFightingId_uindex

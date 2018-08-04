@@ -17,7 +17,7 @@ namespace DAL.Manage
         public int Add(UserInfo user, ValveInfo valve, List<AttachmentInfo> list)
         {
             var sb = new StringBuilder();
-            sb.AppendFormat("insert into WaterService.ValveInfo(ValveCode,ValveName,TypeId,GenreId,Caliber,Lat,Lon,`Create`,CreateDate) values('{0}','{1}',{2},{3},{4},{5},{6},'{7}','{8}');select @@IDENTITY;", valve.ValveCode, valve.ValveName, valve.TypeId, valve.GenreId, valve.Caliber, valve.Lat, valve.Lon, user.Create, valve.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"));
+            sb.AppendFormat("insert into WaterService.ValveInfo(ValveCode,ValveName,TypeId,GenreId,Caliber,Lat,Lon,`Create`,CreateDate,ControlScope) values('{0}','{1}',{2},{3},{4},{5},{6},'{7}','{8}','{9}');select @@IDENTITY;", valve.ValveCode, valve.ValveName, valve.TypeId, valve.GenreId, valve.Caliber, valve.Lat, valve.Lon, user.Create, valve.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"), valve.ControlScope);
             var id = int.Parse(new MySqlHelper().ExecuteScalar(sb.ToString()).ToString());
             new UserManage().Add_WaterService_UserInfo(user, id);
             new AttachmentManager().AddList(list, id, user.Create, user.CreateDate, valve.GenreId);
@@ -37,7 +37,7 @@ namespace DAL.Manage
             var sb = new StringBuilder();
             if (valve != null)
             {
-                sb.AppendFormat("update WaterService.ValveInfo set GenreId={0},TypeId={1},Caliber={2},Lat={3},Lon={4},Modify='{5}',ModifyDate='{6}',ValveCode='{7}',ValveName='{8}' where ValveId={9};", valve.GenreId, valve.TypeId, valve.Caliber, valve.Lat, valve.Lon, valve.Modify, valve.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"), valve.ValveCode, valve.ValveName, valve.ValveId);
+                sb.AppendFormat("update WaterService.ValveInfo set GenreId={0},TypeId={1},Caliber={2},Lat={3},Lon={4},Modify='{5}',ModifyDate='{6}',ValveCode='{7}',ValveName='{8}',ControlScope='{10}' where ValveId={9};", valve.GenreId, valve.TypeId, valve.Caliber, valve.Lat, valve.Lon, valve.Modify, valve.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"), valve.ValveCode, valve.ValveName, valve.ValveId, valve.ControlScope);
                 new AttachmentManager().AddList(list, valve.ValveId, valve.Create, valve.CreateDate, valve.GenreId);
             }
             new UserManage().UpDate_WaterService_UserInfo(user);

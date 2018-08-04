@@ -22,7 +22,7 @@ namespace Model
         /// <summary>
         /// 创建时间
         /// </summary>
-        public DateTime CreateDate { get; set; }
+        public DateTime CreateDate = DateTime.Now;
         /// <summary>
         /// 修改人
         /// </summary>
@@ -30,6 +30,6 @@ namespace Model
         /// <summary>
         /// 修改时间
         /// </summary>
-        public DateTime ModifyDate { get; set; }
+        public DateTime ModifyDate = DateTime.Parse("2000-01-01 01:01:01");
     }
 }

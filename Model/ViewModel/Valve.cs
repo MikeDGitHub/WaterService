@@ -47,6 +47,7 @@ namespace Model.ViewModel
         /// 名称
         /// </summary>
         public string ValveName { get; set; }
+        public string ControlScope { get; set; }
 
     }
 }

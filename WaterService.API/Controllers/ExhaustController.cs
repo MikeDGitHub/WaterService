@@ -31,7 +31,7 @@ namespace WaterService.API.Controllers
             add.User.CreateDate = DateTime.Now;
             var id = _bll.Add(add.User, add.Exhaust, add.List);
             add.Exhaust.ExhaustId = id;
-            return GenerateResult(add.Exhaust, "", id!=0);
+            return GenerateResult(add.Exhaust, "", id != 0);
         }
         /// <summary>
         /// 修改
