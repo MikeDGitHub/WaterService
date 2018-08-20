@@ -65,12 +65,11 @@ namespace WaterService.API
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+            app.UseCors("AllowCors");
 
             app.UseStaticFiles();
 
             app.UseAuthentication();
-
-            app.UseCors("AllowCors");
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             //app.UseSwagger();

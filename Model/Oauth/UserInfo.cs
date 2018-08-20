@@ -51,6 +51,7 @@ namespace Model.Oauth
         /// 
         /// </summary>
         public string DepName { get; set; }
+        public string Password { get; set; }
     }
     /// <summary>
     /// view

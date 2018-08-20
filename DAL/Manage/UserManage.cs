@@ -164,9 +164,14 @@ OAuth.UserInfo AS u LEFT JOIN ACL.ApplicationAndUser a on a.UserID=u.UserID  whe
 
         public bool UpDate_WaterService_UserInfo(Model.WaterService.UserInfo user)
         {
-            var sb = new StringBuilder();
-            sb.AppendFormat("update WaterService.UserInfo set UserCode='{7}', UserName='{0}',UserAddress='{1}',UserPhone='{2}',Remark ='{3}',Modify='{4}',ModifyDate='{5}' where UserId={6};", user.UserName, user.UserAddress, user.UserPhone, user.Remark, user.Modify, user.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"), user.UserId, user.UserCode);
-            return new MySqlHelper().ExcuteNonQuery(sb.ToString()) > 0;
+            bool flag=false;
+           if(user!=null)
+            {
+                var sb = new StringBuilder();
+                sb.AppendFormat("update WaterService.UserInfo set UserCode='{7}', UserName='{0}',UserAddress='{1}',UserPhone='{2}',Remark ='{3}',Modify='{4}',ModifyDate='{5}' where UserId={6};", user.UserName, user.UserAddress, user.UserPhone, user.Remark, user.Modify, user.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"), user.UserId, user.UserCode);
+               flag=  new MySqlHelper().ExcuteNonQuery(sb.ToString()) > 0;
+            }
+            return flag;
         }
 
         public UserInfoViewModel QueryUserList(string where)
@@ -192,7 +197,7 @@ OAuth.UserInfo AS u LEFT JOIN ACL.ApplicationAndUser a on a.UserID=u.UserID  whe
             sql = " update oauth.UserPassword set Password=@Password  where UserID=@UserID;";
             var param = new DynamicParameters();
             param.Add("@UserID", user.UserId, DbType.Int32);
-            param.Add("@Password", "123456".GetMD5(), DbType.String);
+            param.Add("@Password",user.Password.GetMD5(), DbType.String);
             var flag = new MySqlHelper().ExcuteNonQuery(sql, param);
             return flag > 0 ? "更新成功。" : "更新失败。";
         }

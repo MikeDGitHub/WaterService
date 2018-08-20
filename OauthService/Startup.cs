@@ -74,6 +74,7 @@ namespace OauthService
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseCors("AllowCors");
             app.UseIdentityServer();
             app.UseAuthentication();
             loggerFactory.AddConsole();
@@ -82,7 +83,7 @@ namespace OauthService
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors("AllowCors");
+
             app.Use((context, next) =>
             {
                 var user = context.User;

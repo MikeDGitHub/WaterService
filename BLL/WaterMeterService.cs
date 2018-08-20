@@ -10,6 +10,7 @@ namespace BLL
 {
     public class WaterMeterService
     {
+        private const string Format = "yyyy-MM-dd HH:mm:ss";
         private readonly WaterMeterManager _dal = new WaterMeterManager();
 
 
@@ -42,6 +43,7 @@ namespace BLL
             v.List.ForEach(item =>
             {
                 ids.AppendFormat("{0},", item.WaterId);
+                item.CreateDate = DateTime.Parse(item.CreateDate.ToString(Format));
             });
             if (ids.Length > 0)
             {
