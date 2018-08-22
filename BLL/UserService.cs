@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -98,6 +99,10 @@ namespace BLL
         public string ResetPassword(Model.Oauth.Userinfo user)
         {
             return dal.ResetPassword(user);
+        }
+        public List<Model.WaterService.UserInfo> QueryUserInfoListByMeterId(string ids)
+        {
+            return dal.QueryUserInfoListByMeterId(ids);
         }
     }
 }

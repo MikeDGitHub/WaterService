@@ -53,5 +53,16 @@ namespace WaterService.API.Controllers
             });
             return GenerateResult("", "", bll.AddOrUpdate(list));
         }
+
+        /// <summary>
+        ///查询
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpPost, Route("queryList")]
+        public ResultModel QueryList([FromBody]QueryInfo query)
+        {
+            return GenerateResult(bll.GetAttachments(query.Id), "");
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace WaterService.API.Controllers
     public class BaseController : Controller
     {
         [HttpGet]
-        public ResultModel GenerateResult(object json, string msg, bool Status = true)
+        public ResultModel GenerateResult(object json, string msg="", bool Status = true)
         {
             var m = new ResultModel();
             m.StatusCode = HttpStatusCode.OK;

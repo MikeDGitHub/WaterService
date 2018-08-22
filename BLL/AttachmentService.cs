@@ -23,5 +23,9 @@ namespace BLL
         {
             return dal.AddOrUpdate(list);
         }
+        public List<AttachmentInfo>GetAttachments(int id)
+        {
+            return dal.GetList($" where MeterId in ({id});");
+        }
     }
 }
